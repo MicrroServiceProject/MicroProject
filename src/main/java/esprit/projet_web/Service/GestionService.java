@@ -13,7 +13,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.mongodb.core.MongoTemplate;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -27,7 +28,7 @@ public class GestionService {
 
     @Autowired
     private EmailService emailService;
-
+    private static final Logger logger = LoggerFactory.getLogger(GestionService.class);
     @Autowired
     private AdministrateurRepository administrateurRepository;
     @Autowired private ReservationRepository reservationRepository;
@@ -158,21 +159,29 @@ public class GestionService {
     // ==================================== RESERVATIONS ====================================
     @Transactional
     public Reservation creerReservation(Reservation reservation, String clientId, String evenementId) {
+        // Récupérer le client
         Client client = clientRepository.findById(clientId)
-                .orElseThrow(() -> new RuntimeException("Client non trouvé"));
-        Evenement evenement = evenementRepository.findById(evenementId)
-                .orElseThrow(() -> new RuntimeException("Événement non trouvé"));
+                .orElseThrow(() -> new RuntimeException("Client non trouvé avec l'ID : " + clientId));
 
-        // Vérifier et mettre à jour les places
+        // Récupérer l'événement
+        Evenement evenement = evenementRepository.findById(evenementId)
+                .orElseThrow(() -> new RuntimeException("Événement non trouvé avec l'ID : " + evenementId));
+
+        // Vérifier et mettre à jour les places réservées
+        if (evenement.getPlacesDisponibles() < reservation.getNbrPlace()) {
+            throw new RuntimeException("Pas assez de places disponibles pour cet événement.");
+        }
         evenement.incrementerPlacesReservees(reservation.getNbrPlace());
         evenementRepository.save(evenement);
 
+        // Associer le client et l'événement à la réservation
         reservation.setClient(client);
         reservation.setEvenement(evenement);
 
+        // Sauvegarder la réservation
         Reservation savedReservation = reservationRepository.save(reservation);
 
-        // Envoyer notification aux administrateurs
+        // Notifier les administrateurs avec l'email HTML
         notifyAdminsAboutReservation(savedReservation);
 
         return savedReservation;
@@ -182,26 +191,18 @@ public class GestionService {
         List<Administrateur> admins = administrateurRepository.findAll();
 
         String subject = "Nouvelle réservation #" + reservation.getId();
-        String text = String.format(
-                "Une nouvelle réservation a été effectuée:\n" +
-                        "Client: %s %s (%s)\n" +
-                        "Événement: %s\n" +
-                        "Places: %d\n" +
-                        "Date: %s",
-                reservation.getClient().getPrenom(),
-                reservation.getClient().getNom(),
-                reservation.getClient().getEmail(),
-                reservation.getEvenement().getNom(),
-                reservation.getNbrPlace(),
-                reservation.getDateReservation()
-        );
 
         admins.forEach(admin -> {
-            emailService.sendAdminNotification(
-                    admin.getEmail(),
-                    subject,
-                    text
-            );
+            try {
+                emailService.sendHtmlAdminNotification(
+                        admin.getEmail(), // Destinataire
+                        subject,          // Sujet
+                        reservation       // Objet Reservation pour les données
+                );
+                logger.info("Notification HTML envoyée à {}", admin.getEmail());
+            } catch (Exception e) {
+                logger.error("Échec de l'envoi de la notification à {}", admin.getEmail(), e);
+            }
         });
     }
 

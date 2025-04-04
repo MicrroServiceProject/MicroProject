@@ -51,20 +51,16 @@ public class EmailService {
      */
     public void sendHtmlAdminNotification(String to, String subject, Reservation reservation) {
         try {
-            // Préparation du contexte Thymeleaf
             Context context = new Context();
             context.setVariable("reservationId", reservation.getId());
-            context.setVariable("clientName",
-                    reservation.getClient().getPrenom() + " " + reservation.getClient().getNom());
+            context.setVariable("clientName", reservation.getClient().getPrenom() + " " + reservation.getClient().getNom());
             context.setVariable("clientEmail", reservation.getClient().getEmail());
             context.setVariable("eventName", reservation.getEvenement().getNom());
             context.setVariable("places", reservation.getNbrPlace());
             context.setVariable("reservationDate", reservation.getDateReservation());
 
-            // Génération du contenu HTML
             String htmlContent = templateEngine.process("email-reservation", context);
 
-            // Construction du message MIME
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(
                     message,
@@ -74,17 +70,13 @@ public class EmailService {
 
             helper.setTo(to);
             helper.setSubject(subject);
-            helper.setText(htmlContent, true); // true = isHTML
+            helper.setText(htmlContent, true); // true indique que c'est du HTML
             mailSender.send(message);
 
             logger.info("Email HTML envoyé à {}", to);
-
         } catch (MessagingException e) {
             logger.error("Erreur de messagerie pour l'email à {}", to, e);
             throw new EmailException("Erreur technique lors de l'envoi d'email", e);
-        } catch (Exception e) {
-            logger.error("Erreur inattendue lors de l'envoi à {}", to, e);
-            throw new EmailException("Erreur inattendue", e);
         }
     }
 
