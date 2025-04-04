@@ -1,0 +1,92 @@
+package esprit.projet_web.Entity;
+
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
+
+
+@Document(collection = "evenements")
+public class Evenement {
+    @Id
+    private String id;
+
+    @NotBlank(message = "Le nom est obligatoire")
+    private String nom;
+
+    @Future(message = "La date doit être dans le futur")
+    private Date date;
+
+    @Size(max = 500, message = "La description ne doit pas dépasser 500 caractères")
+    private String description;
+
+    private int capaciteMax;
+    private List<String> tags;
+    private int placesReservees;
+    @DBRef
+    private Artiste artiste;
+
+    @DBRef
+    private List<Reservation> reservations;
+
+    public Evenement() {}
+
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
+
+    public String getNom() { return nom; }
+    public void setNom(String nom) { this.nom = nom; }
+
+    public Date getDate() { return date; }
+    public void setDate(Date date) { this.date = date; }
+
+    public String getDescription() { return description; }
+    public void setDescription(String description) { this.description = description; }
+
+    public int getCapaciteMax() { return capaciteMax; }
+    public Artiste getArtiste() { return artiste; }
+    public void setArtiste(Artiste artiste) { this.artiste = artiste; }
+    public void setCapaciteMax(int capaciteMax) { this.capaciteMax = capaciteMax; }
+    public int getPlacesDisponibles() {
+        return this.capaciteMax - this.placesReservees;
+    }
+
+    public void incrementerPlacesReservees(int nombre) {
+        if (this.placesReservees + nombre > this.capaciteMax) {
+            throw new IllegalStateException("Capacité maximale dépassée");
+        }
+        this.placesReservees += nombre;
+    }
+public void setPlacesReservees(int placesReservees) {
+        this.placesReservees = placesReservees;
+}
+public int getPlacesReservees() {
+        return placesReservees;
+}
+    public void decrementerPlacesReservees(int nombre) {
+        if (this.placesReservees - nombre < 0) {
+            throw new IllegalStateException("Nombre de places réservées ne peut pas être négatif");
+        }
+        this.placesReservees -= nombre;
+    }
+
+    public List<String> getTags() {
+        if (this.tags == null) {
+            this.tags = new ArrayList<>();
+        }
+        return this.tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+}

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .header { color: #2c3e50; }
+        .details { margin: 15px 0; }
+        .footer { font-size: 0.8em; color: #7f8c8d; }
+    </style>
+</head>
+<body>
+<h2 class="header">Nouvelle réservation #{{reservationId}}</h2>
+<div class="details">
+    <p><strong>Client:</strong> {{clientName}} ({{clientEmail}})</p>
+    <p><strong>Événement:</strong> {{eventName}}</p>
+    <p><strong>Places:</strong> {{places}}</p>
+    <p><strong>Date:</strong> {{reservationDate}}</p>
+</div>
+<div class="footer">
+    Cet email a été envoyé automatiquement, merci de ne pas y répondre.
+</div>
+</body>
+</html>
