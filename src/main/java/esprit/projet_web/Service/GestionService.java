@@ -171,8 +171,7 @@ public class GestionService {
         if (evenement.getPlacesDisponibles() < reservation.getNbrPlace()) {
             throw new RuntimeException("Pas assez de places disponibles pour cet événement.");
         }
-        evenement.incrementerPlacesReservees(reservation.getNbrPlace());
-        evenementRepository.save(evenement);
+
 
         // Associer le client et l'événement à la réservation
         reservation.setClient(client);
@@ -235,13 +234,28 @@ public class GestionService {
         Reservation reservation = reservationRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Réservation non trouvée"));
 
-        if (statut == Reservation.StatutReservation.ACCEPTE) {
-            verifierCapaciteEvenement(
-                    reservation.getEvenement().getId(),
-                    reservation.getNbrPlace()
-            );
+        Evenement evenement = reservation.getEvenement();
+
+        // Si le statut passe à ACCEPTE
+        if (statut == Reservation.StatutReservation.ACCEPTE &&
+                reservation.getStatut() != Reservation.StatutReservation.ACCEPTE) {
+            // Vérifier la capacité avant d'accepter
+            if (evenement.getPlacesDisponibles() < reservation.getNbrPlace()) {
+                throw new RuntimeException("Pas assez de places disponibles pour accepter cette réservation.");
+            }
+            // Incrémenter les places réservées
+            evenement.incrementerPlacesReservees(reservation.getNbrPlace());
+            evenementRepository.save(evenement);
+        }
+        // Si une réservation acceptée est annulée ou refusée
+        else if (reservation.getStatut() == Reservation.StatutReservation.ACCEPTE &&
+                statut != Reservation.StatutReservation.ACCEPTE) {
+            // Décrémenter les places réservées
+            evenement.decrementerPlacesReservees(reservation.getNbrPlace());
+            evenementRepository.save(evenement);
         }
 
+        // Mettre à jour le statut
         reservation.setStatut(statut);
         return reservationRepository.save(reservation);
     }
@@ -331,17 +345,26 @@ public class GestionService {
         try {
             // Réservations par statut
             List<ReservationParStatut> reservationsParStatut = reservationRepositoryCustom.countByStatut();
-            stats.put("reservationsParStatut", reservationsParStatut);
 
-            // Événements les plus populaires
+            // Version corrigée avec les getters Lombok
+            List<Map<String, Object>> reservationsStatutList = reservationsParStatut.stream()
+                    .map(rps -> {
+                        Map<String, Object> map = new HashMap<>();
+                        map.put("statut", rps.getStatut().toString()); // Utilisation du getter
+                        map.put("count", rps.getCount()); // Utilisation du getter
+                        return map;
+                    })
+                    .collect(Collectors.toList());
+
+            stats.put("reservationsParStatut", reservationsStatutList);
+
+            // Le reste du code reste inchangé...
             List<EvenementPopulaire> evenementsPopulaires = evenementRepositoryCustom.findTop5ByReservationsCount();
             stats.put("evenementsPopulaires", evenementsPopulaires);
 
-            // Taux d'occupation moyen (en pourcentage)
             Double tauxOccupation = evenementRepository.calculateAverageOccupationRate();
             stats.put("tauxOccupationMoyen", String.format("%.2f%%", tauxOccupation));
 
-            // Chiffre d'affaires total
             Double chiffreAffaires = reservationRepository.calculateTotalRevenue();
             stats.put("chiffreAffairesTotal", String.format("%.2fDT", chiffreAffaires));
 

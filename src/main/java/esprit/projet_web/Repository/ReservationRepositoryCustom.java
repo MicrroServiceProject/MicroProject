@@ -12,5 +12,6 @@ public interface ReservationRepositoryCustom {
             "{ $project: { statut: '$_id', count: 1, _id: 0 } }"
     })
     List<ReservationParStatut> countByStatut();
+
 }
 

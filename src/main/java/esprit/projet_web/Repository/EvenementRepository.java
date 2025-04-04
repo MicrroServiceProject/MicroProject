@@ -1,6 +1,7 @@
 package esprit.projet_web.Repository;
 
 import esprit.projet_web.Entity.Evenement;
+import esprit.projet_web.Entity.EvenementPopulaire;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -30,7 +31,7 @@ public interface EvenementRepository extends MongoRepository<Evenement, String>,
 
     @Query(value = "{}", fields = "{ 'capaciteMax' : 1, 'placesReservees' : 1 }")
     List<Evenement> findAllForOccupationRate();
-
+    List<EvenementPopulaire> findTop5ByReservationsCount();
     default Double calculateAverageOccupationRate() {
         List<Evenement> events = findAllForOccupationRate();
         if (events.isEmpty()) return 0.0;
