@@ -1,4 +1,5 @@
 package esprit.microproject.Controllers;
+
 import esprit.microproject.Entities.Product;
 import esprit.microproject.Services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,7 @@ public class ProductController {
             return ResponseEntity.notFound().build(); // Return 404 if product not found
         }
     }
+
     // Route pour rechercher des produits par nom
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam(name = "name") String name) {
@@ -78,5 +80,14 @@ public class ProductController {
             return ResponseEntity.noContent().build(); // Si aucun produit n'est trouvé
         }
         return ResponseEntity.ok(products); // Retourner les produits trouvés
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<Product>> getAvailableProducts() {
+        List<Product> products = productService.getAllProducts();
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(products);
     }
 }

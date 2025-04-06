@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+    <style>
+        body { font-family: sans-serif; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .total { font-weight: bold; text-align: right; }
+    </style>
+</head>
+<body>
+<h2>Order Confirmation</h2>
+<p>Hello <span th:text="${username}">Customer</span>,</p>
+<p>Thank you for your order! Here are the details:</p>
+
+<p><strong>Order ID:</strong> <span th:text="${order.id}">ORD-123</span></p>
+<p><strong>Order Date:</strong> <span th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm')}">2024-01-01 10:00</span></p>
+
+<h3>Order Items:</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over order items -->
+    <tr th:each="item : ${order.orderItems}">
+        <td th:text="${item.product.name}">Product Name</td>
+        <td th:text="${item.quantity}">1</td>
+        <td th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')}">$10.00</td>
+        <td th:text="'$' + ${#numbers.formatDecimal(item.price * item.quantity, 1, 'COMMA', 2, 'POINT')}">$10.00</td>
+    </tr>
+    </tbody>
+</table>
+
+<p class="total">Total Amount: <span th:text="'$' + ${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')}">$10.00</span></p>
+
+<p>Your invoice is attached to this email.</p>
+<p>Thank you for shopping with us!</p>
+
+</body>
+</html>
