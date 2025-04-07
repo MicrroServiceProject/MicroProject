@@ -1,0 +1,52 @@
+.notification-container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .notification-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .notification-item {
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+  }
+  
+  .notification-item.read {
+    background-color: #e9ecef;
+    opacity: 0.7;
+  }
+  
+  .notification-item p {
+    margin: 0 0 5px 0;
+  }
+  
+  .notification-item small {
+    color: #666;
+  }
+  
+  .mark-read-btn {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+  
+  .mark-read-btn:hover {
+    background-color: #0056b3;
+  }
+  
+  .badge {
+    background-color: #dc3545;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 0.8em;
+  }

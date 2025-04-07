@@ -1,0 +1,12 @@
+<div class="notification-container">
+    <h2>Notifications <span class="badge" *ngIf="notificationCount$ | async as count">({{ count }})</span></h2>
+    <div class="notification-list">
+      <div *ngFor="let notification of notifications$ | async; trackBy: trackById" class="notification-item" [ngClass]="{'read': notification.read}">
+        <p>{{ notification.message }}</p>
+        <small>{{ notification.createdAt | date:'medium' }}</small>
+        <button *ngIf="!notification.read" (click)="markAsRead(notification.id)" class="mark-read-btn">
+          Marquer comme lu
+        </button>
+      </div>
+    </div>
+  </div>

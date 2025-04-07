@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>ArtBlog - Votre espace d'inspiration artistique</title>
+  <base href="/">
+
+  <!-- Meta tags for SEO and display -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ArtBlog - Découvrez des articles sur l'art, partagez vos idées et inspirez-vous.">
+  <meta name="keywords" content="art, blog, inspiration, créativité, peinture, sculpture">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Base styles -->
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #F8F1E9;
+    }
+
+    .app-loading {
+      position: fixed;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      width: 100vw;
+      background-color: #ffffff;
+      z-index: 999;
+    }
+
+    .app-loading .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid #f3f3f3;
+      border-top: 4px solid #D4A017;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <app-root>
+    <div class="app-loading">
+      <div class="spinner"></div>
+      <p>Chargement d'ArtBlog...</p>
+    </div>
+  </app-root>
+</body>
+</html>

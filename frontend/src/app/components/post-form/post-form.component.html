@@ -1,0 +1,94 @@
+<div class="form-container">
+  <h1>
+    <i class="fas" [ngClass]="isEditMode ? 'fa-edit' : 'fa-plus'"></i>
+    {{ isEditMode ? 'Modifier l\'article' : 'Nouvel article' }}
+  </h1>
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+  <form (ngSubmit)="onSubmit()" #postForm="ngForm">
+    <div class="form-group">
+      <label for="title">Titre</label>
+      <input 
+        type="text" 
+        id="title" 
+        [(ngModel)]="post.title" 
+        name="title" 
+        required
+        placeholder="Entrez le titre de l'article"
+        [disabled]="isSubmitting"
+      >
+    </div>
+    <div class="form-group">
+      <label for="content">Contenu</label>
+      <textarea 
+        id="content" 
+        [(ngModel)]="post.content" 
+        name="content" 
+        required
+        placeholder="Rédigez le contenu de votre article ici..."
+        [disabled]="isSubmitting"
+      ></textarea>
+    </div>
+    <div class="form-group">
+      <label for="imageUrl">URL de l'image</label>
+      <input 
+        type="text" 
+        id="imageUrl" 
+        [(ngModel)]="post.imageUrl" 
+        name="imageUrl" 
+        required
+        placeholder="Collez l'URL de l'image"
+        [disabled]="isSubmitting"
+      >
+    </div>
+    <div class="form-group">
+      <label for="category">Catégorie</label>
+      <select 
+        id="category" 
+        [(ngModel)]="post.category" 
+        name="category" 
+        required
+        [disabled]="isSubmitting"
+      >
+        <option value="Peinture">Peinture</option>
+        <option value="Sculpture">Sculpture</option>
+        <option value="Photographie">Photographie</option>
+        <option value="Art Numerique">Art Numérique</option> <!-- Updated to match categories array -->
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="author">Votre nom</label>
+      <input 
+        type="text" 
+        id="author" 
+        [(ngModel)]="post.authorUsername" 
+        name="authorUsername" 
+        required
+        placeholder="Entrez votre nom"
+        [disabled]="isSubmitting"
+      >
+    </div>
+    <div class="form-actions">
+      <button 
+        type="submit" 
+        class="save-btn" 
+        [disabled]="!postForm.valid || isSubmitting"
+        title="{{isEditMode ? 'Mettre à jour l\'article' : 'Créer un nouvel article'}}"
+      >
+        <i class="fas fa-save"></i>
+        {{ isSubmitting ? 'En cours...' : (isEditMode ? 'Mettre à jour' : 'Créer') }}
+      </button>
+      <button 
+        type="button" 
+        class="cancel-btn" 
+        (click)="cancel()"
+        [disabled]="isSubmitting"
+        title="Annuler et retourner"
+      >
+        <i class="fas fa-times"></i>
+        Annuler
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,105 @@
+<ng-container *ngIf="post$ | async as post; else notFound">
+  <div class="post-detail">
+    <button class="back-btn" (click)="goBack()" title="Retour aux articles">
+      <i class="fas fa-arrow-left"></i> Retour
+    </button>
+    <div class="post-header">
+      <span class="category">{{ formatCategory(post.category) }}</span>
+      <h1>{{ post.title || 'Titre indisponible' }}</h1>
+      <p class="meta">Par {{ post.authorUsername || 'Anonyme' }} le {{ post.createdAt | date:'mediumDate' }}</p>
+      <div class="stats">
+        <span class="views"><i class="fas fa-eye"></i> {{ post.views || 0 }}</span>
+        <span class="likes"><i class="fas fa-heart"></i> {{ post.likes }}</span>
+      </div>
+      <div class="post-image">
+        <img [src]="getImageUrl(post.imageUrl)" alt="{{post.title}}" loading="lazy">
+        <div class="image-overlay"></div>
+      </div>
+    </div>
+    <div class="post-content">
+      <p>{{ post.content || 'Contenu indisponible' }}</p>
+    </div>
+    <div class="post-actions">
+      <button 
+        class="like-btn" 
+        (click)="toggleLike(post.id)" 
+        [ngClass]="{'liked': post.isLiked}"
+        title="{{post.isLiked ? 'Retirer le j\'aime' : 'J\'aime'}}"
+      >
+        <i class="fas fa-heart"></i>
+        <span>{{ post.likes }} J'aime</span>
+      </button>
+      <button 
+        class="favorite-btn" 
+        (click)="toggleFavorite(post.id)" 
+        [ngClass]="{'favorited': post.isFavorite}"
+        title="{{post.isFavorite ? 'Retirer des favoris' : 'Ajouter aux favoris'}}"
+      >
+        <i class="fas fa-star"></i>
+        <span>{{ post.isFavorite ? 'Retiré' : 'Favori' }}</span>
+      </button>
+    </div>
+    <div class="comments-section">
+      <h2>Commentaires ({{ post.comments.length }})</h2>
+      <div class="comments-list">
+        <div *ngFor="let comment of post.comments; trackBy: trackById" class="comment">
+          <div class="comment-header">
+            <span class="comment-author">{{ comment.authorUsername }}</span>
+            <span class="comment-date">{{ comment.createdAt | date:'mediumDate' }}</span>
+          </div>
+          <p>{{ comment.content }}</p>
+        </div>
+        <p class="no-comments" *ngIf="post.comments.length === 0">
+          <i class="fas fa-comment-slash"></i> Aucun commentaire pour le moment
+        </p>
+      </div>
+      <div class="comment-form">
+        <h3>Ajouter un commentaire</h3>
+        <form (ngSubmit)="addComment(post.id)" #commentForm="ngForm">
+          <div class="form-group">
+            <label for="comment-content">Votre commentaire</label>
+            <textarea
+              id="comment-content"
+              [(ngModel)]="newComment.content"
+              name="content"
+              required
+              placeholder="Écrivez votre commentaire ici..."
+              [disabled]="isSubmitting"
+            ></textarea>
+          </div>
+          <div class="form-group">
+            <label for="comment-author">Votre nom</label>
+            <input
+              type="text"
+              id="comment-author"
+              [(ngModel)]="newComment.authorUsername"
+              name="authorUsername"
+              required
+              placeholder="Votre nom"
+              [disabled]="isSubmitting"
+            >
+          </div>
+          <button 
+            type="submit" 
+            class="submit-btn" 
+            [disabled]="!commentForm.valid || isSubmitting"
+          >
+            <i class="fas fa-paper-plane"></i>
+            {{ isSubmitting ? 'Envoi...' : 'Publier' }}
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #notFound>
+  <div class="error">
+    <i class="fas fa-exclamation-triangle"></i>
+    <h2>Article non trouvé</h2>
+    <p>L'article que vous cherchez n'existe pas ou a été supprimé.</p>
+    <button (click)="goBack()" class="back-btn-error">
+      <i class="fas fa-arrow-left"></i> Retour aux articles
+    </button>
+  </div>
+</ng-template>

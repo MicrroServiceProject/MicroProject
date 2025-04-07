@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New Comment Notification</title>
+</head>
+<body>
+<h1>Hello, <span th:text="${username}"></span>!</h1>
+<p>A new comment has been added to your post titled "<span th:text="${postTitle}"></span>".</p>
+<p><strong>Comment Details:</strong></p>
+<p th:text="${commentContent}"></p>
+<p><strong>Post Stats:</strong></p>
+<ul>
+    <li>Likes: <span th:text="${likes}"></span></li>
+    <li>Views: <span th:text="${views}"></span></li>
+</ul>
+<p>Thank you for your attention!</p>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<div class="admin-container">
+  <h1>Administration des articles</h1>
+  
+  <!-- Add New Post Form -->
+  <section class="add-post-section">
+    <button class="toggle-form-btn" (click)="toggleForm()" [disabled]="isLoading">
+      <i class="fas" [ngClass]="showForm ? 'fa-times' : 'fa-plus'"></i>
+      {{ showForm ? 'Annuler' : 'Nouvel Article' }}
+    </button>
+    <div class="form-container" *ngIf="showForm">
+      <h2>Ajouter un nouvel article</h2>
+      <div *ngIf="errorMessage" class="error-message">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <form (ngSubmit)="addPost()" #postForm="ngForm">
+        <div class="form-group">
+          <label for="title">Titre</label>
+          <input 
+            type="text" 
+            id="title" 
+            [(ngModel)]="newPost.title" 
+            name="title" 
+            required
+            placeholder="Entrez le titre de l'article"
+          >
+        </div>
+        <div class="form-group">
+          <label for="content">Contenu</label>
+          <textarea 
+            id="content" 
+            [(ngModel)]="newPost.content" 
+            name="content" 
+            required
+            placeholder="Rédigez le contenu de votre article ici..."
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="imageUrl">URL de l'image</label>
+          <input 
+            type="text" 
+            id="imageUrl" 
+            [(ngModel)]="newPost.imageUrl" 
+            name="imageUrl" 
+            required
+            placeholder="Collez l'URL de l'image"
+          >
+        </div>
+        <div class="form-group">
+          <label for="category">Catégorie</label>
+          <select 
+            id="category" 
+            [(ngModel)]="newPost.category" 
+            name="category" 
+            required
+          >
+            <option value="Peinture">Peinture</option>
+            <option value="Sculpture">Sculpture</option>
+            <option value="Photographie">Photographie</option>
+            <option value="Art Numerique">Art Numérique</option> <!-- Updated -->
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="author">Auteur</label>
+          <input 
+            type="text" 
+            id="author" 
+            [(ngModel)]="newPost.authorUsername" 
+            name="authorUsername" 
+            required
+            placeholder="Entrez le nom de l'auteur"
+          >
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="save-btn" [disabled]="!postForm.valid || isLoading">
+            <i class="fas fa-save"></i>
+            {{ isLoading ? 'Ajout...' : 'Ajouter' }}
+          </button>
+          <button type="button" class="cancel-btn" (click)="toggleForm()" [disabled]="isLoading">
+            <i class="fas fa-times"></i>
+            Annuler
+          </button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- Existing Posts -->
+  <section class="posts-list">
+    <h2>Articles existants</h2>
+    <div *ngIf="errorMessage" class="error-message">
+      <p>{{ errorMessage }}</p>
+    </div>
+    <ng-container *ngIf="posts$ | async as posts; else loading">
+      <div class="posts-grid" *ngIf="posts.length > 0; else noPosts">
+        <article class="post-card" *ngFor="let post of posts; trackBy: trackById">
+          <div class="post-image" [style.backgroundImage]="getImageUrl(post.imageUrl)"></div>
+          <div class="post-info">
+            <span class="category">{{ post.category || 'Sans catégorie' }}</span>
+            <h3>{{ post.title || 'Titre indisponible' }}</h3>
+            <p class="content">{{ (post.content | slice:0:100) || 'Contenu indisponible' }}...</p>
+            <p class="meta">Par {{ post.authorUsername || 'Anonyme' }} le {{ post.createdAt | date:'mediumDate' }}</p>
+            <div class="stats">
+              <span class="views"><i class="fas fa-eye"></i> {{ post.views || 0 }}</span>
+              <span class="likes"><i class="fas fa-heart"></i> {{ post.likes }}</span>
+            </div>
+            <div class="actions">
+              <a [routerLink]="['/edit-post', post.id]" class="edit-btn" title="Modifier l'article">
+                <i class="fas fa-edit"></i> Modifier
+              </a>
+              <button class="delete-btn" (click)="deletePost(post.id)" [disabled]="isLoading" aria-label="Supprimer l'article">
+                <i class="fas fa-trash"></i> Supprimer
+              </button>
+            </div>
+          </div>
+        </article>
+      </div>
+      <ng-template #noPosts>
+        <div class="no-posts">
+          <i class="fas fa-exclamation-circle"></i>
+          <p>Aucun article disponible pour le moment.</p>
+        </div>
+      </ng-template>
+    </ng-container>
+    <ng-template #loading>
+      <div class="loading">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Chargement des articles...</p>
+      </div>
+    </ng-template>
+  </section>
+</div>

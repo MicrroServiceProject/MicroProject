@@ -1,0 +1,68 @@
+<div class="container">
+  <h1>
+    <i class="fas fa-palette"></i> Articles sur l'Art
+  </h1>
+
+  <!-- Error Message -->
+  <div *ngIf="errorMessage" class="error-message">
+    <p>{{ errorMessage }}</p>
+  </div>
+
+  <!-- Loading Spinner -->
+  <div class="loading-spinner" *ngIf="isLoading">
+    <i class="fas fa-spinner fa-spin"></i>
+    <p>Chargement des articles...</p>
+  </div>
+
+  <!-- Posts Grid -->
+  <ng-container *ngIf="!isLoading && (posts$ | async) as posts">
+    <div class="posts-grid" *ngIf="posts.length > 0; else emptyState">
+      <div class="post-card" *ngFor="let post of posts; trackBy: trackById">
+        <div class="post-image">
+          <img [src]="getImageUrl(post.imageUrl)" alt="{{ post.title }}" loading="lazy">
+          <div class="image-overlay">
+            <div class="image-stats">
+              <button class="stat-btn like-stat" (click)="toggleLike(post.id)" [ngClass]="{'active': post.isLiked}">
+                <i class="fas fa-heart"></i> <span>{{ post.likes || 0 }}</span>
+              </button>
+              <span class="stat-btn view-stat">
+                <i class="fas fa-eye"></i> <span>{{ post.views || 0 }}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="post-info">
+          <span class="category">{{ formatCategory(post.category) }}</span>
+          <h3>{{ post.title || 'Titre indisponible' }}</h3>
+          <p class="content">{{ (post.content | slice:0:180) || 'Contenu indisponible' }}...</p>
+          <div class="meta-stats">
+            <p class="meta">
+              <i class="fas fa-user"></i> {{ post.authorUsername || 'Anonyme' }} • 
+              <i class="fas fa-calendar-alt"></i> {{ post.createdAt | date:'mediumDate' }}
+            </p>
+            <div class="stats">
+              <button class="action-btn favorite-btn" (click)="toggleFavorite(post.id)" [ngClass]="{'active': post.isFavorite}">
+                <i class="fas fa-bookmark"></i>
+              </button>
+            </div>
+          </div>
+          <div class="actions">
+            <a [routerLink]="['/post', post.id]" class="view-btn">
+              <i class="fas fa-book-open"></i> Découvrir
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ng-template #emptyState>
+      <div class="empty-state">
+        <i class="fas fa-paint-roller"></i>
+        <h2>Aucun article pour l'instant</h2>
+        <p>Partagez votre passion pour l'art en créant un nouvel article.</p>
+        <a routerLink="/new-post" class="start-post">
+          <i class="fas fa-plus-circle"></i> Créer un article
+        </a>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

@@ -1,0 +1,118 @@
+<header class="main-header">
+  <div class="header-content">
+    <div class="logo-section">
+      <a [routerLink]="['/']" class="logo">
+        <i class="fas fa-paint-brush"></i>
+        <span>ArtBlog</span>
+      </a>
+    </div>
+    
+    <div class="search-bar">
+      <input 
+        type="text" 
+        [(ngModel)]="searchQuery" 
+        (keyup)="onSearch()"
+        (focus)="onSearchFocus()"
+        (blur)="onSearchBlur()"
+        placeholder="Rechercher des articles..."
+      >
+      <i class="fas fa-search"></i>
+      <button class="clear-search" *ngIf="searchQuery" (click)="clearSearch()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    
+    <nav class="main-nav">
+      <a [routerLink]="['/']" 
+         [routerLinkActive]="['active']" 
+         [routerLinkActiveOptions]="{exact: true}"
+         class="home-link">
+        <i class="fas fa-home"></i>
+        <span>Accueil</span>
+      </a>
+      <a [routerLink]="['/favorites']" 
+         [routerLinkActive]="['active']">
+        <i class="fas fa-heart"></i>
+        <span>Favoris</span>
+        <span class="badge" *ngIf="favoritesCount$ | async as count">{{ count }}</span>
+      </a>
+      <!-- Notification Bell -->
+      <div class="notification-wrapper">
+        <button class="notification-bell" (click)="toggleNotifications()" aria-label="Notifications">
+          <i class="fas fa-bell"></i>
+          <span class="notification-badge" *ngIf="notificationCount$ | async as count">{{ count }}</span>
+        </button>
+        <div class="notification-dropdown" *ngIf="showNotifications">
+          <div class="notification-header">
+            <h3>Notifications</h3>
+            <button class="clear-btn" (click)="clearNotifications()" *ngIf="notifications.length > 0">
+              Tout effacer
+            </button>
+          </div>
+          <div class="notification-list">
+            <div class="notification-item" *ngFor="let notification of notifications; trackBy: trackById" (click)="viewPost(notification)">
+              <i class="fas fa-bell"></i>
+              <span>{{ notification.message }}</span>
+              <span class="status" [ngClass]="{'unread': !notification.read}"></span>
+            </div>
+            <div class="no-notifications" *ngIf="notifications.length === 0">
+              Aucune notification
+            </div>
+          </div>
+        </div>
+      </div>
+      <a *ngIf="isAdmin" 
+         [routerLink]="['/admin']" 
+         [routerLinkActive]="['active']">
+        <i class="fas fa-cog"></i>
+        <span>Admin</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="main-footer">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>À propos</h3>
+      <p>ArtBlog est un espace dédié à l'art, où vous pouvez découvrir des articles inspirants et partager vos idées.</p>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Liens rapides</h3>
+      <ul>
+        <li><a routerLink="/about">À propos</a></li>
+        <li><a routerLink="/contact">Contact</a></li>
+        <li><a routerLink="/terms">Conditions d'utilisation</a></li>
+        <li><a routerLink="/privacy">Politique de confidentialité</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Contact</h3>
+      <p>
+        <i class="fas fa-envelope"></i> <span>{{ email }}</span><br>
+        <i class="fas fa-phone"></i> {{ phone }}<br>
+        <i class="fas fa-map-marker-alt"></i> {{ location }}
+      </p>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Suivez-nous</h3>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>© 2025 ArtBlog. Tous droits réservés.</p>
+  </div>
+</footer>
