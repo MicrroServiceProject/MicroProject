@@ -71,7 +71,7 @@ Before you begin, ensure you have met the following requirements:
 
 3.  **Configure Email (Gmail Example):**
     *   Open `src/main/resources/application.properties`.
-    *   Update `spring.mail.username` with your Gmail address (`no.reply.davincci@gmail.com` is currently set).
+    *   Update `spring.mail.username` with your Gmail address (`gaidi.oumaiima54@gmail.com` is currently set).
     *   **Important:** For `spring.mail.password`, you need to generate a **Google App Password** if you have 2-Step Verification enabled on the Gmail account. Do **not** use your regular Gmail password here.
         *   Go to your Google Account -> Security -> 2-Step Verification -> App passwords.
         *   Generate a new App Password for "Mail" on "Other (Custom name)" (e.g., "SpringBoot MicroProject").
