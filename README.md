@@ -154,7 +154,7 @@ The project leverages Spring configuration files (e.g., `application.properties`
   1-Run the Microproject Service:
   2-Starting Eureka Server and API Gateway:
 
-###Access Endpoints:
+### Access Endpoints:
 
 H2 Console: http://localhost:8085/h2-console
 
