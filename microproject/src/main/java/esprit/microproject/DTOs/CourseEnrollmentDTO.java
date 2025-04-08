@@ -12,7 +12,6 @@ public class CourseEnrollmentDTO {
         this.enrollmentCount = enrollmentCount;
     }
 
-    // Getters and Setters
     public Long getCourseId() {
         return courseId;
     }
