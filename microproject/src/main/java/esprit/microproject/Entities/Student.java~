@@ -1,0 +1,17 @@
+package esprit.microproject.Entities;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import jakarta.persistence.*;
+
+import java.io.Serializable;
+import java.util.List;
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "students")
+public class Student implements Serializable  {
+    
+}

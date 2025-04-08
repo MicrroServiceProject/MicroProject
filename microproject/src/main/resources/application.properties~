@@ -1,0 +1,31 @@
+spring.application.name=microproject
+# Application Name
+
+# Server Port
+server.port=8085
+
+# JPA / Hibernate Configuration
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.show-sql=true
+spring.jpa.hibernate.ddl-auto=create
+# Eureka Client Configuration
+eureka.client.service-url.defaultZone=http://localhost:8761/eureka
+eureka.client.register-with-eureka=true
+
+# H2 Database Configuration
+spring.datasource.url=jdbc:h2:mem:courses  
+spring.datasource.driver-class-name=org.h2.Driver
+spring.datasource.username=admin  # Changed to 'admin'
+spring.datasource.password=admin  # Changed to 'admin'
+
+# H2 Console Configuration
+spring.h2.console.enabled=true
+spring.h2.console.path=/h2  # Changed to '/h2-console'
+spring.h2.console.settings.web-allow-others=true
+
+# Spring Cloud Config and Discovery (disabled)
+spring.cloud.config.enabled=false
+spring.cloud.discovery.enabled=false
+
+# Logging Level (optional for SQL Debugging)
+logging.level.org.hibernate.SQL=DEBUG

@@ -1,0 +1,33 @@
+package esprit.microproject.Services;
+
+import esprit.microproject.Entities.Course;
+import esprit.microproject.Repositories.CourseRepository;
+import esprit.microproject.Repositories.EnrollmentRepository;
+import jakarta.transaction.Transactional;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+@Service
+@Transactional
+public class AnalyticsServiceImpl implements AnalyticsService {
+    @Autowired
+    private EnrollmentRepository enrollmentRepo;
+    @Autowired
+    private CourseRepository courseRepo;
+
+    @Override
+    public Map<Course, Long> getEnrollmentCountByCourse() {
+        List<Course> courses = courseRepo.findAll();
+        Map<Course, Long> counts = new HashMap<>();
+        for (Course course : courses) {
+            Long count = enrollmentRepo.countByCourse(course);
+            counts.put(course, count);
+        }
+        return counts;
+    }
+
+}
