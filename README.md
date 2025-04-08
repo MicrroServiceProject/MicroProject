@@ -163,7 +163,7 @@ Eureka Dashboard: http://localhost:8761
 API Gateway: http://localhost:8093
 
 Test API endpoints with Postman or your preferred API client.
-##Additional Notes
+## Additional Notes
 Service Discovery:
 The project is integrated with Eureka for dynamic service discovery. This enables scaling and dynamic routing, especially when used with the API Gateway.
 
