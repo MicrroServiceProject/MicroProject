@@ -16,7 +16,7 @@ public class Student implements Serializable  {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+     private String userId;
     private String name;
 
     @OneToMany(mappedBy = "student")
