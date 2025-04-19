@@ -5,17 +5,18 @@ import jakarta.persistence.*; // Make sure imports are from jakarta.persistence
 
 import java.math.BigDecimal; // Use BigDecimal for currency
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
-@Entity // Marks this class as a JPA entity (a table in the DB)
-@Table(name = "products") // Specifies the table name (optional, defaults to class name)
+@Entity
+@Table(name = "products")
 public class Product {
 
-    @Id // Marks this field as the primary key
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generates the ID value
-    private Long id; // Use Long for IDs usually
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Column(nullable = false) // Database column cannot be null
+    @Column(nullable = false)
     private String name;
 
     @Lob // Specifies that this should be mapped as a Large Object (for longer text)
@@ -23,32 +24,23 @@ public class Product {
     private String description;
 
     @Column(nullable = false, precision = 10, scale = 2) // Precision for currency
-    private BigDecimal price; // Use BigDecimal for precise monetary values
+    private BigDecimal price;
 
     @Column(nullable = false)
     private String imageUrl;
 
     @Column(nullable = false)
-    private String category; // Keep as String for 'tools' or 'paintings'
-    // Could also use an Enum later for more type safety
-    // --- Inverse Relationship to Users who favorited this product ---
-    @ManyToMany(mappedBy = "favoriteProducts", fetch = FetchType.LAZY)
-    @JsonIgnore // VERY IMPORTANT: Prevents infinite loop during JSON serialization
-    private Set<User> favoritedBy = new HashSet<>();
+    private String category;
 
-    // Default constructor
-    public Product() {
-        this.favoritedBy = new HashSet<>();
-    }
 
-    // Helper methods for managing the bidirectional relationship
-    public void addFavoritedBy(User user) {
-        this.favoritedBy.add(user);
-    }
 
-    public void removeFavoritedBy(User user) {
-        this.favoritedBy.remove(user);
-    }
+
+
+
+
+
+
+
 
     // Getters and Setters
     public Long getId() {
@@ -99,15 +91,11 @@ public class Product {
         this.category = category;
     }
 
-    public Set<User> getFavoritedBy() {
-        return favoritedBy;
-    }
 
-    public void setFavoritedBy(Set<User> favoritedBy) {
-        this.favoritedBy = favoritedBy;
-    }
 
-    // Override toString to avoid circular references
+
+
+
     @Override
     public String toString() {
         return "Product{" +
@@ -118,7 +106,6 @@ public class Product {
                 '}';
     }
 
-    // Override equals and hashCode to avoid circular references
     @Override
     public boolean equals(Object o) {
         if (this == o)

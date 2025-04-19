@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*; // Import necessary annotation
 import java.util.Collections;
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:4200") // Allow requests from Angular dev server
-@RestController // Combination of @Controller and @ResponseBody, marks this as a REST controller
-@RequestMapping("/api/products") // Base URL path for all methods in this controller
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+@RequestMapping("/api/products")
 public class ProductController {
 
     private final ProductService productService;
@@ -26,18 +26,18 @@ public class ProductController {
     @GetMapping
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.getAllProducts();
-        return ResponseEntity.ok(products); // Return 200 OK with the list
+        return ResponseEntity.ok(products);
     }
 
     // GET /api/products/{id} -> READ One Product by ID
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) {
         return productService.getProductById(id)
-                .map(ResponseEntity::ok) // If found, wrap in 200 OK
-                .orElse(ResponseEntity.notFound().build()); // If not found, return 404 Not Found
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    // POST /api/products -> CREATE a new Product
+
     @PostMapping
     public ResponseEntity<?> createProduct(@RequestBody Product product) {
         try {
@@ -48,12 +48,12 @@ public class ProductController {
         }
     }
 
-    // PUT /api/products/{id} -> UPDATE an existing Product
+
     @PutMapping("/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product productDetails) {
         return productService.updateProduct(id, productDetails)
-                .map(ResponseEntity::ok) // If updated, return 200 OK with updated product
-                .orElse(ResponseEntity.notFound().build()); // If product not found, return 404
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
     }
 
     // DELETE /api/products/{id} -> DELETE a Product
@@ -61,25 +61,25 @@ public class ProductController {
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
         boolean deleted = productService.deleteProduct(id);
         if (deleted) {
-            return ResponseEntity.noContent().build(); // Return 204 No Content on success
+            return ResponseEntity.noContent().build();
         } else {
-            return ResponseEntity.notFound().build(); // Return 404 if product not found
+            return ResponseEntity.notFound().build();
         }
     }
 
     // Route pour rechercher des produits par nom
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam(name = "name") String name) {
-        // Vérification si le paramètre est vide
+
         if (name == null || name.isEmpty()) {
             return ResponseEntity.badRequest().body(Collections.emptyList());
         }
 
         List<Product> products = productService.searchProductsByName(name);
         if (products.isEmpty()) {
-            return ResponseEntity.noContent().build(); // Si aucun produit n'est trouvé
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.ok(products); // Retourner les produits trouvés
+        return ResponseEntity.ok(products);
     }
 
     @GetMapping("/available")

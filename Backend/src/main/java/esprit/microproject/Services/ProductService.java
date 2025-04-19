@@ -9,18 +9,18 @@ import org.springframework.transaction.annotation.Transactional; // Import Trans
 import java.util.List;
 import java.util.Optional;
 
-@Service // Marks this as a Spring service bean
+@Service
 public class ProductService {
 
     private final ProductRepository productRepository;
 
-    @Autowired // Injects the ProductRepository instance
+    @Autowired
     public ProductService(ProductRepository productRepository) {
         this.productRepository = productRepository;
     }
 
     // READ All
-    @Transactional(readOnly = true) // Good practice for read operations
+    @Transactional(readOnly = true)
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
@@ -28,60 +28,44 @@ public class ProductService {
     // READ One by ID
     @Transactional(readOnly = true)
     public Optional<Product> getProductById(Long id) {
-        // findById returns an Optional<Product> to handle cases where the ID doesn't
-        // exist
+
         return productRepository.findById(id);
     }
 
     // CREATE
     @Transactional
     public Product createProduct(Product product) {
-        // Ensure the id is null for new products
-        if (product.getId() != null) {
-            throw new IllegalArgumentException("New product must not have an ID");
-        }
 
-        // Vérifier si un produit avec le même nom existe déjà
         Optional<Product> existingProduct = productRepository.findByName(product.getName());
         if (existingProduct.isPresent()) {
             throw new IllegalArgumentException("Le produit existe déjà !");
         }
-
-        // Create a new product instance to avoid any ID issues
-        Product newProduct = new Product();
-        newProduct.setName(product.getName());
-        newProduct.setDescription(product.getDescription());
-        newProduct.setPrice(product.getPrice());
-        newProduct.setImageUrl(product.getImageUrl());
-        newProduct.setCategory(product.getCategory());
-
-        return productRepository.save(newProduct);
+        return productRepository.save(product);
     }
 
     // UPDATE
     @Transactional
     public Optional<Product> updateProduct(Long id, Product productDetails) {
-        return productRepository.findById(id) // Check if product exists
-                .map(existingProduct -> { // If it exists, update its fields
+        return productRepository.findById(id)
+                .map(existingProduct -> {
                     existingProduct.setName(productDetails.getName());
                     existingProduct.setDescription(productDetails.getDescription());
                     existingProduct.setPrice(productDetails.getPrice());
                     existingProduct.setImageUrl(productDetails.getImageUrl());
                     existingProduct.setCategory(productDetails.getCategory());
-                    return productRepository.save(existingProduct); // Save the updated product
-                }); // If findById returned empty, map does nothing, returning Optional.empty()
+                    return productRepository.save(existingProduct);
+                });
     }
 
     // DELETE
     @Transactional
     public boolean deleteProduct(Long id) {
-        if (productRepository.existsById(id)) { // Check if product exists before deleting
+        if (productRepository.existsById(id)) {
             productRepository.deleteById(id);
-            return true; // Indicate successful deletion
+            return true;
         }
-        return false; // Indicate product not found
+        return false;
     }
-
     // Méthode de recherche dynamique
     public List<Product> searchProductsByName(String name) {
         return productRepository.findByNameContainingIgnoreCase(name);
