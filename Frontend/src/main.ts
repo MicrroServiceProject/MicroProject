@@ -10,11 +10,20 @@ import { FavoritesComponent } from './app/components/favorites/favorites.compone
 import { CartComponent } from './app/components/cart/cart.component';
 import { AdminComponent } from './app/components/admin/admin.component';
 import { ProductService } from './app/services/product.service';
-
+import { HttpClientModule } from '@angular/common/http';
+import { importProvidersFrom } from '@angular/core';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [  RouterModule,
+    CommonModule,
+    FormsModule,
+    ProductListComponent,
+    ProductDetailComponent,
+    FavoritesComponent,
+    CartComponent,
+    AdminComponent,
+    HttpClientModule],
   template: `
     <header class="main-header">
       <div class="header-content">
@@ -425,6 +434,7 @@ const routes = [
 
 bootstrapApplication(App, {
   providers: [
-    provideRouter(routes)
+    provideRouter(routes),    importProvidersFrom(HttpClientModule)
+    
   ]
 }).catch(err => console.error(err));

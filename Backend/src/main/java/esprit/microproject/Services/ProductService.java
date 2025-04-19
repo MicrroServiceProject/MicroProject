@@ -28,19 +28,34 @@ public class ProductService {
     // READ One by ID
     @Transactional(readOnly = true)
     public Optional<Product> getProductById(Long id) {
-        // findById returns an Optional<Product> to handle cases where the ID doesn't exist
+        // findById returns an Optional<Product> to handle cases where the ID doesn't
+        // exist
         return productRepository.findById(id);
     }
 
     // CREATE
     @Transactional
     public Product createProduct(Product product) {
+        // Ensure the id is null for new products
+        if (product.getId() != null) {
+            throw new IllegalArgumentException("New product must not have an ID");
+        }
+
         // Vérifier si un produit avec le même nom existe déjà
         Optional<Product> existingProduct = productRepository.findByName(product.getName());
         if (existingProduct.isPresent()) {
             throw new IllegalArgumentException("Le produit existe déjà !");
         }
-        return productRepository.save(product);
+
+        // Create a new product instance to avoid any ID issues
+        Product newProduct = new Product();
+        newProduct.setName(product.getName());
+        newProduct.setDescription(product.getDescription());
+        newProduct.setPrice(product.getPrice());
+        newProduct.setImageUrl(product.getImageUrl());
+        newProduct.setCategory(product.getCategory());
+
+        return productRepository.save(newProduct);
     }
 
     // UPDATE
@@ -66,6 +81,7 @@ public class ProductService {
         }
         return false; // Indicate product not found
     }
+
     // Méthode de recherche dynamique
     public List<Product> searchProductsByName(String name) {
         return productRepository.findByNameContainingIgnoreCase(name);

@@ -1,0 +1,3254 @@
+This file is a merged representation of the entire codebase, combined into a single document by Repomix.
+
+<file_summary>
+This section contains a summary of this file.
+
+<purpose>
+This file contains a packed representation of the entire repository's contents.
+It is designed to be easily consumable by AI systems for analysis, code review,
+or other automated processes.
+</purpose>
+
+<file_format>
+The content is organized as follows:
+1. This summary section
+2. Repository information
+3. Directory structure
+4. Repository files, each consisting of:
+  - File path as an attribute
+  - Full contents of the file
+</file_format>
+
+<usage_guidelines>
+- This file should be treated as read-only. Any changes should be made to the
+  original repository files, not this packed version.
+- When processing this file, use the file path to distinguish
+  between different files in the repository.
+- Be aware that this file may contain sensitive information. Handle it with
+  the same level of security as you would the original repository.
+</usage_guidelines>
+
+<notes>
+- Some files may have been excluded based on .gitignore rules and Repomix's configuration
+- Binary files are not included in this packed representation. Please refer to the Repository Structure section for a complete list of file paths, including binary files
+- Files matching patterns in .gitignore are excluded
+- Files matching default ignore patterns are excluded
+- Files are sorted by Git change count (files with more changes are at the bottom)
+</notes>
+
+<additional_info>
+
+</additional_info>
+
+</file_summary>
+
+<directory_structure>
+.gitattributes
+.gitignore
+.mvn/wrapper/maven-wrapper.properties
+mvnw
+mvnw.cmd
+pom.xml
+src/main/java/esprit/microproject/config/JacksonConfig.java
+src/main/java/esprit/microproject/Controllers/CartController.java
+src/main/java/esprit/microproject/Controllers/FavoriteController.java
+src/main/java/esprit/microproject/Controllers/OrderController.java
+src/main/java/esprit/microproject/Controllers/ProductController.java
+src/main/java/esprit/microproject/Controllers/UserController.java
+src/main/java/esprit/microproject/dto/AddItemRequest.java
+src/main/java/esprit/microproject/dto/AddToCartRequest.java
+src/main/java/esprit/microproject/dto/CartDto.java
+src/main/java/esprit/microproject/dto/CartItemDto.java
+src/main/java/esprit/microproject/dto/CartItemResponseDto.java
+src/main/java/esprit/microproject/dto/CartResponseDto.java
+src/main/java/esprit/microproject/dto/PlaceOrderRequest.java
+src/main/java/esprit/microproject/dto/UpdateQuantityRequest.java
+src/main/java/esprit/microproject/dto/UserCreationRequest.java
+src/main/java/esprit/microproject/Entities/Cart.java
+src/main/java/esprit/microproject/Entities/CartItem.java
+src/main/java/esprit/microproject/Entities/Order.java
+src/main/java/esprit/microproject/Entities/OrderItem.java
+src/main/java/esprit/microproject/Entities/Product.java
+src/main/java/esprit/microproject/Entities/User.java
+src/main/java/esprit/microproject/MicroProjectApplication.java
+src/main/java/esprit/microproject/Repositories/CartItemRepository.java
+src/main/java/esprit/microproject/Repositories/CartRepository.java
+src/main/java/esprit/microproject/Repositories/OrderItemRepository.java
+src/main/java/esprit/microproject/Repositories/OrderRepository.java
+src/main/java/esprit/microproject/Repositories/ProductRepository.java
+src/main/java/esprit/microproject/Repositories/UserRepository.java
+src/main/java/esprit/microproject/Services/CartService.java
+src/main/java/esprit/microproject/Services/EmailService.java
+src/main/java/esprit/microproject/Services/OrderService.java
+src/main/java/esprit/microproject/Services/PdfService.java
+src/main/java/esprit/microproject/Services/ProductService.java
+src/main/java/esprit/microproject/Services/UserService.java
+src/main/resources/application.properties
+src/main/resources/templates/email/order-confirmation.html
+src/test/java/esprit/microproject/MicroProjectApplicationTests.java
+</directory_structure>
+
+<files>
+This section contains the contents of the repository's files.
+
+<file path=".gitattributes">
+/mvnw text eol=lf
+*.cmd text eol=crlf
+</file>
+
+<file path=".gitignore">
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
+</file>
+
+<file path=".mvn/wrapper/maven-wrapper.properties">
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+wrapperVersion=3.3.2
+distributionType=only-script
+distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.9/apache-maven-3.9.9-bin.zip
+</file>
+
+<file path="mvnw">
+#!/bin/sh
+# ----------------------------------------------------------------------------
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#    http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+# ----------------------------------------------------------------------------
+
+# ----------------------------------------------------------------------------
+# Apache Maven Wrapper startup batch script, version 3.3.2
+#
+# Optional ENV vars
+# -----------------
+#   JAVA_HOME - location of a JDK home dir, required when download maven via java source
+#   MVNW_REPOURL - repo url base for downloading maven distribution
+#   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
+#   MVNW_VERBOSE - true: enable verbose log; debug: trace the mvnw script; others: silence the output
+# ----------------------------------------------------------------------------
+
+set -euf
+[ "${MVNW_VERBOSE-}" != debug ] || set -x
+
+# OS specific support.
+native_path() { printf %s\\n "$1"; }
+case "$(uname)" in
+CYGWIN* | MINGW*)
+  [ -z "${JAVA_HOME-}" ] || JAVA_HOME="$(cygpath --unix "$JAVA_HOME")"
+  native_path() { cygpath --path --windows "$1"; }
+  ;;
+esac
+
+# set JAVACMD and JAVACCMD
+set_java_home() {
+  # For Cygwin and MinGW, ensure paths are in Unix format before anything is touched
+  if [ -n "${JAVA_HOME-}" ]; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ]; then
+      # IBM's JDK on AIX uses strange locations for the executables
+      JAVACMD="$JAVA_HOME/jre/sh/java"
+      JAVACCMD="$JAVA_HOME/jre/sh/javac"
+    else
+      JAVACMD="$JAVA_HOME/bin/java"
+      JAVACCMD="$JAVA_HOME/bin/javac"
+
+      if [ ! -x "$JAVACMD" ] || [ ! -x "$JAVACCMD" ]; then
+        echo "The JAVA_HOME environment variable is not defined correctly, so mvnw cannot run." >&2
+        echo "JAVA_HOME is set to \"$JAVA_HOME\", but \"\$JAVA_HOME/bin/java\" or \"\$JAVA_HOME/bin/javac\" does not exist." >&2
+        return 1
+      fi
+    fi
+  else
+    JAVACMD="$(
+      'set' +e
+      'unset' -f command 2>/dev/null
+      'command' -v java
+    )" || :
+    JAVACCMD="$(
+      'set' +e
+      'unset' -f command 2>/dev/null
+      'command' -v javac
+    )" || :
+
+    if [ ! -x "${JAVACMD-}" ] || [ ! -x "${JAVACCMD-}" ]; then
+      echo "The java/javac command does not exist in PATH nor is JAVA_HOME set, so mvnw cannot run." >&2
+      return 1
+    fi
+  fi
+}
+
+# hash string like Java String::hashCode
+hash_string() {
+  str="${1:-}" h=0
+  while [ -n "$str" ]; do
+    char="${str%"${str#?}"}"
+    h=$(((h * 31 + $(LC_CTYPE=C printf %d "'$char")) % 4294967296))
+    str="${str#?}"
+  done
+  printf %x\\n $h
+}
+
+verbose() { :; }
+[ "${MVNW_VERBOSE-}" != true ] || verbose() { printf %s\\n "${1-}"; }
+
+die() {
+  printf %s\\n "$1" >&2
+  exit 1
+}
+
+trim() {
+  # MWRAPPER-139:
+  #   Trims trailing and leading whitespace, carriage returns, tabs, and linefeeds.
+  #   Needed for removing poorly interpreted newline sequences when running in more
+  #   exotic environments such as mingw bash on Windows.
+  printf "%s" "${1}" | tr -d '[:space:]'
+}
+
+# parse distributionUrl and optional distributionSha256Sum, requires .mvn/wrapper/maven-wrapper.properties
+while IFS="=" read -r key value; do
+  case "${key-}" in
+  distributionUrl) distributionUrl=$(trim "${value-}") ;;
+  distributionSha256Sum) distributionSha256Sum=$(trim "${value-}") ;;
+  esac
+done <"${0%/*}/.mvn/wrapper/maven-wrapper.properties"
+[ -n "${distributionUrl-}" ] || die "cannot read distributionUrl property in ${0%/*}/.mvn/wrapper/maven-wrapper.properties"
+
+case "${distributionUrl##*/}" in
+maven-mvnd-*bin.*)
+  MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/
+  case "${PROCESSOR_ARCHITECTURE-}${PROCESSOR_ARCHITEW6432-}:$(uname -a)" in
+  *AMD64:CYGWIN* | *AMD64:MINGW*) distributionPlatform=windows-amd64 ;;
+  :Darwin*x86_64) distributionPlatform=darwin-amd64 ;;
+  :Darwin*arm64) distributionPlatform=darwin-aarch64 ;;
+  :Linux*x86_64*) distributionPlatform=linux-amd64 ;;
+  *)
+    echo "Cannot detect native platform for mvnd on $(uname)-$(uname -m), use pure java version" >&2
+    distributionPlatform=linux-amd64
+    ;;
+  esac
+  distributionUrl="${distributionUrl%-bin.*}-$distributionPlatform.zip"
+  ;;
+maven-mvnd-*) MVN_CMD=mvnd.sh _MVNW_REPO_PATTERN=/maven/mvnd/ ;;
+*) MVN_CMD="mvn${0##*/mvnw}" _MVNW_REPO_PATTERN=/org/apache/maven/ ;;
+esac
+
+# apply MVNW_REPOURL and calculate MAVEN_HOME
+# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>
+[ -z "${MVNW_REPOURL-}" ] || distributionUrl="$MVNW_REPOURL$_MVNW_REPO_PATTERN${distributionUrl#*"$_MVNW_REPO_PATTERN"}"
+distributionUrlName="${distributionUrl##*/}"
+distributionUrlNameMain="${distributionUrlName%.*}"
+distributionUrlNameMain="${distributionUrlNameMain%-bin}"
+MAVEN_USER_HOME="${MAVEN_USER_HOME:-${HOME}/.m2}"
+MAVEN_HOME="${MAVEN_USER_HOME}/wrapper/dists/${distributionUrlNameMain-}/$(hash_string "$distributionUrl")"
+
+exec_maven() {
+  unset MVNW_VERBOSE MVNW_USERNAME MVNW_PASSWORD MVNW_REPOURL || :
+  exec "$MAVEN_HOME/bin/$MVN_CMD" "$@" || die "cannot exec $MAVEN_HOME/bin/$MVN_CMD"
+}
+
+if [ -d "$MAVEN_HOME" ]; then
+  verbose "found existing MAVEN_HOME at $MAVEN_HOME"
+  exec_maven "$@"
+fi
+
+case "${distributionUrl-}" in
+*?-bin.zip | *?maven-mvnd-?*-?*.zip) ;;
+*) die "distributionUrl is not valid, must match *-bin.zip or maven-mvnd-*.zip, but found '${distributionUrl-}'" ;;
+esac
+
+# prepare tmp dir
+if TMP_DOWNLOAD_DIR="$(mktemp -d)" && [ -d "$TMP_DOWNLOAD_DIR" ]; then
+  clean() { rm -rf -- "$TMP_DOWNLOAD_DIR"; }
+  trap clean HUP INT TERM EXIT
+else
+  die "cannot create temp dir"
+fi
+
+mkdir -p -- "${MAVEN_HOME%/*}"
+
+# Download and Install Apache Maven
+verbose "Couldn't find MAVEN_HOME, downloading and installing it ..."
+verbose "Downloading from: $distributionUrl"
+verbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"
+
+# select .zip or .tar.gz
+if ! command -v unzip >/dev/null; then
+  distributionUrl="${distributionUrl%.zip}.tar.gz"
+  distributionUrlName="${distributionUrl##*/}"
+fi
+
+# verbose opt
+__MVNW_QUIET_WGET=--quiet __MVNW_QUIET_CURL=--silent __MVNW_QUIET_UNZIP=-q __MVNW_QUIET_TAR=''
+[ "${MVNW_VERBOSE-}" != true ] || __MVNW_QUIET_WGET='' __MVNW_QUIET_CURL='' __MVNW_QUIET_UNZIP='' __MVNW_QUIET_TAR=v
+
+# normalize http auth
+case "${MVNW_PASSWORD:+has-password}" in
+'') MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+has-password) [ -n "${MVNW_USERNAME-}" ] || MVNW_USERNAME='' MVNW_PASSWORD='' ;;
+esac
+
+if [ -z "${MVNW_USERNAME-}" ] && command -v wget >/dev/null; then
+  verbose "Found wget ... using wget"
+  wget ${__MVNW_QUIET_WGET:+"$__MVNW_QUIET_WGET"} "$distributionUrl" -O "$TMP_DOWNLOAD_DIR/$distributionUrlName" || die "wget: Failed to fetch $distributionUrl"
+elif [ -z "${MVNW_USERNAME-}" ] && command -v curl >/dev/null; then
+  verbose "Found curl ... using curl"
+  curl ${__MVNW_QUIET_CURL:+"$__MVNW_QUIET_CURL"} -f -L -o "$TMP_DOWNLOAD_DIR/$distributionUrlName" "$distributionUrl" || die "curl: Failed to fetch $distributionUrl"
+elif set_java_home; then
+  verbose "Falling back to use Java to download"
+  javaSource="$TMP_DOWNLOAD_DIR/Downloader.java"
+  targetZip="$TMP_DOWNLOAD_DIR/$distributionUrlName"
+  cat >"$javaSource" <<-END
+	public class Downloader extends java.net.Authenticator
+	{
+	  protected java.net.PasswordAuthentication getPasswordAuthentication()
+	  {
+	    return new java.net.PasswordAuthentication( System.getenv( "MVNW_USERNAME" ), System.getenv( "MVNW_PASSWORD" ).toCharArray() );
+	  }
+	  public static void main( String[] args ) throws Exception
+	  {
+	    setDefault( new Downloader() );
+	    java.nio.file.Files.copy( java.net.URI.create( args[0] ).toURL().openStream(), java.nio.file.Paths.get( args[1] ).toAbsolutePath().normalize() );
+	  }
+	}
+	END
+  # For Cygwin/MinGW, switch paths to Windows format before running javac and java
+  verbose " - Compiling Downloader.java ..."
+  "$(native_path "$JAVACCMD")" "$(native_path "$javaSource")" || die "Failed to compile Downloader.java"
+  verbose " - Running Downloader.java ..."
+  "$(native_path "$JAVACMD")" -cp "$(native_path "$TMP_DOWNLOAD_DIR")" Downloader "$distributionUrl" "$(native_path "$targetZip")"
+fi
+
+# If specified, validate the SHA-256 sum of the Maven distribution zip file
+if [ -n "${distributionSha256Sum-}" ]; then
+  distributionSha256Result=false
+  if [ "$MVN_CMD" = mvnd.sh ]; then
+    echo "Checksum validation is not supported for maven-mvnd." >&2
+    echo "Please disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties." >&2
+    exit 1
+  elif command -v sha256sum >/dev/null; then
+    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | sha256sum -c >/dev/null 2>&1; then
+      distributionSha256Result=true
+    fi
+  elif command -v shasum >/dev/null; then
+    if echo "$distributionSha256Sum  $TMP_DOWNLOAD_DIR/$distributionUrlName" | shasum -a 256 -c >/dev/null 2>&1; then
+      distributionSha256Result=true
+    fi
+  else
+    echo "Checksum validation was requested but neither 'sha256sum' or 'shasum' are available." >&2
+    echo "Please install either command, or disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties." >&2
+    exit 1
+  fi
+  if [ $distributionSha256Result = false ]; then
+    echo "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised." >&2
+    echo "If you updated your Maven version, you need to update the specified distributionSha256Sum property." >&2
+    exit 1
+  fi
+fi
+
+# unzip and move
+if command -v unzip >/dev/null; then
+  unzip ${__MVNW_QUIET_UNZIP:+"$__MVNW_QUIET_UNZIP"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -d "$TMP_DOWNLOAD_DIR" || die "failed to unzip"
+else
+  tar xzf${__MVNW_QUIET_TAR:+"$__MVNW_QUIET_TAR"} "$TMP_DOWNLOAD_DIR/$distributionUrlName" -C "$TMP_DOWNLOAD_DIR" || die "failed to untar"
+fi
+printf %s\\n "$distributionUrl" >"$TMP_DOWNLOAD_DIR/$distributionUrlNameMain/mvnw.url"
+mv -- "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain" "$MAVEN_HOME" || [ -d "$MAVEN_HOME" ] || die "fail to move MAVEN_HOME"
+
+clean || :
+exec_maven "$@"
+</file>
+
+<file path="mvnw.cmd">
+<# : batch portion
+@REM ----------------------------------------------------------------------------
+@REM Licensed to the Apache Software Foundation (ASF) under one
+@REM or more contributor license agreements.  See the NOTICE file
+@REM distributed with this work for additional information
+@REM regarding copyright ownership.  The ASF licenses this file
+@REM to you under the Apache License, Version 2.0 (the
+@REM "License"); you may not use this file except in compliance
+@REM with the License.  You may obtain a copy of the License at
+@REM
+@REM    http://www.apache.org/licenses/LICENSE-2.0
+@REM
+@REM Unless required by applicable law or agreed to in writing,
+@REM software distributed under the License is distributed on an
+@REM "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+@REM KIND, either express or implied.  See the License for the
+@REM specific language governing permissions and limitations
+@REM under the License.
+@REM ----------------------------------------------------------------------------
+
+@REM ----------------------------------------------------------------------------
+@REM Apache Maven Wrapper startup batch script, version 3.3.2
+@REM
+@REM Optional ENV vars
+@REM   MVNW_REPOURL - repo url base for downloading maven distribution
+@REM   MVNW_USERNAME/MVNW_PASSWORD - user and password for downloading maven
+@REM   MVNW_VERBOSE - true: enable verbose log; others: silence the output
+@REM ----------------------------------------------------------------------------
+
+@IF "%__MVNW_ARG0_NAME__%"=="" (SET __MVNW_ARG0_NAME__=%~nx0)
+@SET __MVNW_CMD__=
+@SET __MVNW_ERROR__=
+@SET __MVNW_PSMODULEP_SAVE=%PSModulePath%
+@SET PSModulePath=
+@FOR /F "usebackq tokens=1* delims==" %%A IN (`powershell -noprofile "& {$scriptDir='%~dp0'; $script='%__MVNW_ARG0_NAME__%'; icm -ScriptBlock ([Scriptblock]::Create((Get-Content -Raw '%~f0'))) -NoNewScope}"`) DO @(
+  IF "%%A"=="MVN_CMD" (set __MVNW_CMD__=%%B) ELSE IF "%%B"=="" (echo %%A) ELSE (echo %%A=%%B)
+)
+@SET PSModulePath=%__MVNW_PSMODULEP_SAVE%
+@SET __MVNW_PSMODULEP_SAVE=
+@SET __MVNW_ARG0_NAME__=
+@SET MVNW_USERNAME=
+@SET MVNW_PASSWORD=
+@IF NOT "%__MVNW_CMD__%"=="" (%__MVNW_CMD__% %*)
+@echo Cannot start maven from wrapper >&2 && exit /b 1
+@GOTO :EOF
+: end batch / begin powershell #>
+
+$ErrorActionPreference = "Stop"
+if ($env:MVNW_VERBOSE -eq "true") {
+  $VerbosePreference = "Continue"
+}
+
+# calculate distributionUrl, requires .mvn/wrapper/maven-wrapper.properties
+$distributionUrl = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionUrl
+if (!$distributionUrl) {
+  Write-Error "cannot read distributionUrl property in $scriptDir/.mvn/wrapper/maven-wrapper.properties"
+}
+
+switch -wildcard -casesensitive ( $($distributionUrl -replace '^.*/','') ) {
+  "maven-mvnd-*" {
+    $USE_MVND = $true
+    $distributionUrl = $distributionUrl -replace '-bin\.[^.]*$',"-windows-amd64.zip"
+    $MVN_CMD = "mvnd.cmd"
+    break
+  }
+  default {
+    $USE_MVND = $false
+    $MVN_CMD = $script -replace '^mvnw','mvn'
+    break
+  }
+}
+
+# apply MVNW_REPOURL and calculate MAVEN_HOME
+# maven home pattern: ~/.m2/wrapper/dists/{apache-maven-<version>,maven-mvnd-<version>-<platform>}/<hash>
+if ($env:MVNW_REPOURL) {
+  $MVNW_REPO_PATTERN = if ($USE_MVND) { "/org/apache/maven/" } else { "/maven/mvnd/" }
+  $distributionUrl = "$env:MVNW_REPOURL$MVNW_REPO_PATTERN$($distributionUrl -replace '^.*'+$MVNW_REPO_PATTERN,'')"
+}
+$distributionUrlName = $distributionUrl -replace '^.*/',''
+$distributionUrlNameMain = $distributionUrlName -replace '\.[^.]*$','' -replace '-bin$',''
+$MAVEN_HOME_PARENT = "$HOME/.m2/wrapper/dists/$distributionUrlNameMain"
+if ($env:MAVEN_USER_HOME) {
+  $MAVEN_HOME_PARENT = "$env:MAVEN_USER_HOME/wrapper/dists/$distributionUrlNameMain"
+}
+$MAVEN_HOME_NAME = ([System.Security.Cryptography.MD5]::Create().ComputeHash([byte[]][char[]]$distributionUrl) | ForEach-Object {$_.ToString("x2")}) -join ''
+$MAVEN_HOME = "$MAVEN_HOME_PARENT/$MAVEN_HOME_NAME"
+
+if (Test-Path -Path "$MAVEN_HOME" -PathType Container) {
+  Write-Verbose "found existing MAVEN_HOME at $MAVEN_HOME"
+  Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"
+  exit $?
+}
+
+if (! $distributionUrlNameMain -or ($distributionUrlName -eq $distributionUrlNameMain)) {
+  Write-Error "distributionUrl is not valid, must end with *-bin.zip, but found $distributionUrl"
+}
+
+# prepare tmp dir
+$TMP_DOWNLOAD_DIR_HOLDER = New-TemporaryFile
+$TMP_DOWNLOAD_DIR = New-Item -Itemtype Directory -Path "$TMP_DOWNLOAD_DIR_HOLDER.dir"
+$TMP_DOWNLOAD_DIR_HOLDER.Delete() | Out-Null
+trap {
+  if ($TMP_DOWNLOAD_DIR.Exists) {
+    try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }
+    catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }
+  }
+}
+
+New-Item -Itemtype Directory -Path "$MAVEN_HOME_PARENT" -Force | Out-Null
+
+# Download and Install Apache Maven
+Write-Verbose "Couldn't find MAVEN_HOME, downloading and installing it ..."
+Write-Verbose "Downloading from: $distributionUrl"
+Write-Verbose "Downloading to: $TMP_DOWNLOAD_DIR/$distributionUrlName"
+
+$webclient = New-Object System.Net.WebClient
+if ($env:MVNW_USERNAME -and $env:MVNW_PASSWORD) {
+  $webclient.Credentials = New-Object System.Net.NetworkCredential($env:MVNW_USERNAME, $env:MVNW_PASSWORD)
+}
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$webclient.DownloadFile($distributionUrl, "$TMP_DOWNLOAD_DIR/$distributionUrlName") | Out-Null
+
+# If specified, validate the SHA-256 sum of the Maven distribution zip file
+$distributionSha256Sum = (Get-Content -Raw "$scriptDir/.mvn/wrapper/maven-wrapper.properties" | ConvertFrom-StringData).distributionSha256Sum
+if ($distributionSha256Sum) {
+  if ($USE_MVND) {
+    Write-Error "Checksum validation is not supported for maven-mvnd. `nPlease disable validation by removing 'distributionSha256Sum' from your maven-wrapper.properties."
+  }
+  Import-Module $PSHOME\Modules\Microsoft.PowerShell.Utility -Function Get-FileHash
+  if ((Get-FileHash "$TMP_DOWNLOAD_DIR/$distributionUrlName" -Algorithm SHA256).Hash.ToLower() -ne $distributionSha256Sum) {
+    Write-Error "Error: Failed to validate Maven distribution SHA-256, your Maven distribution might be compromised. If you updated your Maven version, you need to update the specified distributionSha256Sum property."
+  }
+}
+
+# unzip and move
+Expand-Archive "$TMP_DOWNLOAD_DIR/$distributionUrlName" -DestinationPath "$TMP_DOWNLOAD_DIR" | Out-Null
+Rename-Item -Path "$TMP_DOWNLOAD_DIR/$distributionUrlNameMain" -NewName $MAVEN_HOME_NAME | Out-Null
+try {
+  Move-Item -Path "$TMP_DOWNLOAD_DIR/$MAVEN_HOME_NAME" -Destination $MAVEN_HOME_PARENT | Out-Null
+} catch {
+  if (! (Test-Path -Path "$MAVEN_HOME" -PathType Container)) {
+    Write-Error "fail to move MAVEN_HOME"
+  }
+} finally {
+  try { Remove-Item $TMP_DOWNLOAD_DIR -Recurse -Force | Out-Null }
+  catch { Write-Warning "Cannot remove $TMP_DOWNLOAD_DIR" }
+}
+
+Write-Output "MVN_CMD=$MAVEN_HOME/bin/$MVN_CMD"
+</file>
+
+<file path="pom.xml">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.3</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>esprit</groupId>
+    <artifactId>MicroProject</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>MicroProject</name>
+    <description>MicroProject</description>
+    <url/>
+    <licenses>
+        <license/>
+    </licenses>
+    <developers>
+        <developer/>
+    </developers>
+    <scm>
+        <connection/>
+        <developerConnection/>
+        <tag/>
+        <url/>
+    </scm>
+    <properties>
+        <java.version>17</java.version>
+        <lombok.version>1.18.30</lombok.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.0.33</version>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate6</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-mail</artifactId>
+        </dependency>
+
+        <!-- OpenPDF -->
+        <dependency>
+            <groupId>com.github.librepdf</groupId>
+            <artifactId>openpdf</artifactId>
+            <version>1.3.30</version> <!-- Check for the latest version -->
+        </dependency>
+
+        <!-- Optional: Thymeleaf for HTML Email Templates -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
+</file>
+
+<file path="src/main/java/esprit/microproject/config/JacksonConfig.java">
+package esprit.microproject.config;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.hibernate6.Hibernate6Module;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
+
+@Configuration
+public class JacksonConfig {
+
+    @Bean
+    public ObjectMapper objectMapper(Jackson2ObjectMapperBuilder builder) {
+        ObjectMapper mapper = builder.createXmlMapper(false).build();
+        Hibernate6Module hibernate6Module = new Hibernate6Module();
+        hibernate6Module.configure(Hibernate6Module.Feature.FORCE_LAZY_LOADING, false);
+        hibernate6Module.configure(Hibernate6Module.Feature.SERIALIZE_IDENTIFIER_FOR_LAZY_NOT_LOADED_OBJECTS, true);
+        mapper.registerModule(hibernate6Module);
+        mapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+        return mapper;
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Controllers/CartController.java">
+package esprit.microproject.Controllers;
+
+import esprit.microproject.Services.CartService;
+import esprit.microproject.Repositories.ProductRepository;
+import esprit.microproject.Repositories.UserRepository;
+import esprit.microproject.Entities.Product;
+import esprit.microproject.Entities.User;
+import esprit.microproject.Entities.Cart;
+import esprit.microproject.dto.AddToCartRequest;
+import esprit.microproject.dto.CartDto;
+import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/api/users/{username}/cart")
+@CrossOrigin(origins = "http://localhost:4200")
+public class CartController {
+
+    private static final Logger logger = LoggerFactory.getLogger(CartController.class);
+    private final CartService cartService;
+    private final ProductRepository productRepository;
+    private final UserRepository userRepository;
+
+    @Autowired
+    public CartController(CartService cartService, ProductRepository productRepository, UserRepository userRepository) {
+        this.cartService = cartService;
+        this.productRepository = productRepository;
+        this.userRepository = userRepository;
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getCart(@PathVariable String username) {
+        logger.info("GET cart request received for user: {}", username);
+        try {
+            CartDto cart = cartService.getCart(username);
+            return ResponseEntity.ok(cart);
+        } catch (EntityNotFoundException e) {
+            logger.error("User not found: {}", username);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found: " + username);
+        } catch (Exception e) {
+            logger.error("Error getting cart for user {}: {}", username, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error getting cart: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/items")
+    public ResponseEntity<?> addItem(@PathVariable String username, @RequestBody AddToCartRequest request) {
+        logger.info("=== Starting addItem request ===");
+        logger.info("Username: {}", username);
+        logger.info("ProductId: {}", request.getProductId());
+        logger.info("Quantity: {}", request.getQuantity());
+
+        try {
+            // Vérifier si l'utilisateur existe
+            boolean userExists = userRepository.existsByUsername(username);
+            logger.info("User exists: {}", userExists);
+            if (!userExists) {
+                logger.error("User not found: {}", username);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("User not found: " + username);
+            }
+
+            // Vérifier si le produit existe
+            Optional<Product> productOpt = productRepository.findById(request.getProductId());
+            logger.info("Product exists: {}", productOpt.isPresent());
+            if (productOpt.isEmpty()) {
+                logger.error("Product not found with ID: {}", request.getProductId());
+                return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                        .body("Product not found with ID: " + request.getProductId());
+            }
+
+            // Vérifier si la quantité est valide
+            if (request.getQuantity() == null || request.getQuantity() <= 0) {
+                logger.error("Invalid quantity: {}", request.getQuantity());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("Quantity must be greater than 0");
+            }
+
+            // Récupérer l'utilisateur et son panier
+            User user = userRepository.findByUsername(username).get();
+            logger.info("User ID: {}", user.getId());
+            Cart cart = user.getCart();
+            if (cart == null) {
+                logger.error("Cart is null for user: {}", username);
+                cart = new Cart(user);
+                user = userRepository.save(user);
+            }
+            logger.info("Cart ID: {}", cart.getId());
+
+            CartDto cartDto = cartService.addItem(username, request);
+            logger.info("Item added successfully to cart for user: {}", username);
+            return ResponseEntity.ok(cartDto);
+        } catch (EntityNotFoundException e) {
+            logger.error("Entity not found: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error adding item to cart: {}", e.getMessage());
+            e.printStackTrace(); // Pour avoir la stack trace complète dans les logs
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error adding item to cart: " + e.getMessage());
+        }
+    }
+
+    @PutMapping("/items/{productId}")
+    public ResponseEntity<?> updateItemQuantity(
+            @PathVariable String username,
+            @PathVariable Long productId,
+            @RequestParam int quantity) {
+        logger.info("PUT update quantity request received for user: {}, productId: {}, quantity: {}",
+                username, productId, quantity);
+        try {
+            CartDto cart = cartService.updateItemQuantity(username, productId, quantity);
+            return ResponseEntity.ok(cart);
+        } catch (EntityNotFoundException e) {
+            logger.error("Entity not found: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error updating quantity for user {}: {}", username, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error updating quantity: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/items/{productId}")
+    public ResponseEntity<?> removeItem(
+            @PathVariable String username,
+            @PathVariable Long productId) {
+        logger.info("DELETE item request received for user: {}, productId: {}", username, productId);
+        try {
+            CartDto cart = cartService.removeItem(username, productId);
+            return ResponseEntity.ok(cart);
+        } catch (EntityNotFoundException e) {
+            logger.error("Entity not found: {}", e.getMessage());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(e.getMessage());
+        } catch (Exception e) {
+            logger.error("Error removing item from cart for user {}: {}", username, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error removing item: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping
+    public ResponseEntity<?> clearCart(@PathVariable String username) {
+        logger.info("DELETE clear cart request received for user: {}", username);
+        try {
+            CartDto cart = cartService.clearCart(username);
+            return ResponseEntity.ok(cart);
+        } catch (EntityNotFoundException e) {
+            logger.error("User not found: {}", username);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body("User not found: " + username);
+        } catch (Exception e) {
+            logger.error("Error clearing cart for user {}: {}", username, e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error clearing cart: " + e.getMessage());
+        }
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Controllers/FavoriteController.java">
+package esprit.microproject.Controllers;
+
+import esprit.microproject.Entities.Product;
+import esprit.microproject.Services.UserService;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
+
+@CrossOrigin(origins = "http://localhost:4200")
+@RestController
+@RequestMapping("/api/users/{username}/favorites")
+public class FavoriteController {
+
+    private final UserService userService;
+
+    @Autowired
+    public FavoriteController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @GetMapping
+    public ResponseEntity<?> getUserFavorites(@PathVariable String username) {
+        try {
+            Set<Product> favorites = userService.getFavorites(username);
+            return ResponseEntity.ok(favorites);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error retrieving favorites: " + e.getMessage());
+        }
+    }
+
+    @PostMapping("/{productId}")
+    public ResponseEntity<?> addFavorite(@PathVariable String username, @PathVariable Long productId) {
+        try {
+            userService.addFavorite(username, productId);
+            return ResponseEntity.ok().body("Product " + productId + " added to favorites for " + username);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error adding favorite: " + e.getMessage());
+        }
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<?> removeFavorite(@PathVariable String username, @PathVariable Long productId) {
+        try {
+            userService.removeFavorite(username, productId);
+            return ResponseEntity.noContent().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Error removing favorite: " + e.getMessage());
+        }
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Controllers/OrderController.java">
+package esprit.microproject.Controllers;
+
+import esprit.microproject.Entities.Order;
+import esprit.microproject.Services.OrderService;
+import esprit.microproject.dto.PlaceOrderRequest;
+import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger; // Import Logger
+import org.slf4j.LoggerFactory; // Import LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException; // Good for REST exceptions
+
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:4200") // Allow requests from frontend
+@RestController
+@RequestMapping("/api/users/{username}/orders") // Base path for orders related to a user
+public class OrderController {
+
+    private static final Logger log = LoggerFactory.getLogger(OrderController.class); // Add Logger
+    private final OrderService orderService;
+
+    // The hardcoded username check has been REMOVED.
+    // IMPORTANT: This means NO security check is performed here.
+    // In a real application, add Spring Security to verify the
+    // logged-in user matches the {username} in the path or has admin rights.
+    // private static final String TEST_USERNAME = "testuser"; // <-- REMOVED/COMMENTED
+
+    @Autowired
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
+
+    // POST /api/users/{username}/orders -> Place a new order
+    @PostMapping
+    public ResponseEntity<?> placeOrder(@PathVariable String username, @RequestBody PlaceOrderRequest request) {
+        log.info("Received request to place order for user: {}", username);
+
+        // --- The hardcoded check against TEST_USERNAME has been removed ---
+
+        try {
+            // Now calls orderService.placeOrder directly with the username from the path
+            Order createdOrder = orderService.placeOrder(username, request);
+            log.info("Order successfully placed with ID: {} for user: {}", createdOrder.getId(), username);
+            // Return 201 Created with the created order details
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdOrder);
+
+        } catch (EntityNotFoundException e) {
+            // Product or User not found
+            log.warn("Order placement failed for user {}: {}", username, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e); // Return 404
+
+        } catch (IllegalArgumentException e) {
+            // e.g., Empty order items or other validation errors from service
+            log.warn("Invalid order request for user {}: {}", username, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, e.getMessage(), e); // Return 400
+
+        } catch (Exception e) {
+            // Catch other unexpected errors
+            log.error("Unexpected error placing order for user {}: {}", username, e.getMessage(), e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error placing order", e); // Return 500
+        }
+    }
+
+    // GET /api/users/{username}/orders -> Get all orders for a user
+    @GetMapping
+    public ResponseEntity<?> getOrders(@PathVariable String username) {
+        log.info("Received request to get orders for user: {}", username);
+
+        // --- The hardcoded check against TEST_USERNAME has been removed ---
+
+        try {
+            List<Order> orders = orderService.getOrdersForUser(username);
+            log.info("Retrieved {} orders for user: {}", orders.size(), username);
+            return ResponseEntity.ok(orders);
+
+        } catch (EntityNotFoundException e) {
+            // User not found by service
+            log.warn("Failed to get orders for user {}: {}", username, e.getMessage());
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e); // Return 404
+
+        } catch (Exception e) {
+            log.error("Unexpected error retrieving orders for user {}: {}", username, e.getMessage(), e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error retrieving orders", e); // Return 500
+        }
+    }
+
+    // GET /api/users/{username}/orders/{orderId} -> Get a specific order (Example Structure)
+    // You would need corresponding methods in OrderService and OrderRepository
+    /*
+    @GetMapping("/{orderId}")
+    public ResponseEntity<?> getOrderById(@PathVariable String username, @PathVariable Long orderId) {
+        log.info("Received request to get order ID {} for user: {}", orderId, username);
+        try {
+            // Example: Assume service method exists
+            // Order order = orderService.getOrderByIdForUser(username, orderId);
+            // return ResponseEntity.ok(order);
+            throw new UnsupportedOperationException("getOrderById endpoint not yet implemented");
+        } catch (EntityNotFoundException e) {
+             log.warn("Order ID {} not found for user {}: {}", orderId, username, e.getMessage());
+             throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage(), e);
+        } catch (Exception e) {
+             log.error("Error retrieving order ID {} for user {}: {}", orderId, username, e.getMessage(), e);
+             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error retrieving order", e);
+        }
+    }
+    */
+
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Controllers/ProductController.java">
+package esprit.microproject.Controllers;
+
+import esprit.microproject.Entities.Product;
+import esprit.microproject.Services.ProductService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*; // Import necessary annotations
+
+import java.util.Collections;
+import java.util.List;
+
+@CrossOrigin(origins = "http://localhost:4200") // Allow requests from Angular dev server
+@RestController // Combination of @Controller and @ResponseBody, marks this as a REST controller
+@RequestMapping("/api/products") // Base URL path for all methods in this controller
+public class ProductController {
+
+    private final ProductService productService;
+
+    @Autowired
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    // GET /api/products -> READ All Products
+    @GetMapping
+    public ResponseEntity<List<Product>> getAllProducts() {
+        List<Product> products = productService.getAllProducts();
+        return ResponseEntity.ok(products); // Return 200 OK with the list
+    }
+
+    // GET /api/products/{id} -> READ One Product by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+        return productService.getProductById(id)
+                .map(ResponseEntity::ok) // If found, wrap in 200 OK
+                .orElse(ResponseEntity.notFound().build()); // If not found, return 404 Not Found
+    }
+
+    // POST /api/products -> CREATE a new Product
+    @PostMapping
+    public ResponseEntity<?> createProduct(@RequestBody Product product) {
+        try {
+            Product createdProduct = productService.createProduct(product);
+            return ResponseEntity.status(HttpStatus.CREATED).body(createdProduct);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
+    }
+
+    // PUT /api/products/{id} -> UPDATE an existing Product
+    @PutMapping("/{id}")
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product productDetails) {
+        return productService.updateProduct(id, productDetails)
+                .map(ResponseEntity::ok) // If updated, return 200 OK with updated product
+                .orElse(ResponseEntity.notFound().build()); // If product not found, return 404
+    }
+
+    // DELETE /api/products/{id} -> DELETE a Product
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+        boolean deleted = productService.deleteProduct(id);
+        if (deleted) {
+            return ResponseEntity.noContent().build(); // Return 204 No Content on success
+        } else {
+            return ResponseEntity.notFound().build(); // Return 404 if product not found
+        }
+    }
+
+    // Route pour rechercher des produits par nom
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam(name = "name") String name) {
+        // Vérification si le paramètre est vide
+        if (name == null || name.isEmpty()) {
+            return ResponseEntity.badRequest().body(Collections.emptyList());
+        }
+
+        List<Product> products = productService.searchProductsByName(name);
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build(); // Si aucun produit n'est trouvé
+        }
+        return ResponseEntity.ok(products); // Retourner les produits trouvés
+    }
+
+    @GetMapping("/available")
+    public ResponseEntity<List<Product>> getAvailableProducts() {
+        List<Product> products = productService.getAllProducts();
+        if (products.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(products);
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Controllers/UserController.java">
+package esprit.microproject.Controllers;
+
+import esprit.microproject.Entities.User;
+import esprit.microproject.Services.UserService;
+import esprit.microproject.dto.UserCreationRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException; // For cleaner error handling
+
+import java.net.URI;
+import java.net.URISyntaxException;
+
+@RestController
+@RequestMapping("/api/users") // Base path for user-related operations
+@CrossOrigin(origins = "http://localhost:4200") // If needed for frontend
+public class UserController {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserController.class);
+    private final UserService userService;
+
+    @Autowired
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @PostMapping
+    public ResponseEntity<User> createUser(@RequestBody UserCreationRequest request) { // Use RequestBody
+        // Optional: Add @Valid annotation to request if using validation constraints in DTO
+        logger.info("Received request to create user: {}", request.getUsername());
+
+        if (request.getUsername() == null || request.getUsername().isBlank() ||
+                request.getEmail() == null || request.getEmail().isBlank()) {
+            logger.warn("User creation failed: Username or email is blank.");
+            // Consider using @Valid for better handling
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Username and email cannot be blank");
+        }
+
+        // Basic email format check (more robust validation is possible)
+        if (!request.getEmail().contains("@") || !request.getEmail().contains(".")) {
+            logger.warn("User creation failed for {}: Invalid email format.", request.getUsername());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid email format");
+        }
+
+
+        try {
+            User createdUser = userService.createUser(request);
+            logger.info("User created successfully: {} (ID: {})", createdUser.getUsername(), createdUser.getId());
+
+            // Return 201 Created status with the created user object and Location header
+            URI location = new URI("/api/users/" + createdUser.getId()); // Adjust path if needed
+            return ResponseEntity.created(location).body(createdUser);
+
+        } catch (IllegalArgumentException e) { // Catch specific exceptions from service
+            logger.warn("User creation failed for {}: {}", request.getUsername(), e.getMessage());
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage()); // 409 Conflict
+        } catch (URISyntaxException e) {
+            logger.error("Error creating location URI for new user {}", request.getUsername(), e);
+            // Should not happen with static path, but handle anyway
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        } catch (Exception e) {
+            logger.error("Unexpected error creating user {}: {}", request.getUsername(), e.getMessage(), e);
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "An unexpected error occurred");
+        }
+    }
+
+    // Add other endpoints later (GET /api/users/{id}, GET /api/users, etc.)
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/dto/AddItemRequest.java">
+package esprit.microproject.dto;
+// Pas de Lombok, getters/setters manuels ou records (Java 14+)
+public class AddItemRequest {
+    private Long productId;
+    private Integer quantity = 1; // Quantité par défaut
+
+    public AddItemRequest() {} // Constructeur par défaut
+
+    // Getters et Setters
+    public Long getProductId() { return productId; }
+    public void setProductId(Long productId) { this.productId = productId; }
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/dto/AddToCartRequest.java">
+package esprit.microproject.dto;
+
+public class AddToCartRequest {
+    private Long productId;
+    private Integer quantity;
+
+    // Getters and Setters
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/dto/CartDto.java">
+package esprit.microproject.dto;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+public class CartDto {
+    private Long id;
+    private List<CartItemDto> items;
+    private BigDecimal totalAmount;
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public List<CartItemDto> getItems() {
+        return items;
+    }
+
+    public void setItems(List<CartItemDto> items) {
+        this.items = items;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/dto/CartItemDto.java">
+package esprit.microproject.dto;
+
+import java.math.BigDecimal;
+
+public class CartItemDto {
+    private Long id;
+    private Long productId;
+    private String productName;
+    private Integer quantity;
+    private BigDecimal price;
+    private BigDecimal subtotal;
+
+    public CartItemDto() {
+    }
+
+    public CartItemDto(Long productId, Integer quantity) {
+        this.productId = productId;
+        this.quantity = quantity;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public BigDecimal getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(BigDecimal subtotal) {
+        this.subtotal = subtotal;
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/dto/CartItemResponseDto.java">
+package esprit.microproject.dto;
+import java.math.BigDecimal;
+// Pas de Lombok
+public class CartItemResponseDto {
+    private Long cartItemId; // L'ID de l'objet CartItem lui-même
+    private Long productId;
+    private String productName;
+    private String productImageUrl;
+    private BigDecimal productPrice; // Prix *unitaire* actuel du produit
+    private Integer quantity;
+    private BigDecimal lineTotal; // Prix unitaire * quantité
+
+    public CartItemResponseDto() {}
+
+    // Getters et Setters pour tous les champs...
+    public Long getCartItemId() { return cartItemId; }
+    public void setCartItemId(Long cartItemId) { this.cartItemId = cartItemId; }
+    public Long getProductId() { return productId; }
+    public void setProductId(Long productId) { this.productId = productId; }
+    public String getProductName() { return productName; }
+    public void setProductName(String productName) { this.productName = productName; }
+    public String getProductImageUrl() { return productImageUrl; }
+    public void setProductImageUrl(String productImageUrl) { this.productImageUrl = productImageUrl; }
+    public BigDecimal getProductPrice() { return productPrice; }
+    public void setProductPrice(BigDecimal productPrice) { this.productPrice = productPrice; }
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+    public BigDecimal getLineTotal() { return lineTotal; }
+    public void setLineTotal(BigDecimal lineTotal) { this.lineTotal = lineTotal; }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/dto/CartResponseDto.java">
+package esprit.microproject.dto;
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.ArrayList; // Import ArrayList
+
+// Pas de Lombok
+public class CartResponseDto {
+    private Long cartId;
+    private String username;
+    private List<CartItemResponseDto> items = new ArrayList<>(); // Initialiser
+    private Integer totalItemsCount; // Somme des quantités
+    private BigDecimal subtotal; // Somme des lineTotal
+
+    public CartResponseDto() {}
+
+    // Getters et Setters pour tous les champs...
+    public Long getCartId() { return cartId; }
+    public void setCartId(Long cartId) { this.cartId = cartId; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    public List<CartItemResponseDto> getItems() { return items; }
+    public void setItems(List<CartItemResponseDto> items) { this.items = items != null ? items : new ArrayList<>(); }
+    public Integer getTotalItemsCount() { return totalItemsCount; }
+    public void setTotalItemsCount(Integer totalItemsCount) { this.totalItemsCount = totalItemsCount; }
+    public BigDecimal getSubtotal() { return subtotal; }
+    public void setSubtotal(BigDecimal subtotal) { this.subtotal = subtotal; }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/dto/PlaceOrderRequest.java">
+package esprit.microproject.dto;
+
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.util.List;
+
+@Data
+@NoArgsConstructor
+public class PlaceOrderRequest {
+    private List<CartItemDto> items;
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/dto/UpdateQuantityRequest.java">
+package esprit.microproject.dto;
+// Pas de Lombok
+public class UpdateQuantityRequest {
+    private Integer quantity;
+
+    public UpdateQuantityRequest() {}
+
+    public Integer getQuantity() { return quantity; }
+    public void setQuantity(Integer quantity) { this.quantity = quantity; }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/dto/UserCreationRequest.java">
+package esprit.microproject.dto;
+
+// You can add validation annotations later if needed
+// import jakarta.validation.constraints.Email;
+// import jakarta.validation.constraints.NotBlank;
+
+public class UserCreationRequest {
+
+    // @NotBlank // Example validation
+    private String username;
+
+    // @NotBlank // Example validation
+    // @Email    // Example validation
+    private String email;
+
+    // Getters and Setters
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Entities/Cart.java">
+package esprit.microproject.Entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
+import org.hibernate.annotations.UpdateTimestamp;
+
+@Entity
+@Table(name = "carts")
+public class Cart {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // Côté propriétaire de la relation OneToOne avec User
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    private User user;
+
+    // Collection d'items DANS ce panier. Cart est le propriétaire de la relation
+    // avec CartItem
+    // CascadeType.ALL: Opérations sur Cart (save, delete) propagent à CartItem
+    // orphanRemoval=true: Retirer un CartItem de ce Set le supprime de la BDD lors
+    // du save/flush de Cart
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CartItem> items = new HashSet<>(); // Initialisation
+
+    @UpdateTimestamp // Se met à jour à chaque modification de l'entité Cart
+    private LocalDateTime lastUpdated;
+
+    // Constructeur JPA requis
+    public Cart() {
+    }
+
+    // Constructeur utile
+    public Cart(User user) {
+        this.user = user;
+    }
+
+    // --- Getters & Setters Manuels ---
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<CartItem> getItems() {
+        return items;
+    }
+
+    public void setItems(Set<CartItem> items) {
+        this.items = items;
+    }
+
+    public LocalDateTime getLastUpdated() {
+        return lastUpdated;
+    }
+
+    public void setLastUpdated(LocalDateTime lastUpdated) {
+        this.lastUpdated = lastUpdated;
+    }
+
+    // --- Logique métier DANS l'entité (alternative à tout mettre dans le service)
+    // ---
+
+    // Méthode pour ajouter ou mettre à jour un item
+    public void addItem(CartItem item) {
+        items.add(item);
+        item.setCart(this);
+    }
+
+    // Méthode pour supprimer un item basé sur l'ID du produit
+    public void removeItem(CartItem item) {
+        items.remove(item);
+        item.setCart(null);
+    }
+
+    // Méthode pour mettre à jour la quantité (ou supprimer si <= 0)
+    public void updateItemQuantity(Long productId, int quantity) {
+        Optional<CartItem> itemOpt = this.items.stream()
+                .filter(item -> item.getProduct() != null && item.getProduct().getId().equals(productId))
+                .findFirst();
+
+        if (itemOpt.isPresent()) {
+            if (quantity > 0) {
+                itemOpt.get().setQuantity(quantity);
+            } else {
+                // Si quantité <= 0, on retire l'item
+                this.items.remove(itemOpt.get());
+            }
+        }
+        // Si l'item n'existe pas pour ce produit, on ne fait rien
+    }
+
+    public void clear() {
+        items.clear();
+    }
+
+    // --- equals, hashCode, toString (Manuels, SANS les collections/relations
+    // complexes) ---
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass()
+                && !o.getClass().getName().startsWith(getClass().getName() + "$$HibernateProxy")) {
+            return false;
+        }
+        Cart cart = (Cart) o;
+        return id != null && Objects.equals(id, cart.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? Objects.hash(id) : getClass().hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return "Cart{" +
+                "id=" + id +
+                ", items=" + items +
+                '}';
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Entities/CartItem.java">
+package esprit.microproject.Entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import java.math.BigDecimal; // Importer BigDecimal
+import java.util.Objects;
+
+@Entity
+@Table(name = "cart_items")
+public class CartItem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    // Côté propriétaire de la relation ManyToOne avec Cart
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cart_id", nullable = false)
+    @JsonIgnore // Important pour éviter boucle Cart -> CartItem -> Cart
+    private Cart cart;
+
+    // Relation vers le produit. EAGER est souvent utile ici.
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
+
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
+
+    // Constructeur JPA requis
+    public CartItem() {
+    }
+
+    // Constructeur utile
+    public CartItem(Cart cart, Product product, Integer quantity) {
+        this.cart = cart;
+        this.product = product;
+        this.quantity = quantity;
+        this.price = product.getPrice();
+    }
+
+    // --- Getters & Setters Manuels ---
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    // Helper pour obtenir le total de la ligne (calculé)
+    public BigDecimal getSubtotal() {
+        return price.multiply(BigDecimal.valueOf(quantity));
+    }
+
+    // --- equals, hashCode, toString (Manuels, SANS les relations complexes) ---
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass()
+                && !o.getClass().getName().startsWith(getClass().getName() + "$$HibernateProxy")) {
+            return false;
+        }
+        CartItem cartItem = (CartItem) o;
+        // Compare basé sur l'ID si non null, ou sur panier+produit si ID est null
+        if (id != null) {
+            return Objects.equals(id, cartItem.id);
+        } else {
+            // Comparaison pour les items non persistés (potentiellement avant ajout au Set)
+            return Objects.equals(cart != null ? cart.getId() : null,
+                    cartItem.cart != null ? cartItem.cart.getId() : null) &&
+                    Objects.equals(product != null ? product.getId() : null,
+                            cartItem.product != null ? cartItem.product.getId() : null);
+        }
+    }
+
+    @Override
+    public int hashCode() {
+        // Basé sur l'ID si disponible, sinon sur panier+produit pour cohérence avec
+        // equals
+        if (id != null) {
+            return Objects.hash(id);
+        } else {
+            return Objects.hash(cart != null ? cart.getId() : null, product != null ? product.getId() : null);
+        }
+    }
+
+    @Override
+    public String toString() {
+        return "CartItem{" +
+                "id=" + id +
+                ", product=" + (product != null ? product.getName() : "null") +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Entities/Order.java">
+package esprit.microproject.Entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor; // Gardez l'annotation Lombok si vous le souhaitez
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "orders")
+@Data // Pour générer getters, setters, etc.
+// @NoArgsConstructor // Vous pouvez garder ou enlever celle de Lombok
+public class Order {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    @ToString.Exclude
+    @EqualsAndHashCode.Exclude
+    private User user;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<OrderItem> orderItems = new HashSet<>();
+
+    @CreationTimestamp
+    @Column(nullable = false, updatable = false)
+    private LocalDateTime orderDate;
+
+    @Column(nullable = false, precision = 12, scale = 2)
+    private BigDecimal totalAmount;
+
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20)
+    private OrderStatus status = OrderStatus.PENDING;
+
+    // *** CONSTRUCTEUR SANS ARGUMENT EXPLICITE (POUR JPA) ***
+    public Order() {
+    }
+    // *** FIN AJOUT ***
+
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Set<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(Set<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+
+    public LocalDateTime getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDateTime orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public BigDecimal getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(BigDecimal totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    // Helper method
+    public void addOrderItem(OrderItem item) {
+        orderItems.add(item);
+        item.setOrder(this);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", user=" + (user != null ? user.getUsername() : "null") +
+                ", orderDate=" + orderDate +
+                ", totalAmount=" + totalAmount +
+                ", status=" + status +
+                '}';
+    }
+
+    // Enum
+    public enum OrderStatus {
+        PENDING, PROCESSING, SHIPPED, DELIVERED, CANCELLED
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Entities/OrderItem.java">
+package esprit.microproject.Entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
+import java.math.BigDecimal;
+
+@Entity
+@Table(name = "order_items")
+public class OrderItem {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "order_id", nullable = false)
+    @JsonIgnore
+    private Order order;
+
+    @ManyToOne(fetch = FetchType.EAGER, optional = false)
+    @JoinColumn(name = "product_id", nullable = false)
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private Product product;
+
+    @Column(nullable = false)
+    private Integer quantity;
+
+    @Column(nullable = false, precision = 10, scale = 2)
+    private BigDecimal price;
+
+    public OrderItem() {
+    }
+
+    public OrderItem(Order order, Product product, Integer quantity, BigDecimal price) {
+        this.order = order;
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+    }
+
+    // Getters and setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return "OrderItem{" +
+                "id=" + id +
+                ", product=" + (product != null ? product.getName() : "null") +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Entities/Product.java">
+package esprit.microproject.Entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*; // Make sure imports are from jakarta.persistence
+
+import java.math.BigDecimal; // Use BigDecimal for currency
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity // Marks this class as a JPA entity (a table in the DB)
+@Table(name = "products") // Specifies the table name (optional, defaults to class name)
+public class Product {
+
+    @Id // Marks this field as the primary key
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto-generates the ID value
+    private Long id; // Use Long for IDs usually
+
+    @Column(nullable = false) // Database column cannot be null
+    private String name;
+
+    @Lob // Specifies that this should be mapped as a Large Object (for longer text)
+    @Column(nullable = false, columnDefinition = "TEXT") // Use TEXT type for longer descriptions
+    private String description;
+
+    @Column(nullable = false, precision = 10, scale = 2) // Precision for currency
+    private BigDecimal price; // Use BigDecimal for precise monetary values
+
+    @Column(nullable = false)
+    private String imageUrl;
+
+    @Column(nullable = false)
+    private String category; // Keep as String for 'tools' or 'paintings'
+    // Could also use an Enum later for more type safety
+    // --- Inverse Relationship to Users who favorited this product ---
+    @ManyToMany(mappedBy = "favoriteProducts", fetch = FetchType.LAZY)
+    @JsonIgnore // VERY IMPORTANT: Prevents infinite loop during JSON serialization
+    private Set<User> favoritedBy = new HashSet<>();
+
+    // Default constructor
+    public Product() {
+        this.favoritedBy = new HashSet<>();
+    }
+
+    // Helper methods for managing the bidirectional relationship
+    public void addFavoritedBy(User user) {
+        this.favoritedBy.add(user);
+    }
+
+    public void removeFavoritedBy(User user) {
+        this.favoritedBy.remove(user);
+    }
+
+    // Getters and Setters
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public Set<User> getFavoritedBy() {
+        return favoritedBy;
+    }
+
+    public void setFavoritedBy(Set<User> favoritedBy) {
+        this.favoritedBy = favoritedBy;
+    }
+
+    // Override toString to avoid circular references
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", category='" + category + '\'' +
+                '}';
+    }
+
+    // Override equals and hashCode to avoid circular references
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Product product = (Product) o;
+        return id != null && id.equals(product.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? id.hashCode() : 0;
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Entities/User.java">
+package esprit.microproject.Entities;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
+@Entity
+@Table(name = "users")
+@JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+public class User {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    // *** ADD THIS EMAIL FIELD ***
+    @Column(nullable = true) // Or false if email is mandatory
+    private String email;
+    // **************************
+
+    // --- Relation vers les produits favoris ---
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_favorite_products", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    private Set<Product> favoriteProducts = new HashSet<>();
+
+    // --- Relation vers les commandes (Orders) ---
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @JsonIgnore
+    private Set<Order> orders = new HashSet<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Cart cart;
+
+    public User() {
+        // Initialize cart in constructor or getter
+        this.cart = new Cart(this);
+    }
+
+    public User(String username) {
+        this.username = username;
+        this.cart = new Cart(this);
+    }
+
+    // *** ADD GETTER AND SETTER FOR EMAIL ***
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+    // ***************************************
+
+    // --- Méthodes Helper pour les favoris ---
+    public void addFavorite(Product product) {
+        if (product != null) {
+            this.favoriteProducts.add(product);
+        }
+    }
+
+    public void removeFavorite(Product product) {
+        if (product != null) {
+            this.favoriteProducts.remove(product);
+        }
+    }
+
+    // --- Getters et Setters ---
+    public Long getId() { return id; }
+    public void setId(Long id) { this.id = id; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
+    public Set<Product> getFavoriteProducts() { return favoriteProducts; }
+    public void setFavoriteProducts(Set<Product> favoriteProducts) { this.favoriteProducts = favoriteProducts != null ? favoriteProducts : new HashSet<>(); }
+    public Set<Order> getOrders() { return orders; }
+    public void setOrders(Set<Order> orders) { this.orders = orders != null ? orders : new HashSet<>(); }
+    public Cart getCart() {
+        // Ensure cart is initialized if accessed before constructor in some JPA scenarios
+        if (cart == null) {
+            cart = new Cart(this);
+        }
+        return cart;
+    }
+    public void setCart(Cart cart) { this.cart = cart; }
+
+    // --- toString, equals, hashCode ---
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", username='" + username + '\'' + ", email='" + email + '\'' + '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass() && !o.getClass().getName().startsWith(getClass().getName() + "$$HibernateProxy")) {
+            return false;
+        }
+        User user = (User) o;
+        return id != null && Objects.equals(id, user.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return id != null ? Objects.hash(id) : getClass().hashCode();
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/MicroProjectApplication.java">
+package esprit.microproject;
+
+import esprit.microproject.Entities.Product;
+import esprit.microproject.Entities.User;
+import esprit.microproject.Repositories.ProductRepository;
+import esprit.microproject.Repositories.UserRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableAsync;
+
+@SpringBootApplication
+@EnableAsync
+public class MicroProjectApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MicroProjectApplication.class, args);
+    }
+
+    @Bean
+    public CommandLineRunner initData(UserRepository userRepository, ProductRepository productRepository) {
+        return args -> {
+            // Create test user if it doesn't exist
+            if (userRepository.findByUsername("testuser").isEmpty()) {
+                User testUser = new User("testuser");
+                userRepository.save(testUser);
+                System.out.println("Test user created successfully");
+            }
+
+            // Print existing products from your database
+            System.out.println("\n=== Products in Your Database ===");
+            productRepository.findAll().forEach(product -> {
+                System.out.println("\nProduct Details:");
+                System.out.println("ID: " + product.getId());
+                System.out.println("Name: " + product.getName());
+                System.out.println("Category: " + product.getCategory());
+                System.out.println("Price: " + product.getPrice());
+                System.out.println("Description: " + product.getDescription());
+                System.out.println("Image URL: " + product.getImageUrl());
+            });
+            System.out.println("\n=== End of Products List ===\n");
+        };
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Repositories/CartItemRepository.java">
+package esprit.microproject.Repositories;
+import esprit.microproject.Entities.CartItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CartItemRepository extends JpaRepository<CartItem, Long> {
+    // Utile pour trouver un item spécifique pour mise à jour/suppression directe si nécessaire
+    // Optional<CartItem> findByIdAndCartUserUsername(Long cartItemId, String username);
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Repositories/CartRepository.java">
+package esprit.microproject.Repositories;
+import esprit.microproject.Entities.Cart;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.util.Optional;
+
+@Repository
+public interface CartRepository extends JpaRepository<Cart, Long> {
+    Optional<Cart> findByUserUsername(String username);
+    Optional<Cart> findByUserId(Long userId);
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Repositories/OrderItemRepository.java">
+package esprit.microproject.Repositories;
+
+import esprit.microproject.Entities.OrderItem;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface OrderItemRepository extends JpaRepository<OrderItem, Long> {
+    // Basic CRUD methods are sufficient for now
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Repositories/OrderRepository.java">
+package esprit.microproject.Repositories;
+
+import esprit.microproject.Entities.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+
+@Repository
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    // You might add methods later, e.g., find by user
+    List<Order> findByUserUsername(String username);
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Repositories/ProductRepository.java">
+package esprit.microproject.Repositories;
+
+import esprit.microproject.Entities.Product;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
+
+@Repository // Marks this as a Spring Data repository
+public interface ProductRepository extends JpaRepository<Product, Long> {
+    Optional<Product> findByName(String name);
+    List<Product> findByNameContainingIgnoreCase(String name);
+    // JpaRepository<EntityType, IdType>
+
+    // Spring Data JPA provides implementations for standard methods like:
+    // - save(Product entity)        -> Creates or updates a product
+    // - findById(Long id)           -> Finds a product by its ID
+    // - findAll()                   -> Finds all products
+    // - deleteById(Long id)         -> Deletes a product by its ID
+    // - count()
+    // - existsById(Long id)
+    // ... and more
+
+    // You can add custom query methods here if needed later
+    // Example: List<Product> findByCategory(String category);
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Repositories/UserRepository.java">
+package esprit.microproject.Repositories;
+
+import esprit.microproject.Entities.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    // Method to find a user by their username
+    Optional<User> findByUsername(String username);
+
+    // Method to check if a user exists by their username
+    boolean existsByUsername(String username);
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Services/CartService.java">
+package esprit.microproject.Services;
+
+import esprit.microproject.Entities.*;
+import esprit.microproject.Repositories.*;
+import esprit.microproject.dto.*;
+import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+public class CartService {
+
+    private final CartRepository cartRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
+
+    @Autowired
+    public CartService(CartRepository cartRepository, UserRepository userRepository,
+            ProductRepository productRepository) {
+        this.cartRepository = cartRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+    }
+
+    @Transactional(readOnly = true)
+    public CartDto getCart(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+
+        Cart cart = user.getCart();
+        return convertToDto(cart);
+    }
+
+    @Transactional
+    public CartDto addItem(String username, AddToCartRequest request) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+
+        Product product = productRepository.findById(request.getProductId())
+                .orElseThrow(() -> new EntityNotFoundException("Product not found: " + request.getProductId()));
+
+        Cart cart = user.getCart();
+
+        // Check if item already exists
+        Optional<CartItem> existingItem = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(product.getId()))
+                .findFirst();
+
+        if (existingItem.isPresent()) {
+            // Update quantity
+            CartItem item = existingItem.get();
+            item.setQuantity(item.getQuantity() + request.getQuantity());
+        } else {
+            // Create new item
+            CartItem newItem = new CartItem(cart, product, request.getQuantity());
+            cart.addItem(newItem);
+        }
+
+        cart = cartRepository.save(cart);
+        return convertToDto(cart);
+    }
+
+    @Transactional
+    public CartDto updateItemQuantity(String username, Long productId, int quantity) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+
+        Cart cart = user.getCart();
+        cart.updateItemQuantity(productId, quantity);
+
+        cart = cartRepository.save(cart);
+        return convertToDto(cart);
+    }
+
+    @Transactional
+    public CartDto removeItem(String username, Long productId) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+
+        Cart cart = user.getCart();
+
+        // Find and remove the item
+        Optional<CartItem> itemToRemove = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst();
+
+        if (itemToRemove.isPresent()) {
+            cart.removeItem(itemToRemove.get());
+        }
+
+        cart = cartRepository.save(cart);
+        return convertToDto(cart);
+    }
+
+    @Transactional
+    public CartDto clearCart(String username) {
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> new EntityNotFoundException("User not found: " + username));
+
+        Cart cart = user.getCart();
+        cart.clear();
+
+        cart = cartRepository.save(cart);
+        return convertToDto(cart);
+    }
+
+    private CartDto convertToDto(Cart cart) {
+        CartDto dto = new CartDto();
+        dto.setId(cart.getId());
+
+        List<CartItemDto> items = cart.getItems().stream()
+                .map(this::convertToItemDto)
+                .collect(Collectors.toList());
+        dto.setItems(items);
+
+        BigDecimal total = cart.getItems().stream()
+                .map(CartItem::getSubtotal)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        dto.setTotalAmount(total);
+
+        return dto;
+    }
+
+    private CartItemDto convertToItemDto(CartItem item) {
+        CartItemDto dto = new CartItemDto();
+        dto.setId(item.getId());
+        dto.setProductId(item.getProduct().getId());
+        dto.setProductName(item.getProduct().getName());
+        dto.setQuantity(item.getQuantity());
+        dto.setPrice(item.getPrice());
+        dto.setSubtotal(item.getSubtotal());
+        return dto;
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Services/EmailService.java">
+package esprit.microproject.Services;
+
+// ... (other imports: Order, MessagingException, MimeMessage, Logger, Autowired, Value, ByteArrayResource, MailException, JavaMailSender, MimeMessageHelper, Async, Service, Context, SpringTemplateEngine)
+import esprit.microproject.Entities.Order;
+import esprit.microproject.Entities.User; // Import User
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.mail.MailException;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring6.SpringTemplateEngine;
+
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+
+@Service
+public class EmailService {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
+
+    @Autowired
+    private JavaMailSender mailSender;
+    @Autowired
+    private SpringTemplateEngine templateEngine;
+    @Autowired
+    private PdfService pdfService;
+
+    @Value("${spring.mail.properties.mail.from:noreply@example.com}")
+    private String fromAddress;
+
+    @Async
+    public void sendOrderConfirmationEmail(Order order) {
+        User user = order.getUser(); // Get the user from the order
+
+        // **** IMPORTANT: Check for user and email ****
+        if (user == null || user.getEmail() == null || user.getEmail().isBlank()) {
+            logger.error("Cannot send email: User or user email is missing/blank for Order ID {}", order.getId());
+            // Optionally, notify an admin or log differently
+            return; // Stop processing
+        }
+        // *********************************************
+
+        String recipientEmail = user.getEmail(); // Use the actual user's email
+        String subject = "Your Order #" + order.getId() + " Confirmation";
+
+        try {
+            byte[] pdfBytes = pdfService.generateInvoicePdf(order);
+            if (pdfBytes == null) {
+                logger.error("Skipping email for Order ID {}: PDF generation failed.", order.getId());
+                return;
+            }
+
+            Map<String, Object> templateModel = new HashMap<>();
+            templateModel.put("order", order);
+            templateModel.put("username", user.getUsername()); // Pass username to template
+
+            Context thymeleafContext = new Context();
+            thymeleafContext.setVariables(templateModel);
+            String htmlBody = templateEngine.process("email/order-confirmation", thymeleafContext);
+
+            MimeMessage mimeMessage = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(mimeMessage,
+                    MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                    StandardCharsets.UTF_8.name());
+
+            helper.setTo(recipientEmail);
+            helper.setSubject(subject);
+            helper.setFrom(fromAddress);
+            helper.setText(htmlBody, true);
+            helper.addAttachment("Invoice-" + order.getId() + ".pdf", new ByteArrayResource(pdfBytes));
+
+            mailSender.send(mimeMessage);
+            logger.info("Order confirmation email sent successfully to {} for Order ID {}", recipientEmail, order.getId());
+
+        } catch (MailException | MessagingException e) {
+            logger.error("Failed to send order confirmation email for Order ID {}: {}", order.getId(), e.getMessage());
+        } catch (Exception e) {
+            logger.error("Unexpected error during email/PDF processing for Order ID {}: {}", order.getId(), e.getMessage(), e);
+        }
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Services/OrderService.java">
+package esprit.microproject.Services;
+
+import esprit.microproject.Entities.*;
+import esprit.microproject.Repositories.*;
+import esprit.microproject.dto.*;
+import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;                       // Import Logger
+import org.slf4j.LoggerFactory;              // Import LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@Service
+public class OrderService {
+
+    private static final Logger logger = LoggerFactory.getLogger(OrderService.class); // Add logger
+
+    private final OrderRepository orderRepository;
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
+    private final EmailService emailService; // <<< Inject EmailService
+
+    @Autowired
+    public OrderService(OrderRepository orderRepository,
+                        UserRepository userRepository,
+                        ProductRepository productRepository,
+                        EmailService emailService /* <<< Add EmailService to constructor */ ) {
+        this.orderRepository = orderRepository;
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+        this.emailService = emailService; // <<< Assign injected service
+    }
+
+    @Transactional // Ensure all operations happen in one transaction
+    public Order placeOrder(String username, PlaceOrderRequest request) {
+        logger.info("Placing order for user: {}", username); // Add logging
+
+        // 1. Find the user
+        User user = userRepository.findByUsername(username)
+                .orElseThrow(() -> {
+                    logger.error("User not found during order placement: {}", username);
+                    return new EntityNotFoundException("User not found: " + username);
+                });
+        logger.debug("User found: {}", user.getId());
+
+        // 2. Create a new Order entity
+        Order order = new Order();
+        order.setUser(user);
+        order.setStatus(Order.OrderStatus.PENDING);
+
+        BigDecimal totalAmount = BigDecimal.ZERO;
+
+        // 3. Process each item in the request
+        if (request.getItems() == null || request.getItems().isEmpty()) {
+            logger.warn("Order request for user {} is empty.", username);
+            throw new IllegalArgumentException("Order must contain at least one item.");
+        }
+        logger.debug("Processing {} items for order", request.getItems().size());
+
+        for (CartItemDto itemDto : request.getItems()) {
+            if (itemDto.getProductId() == null) {
+                logger.warn("Skipping item with null productId in order for user {}", username);
+                continue; // Or throw exception
+            }
+            // 3a. Find the product
+            Product product = productRepository.findById(itemDto.getProductId())
+                    .orElseThrow(() -> {
+                        logger.error("Product not found during order placement: ID {}", itemDto.getProductId());
+                        return new EntityNotFoundException("Product not found: ID " + itemDto.getProductId());
+                    });
+            logger.trace("Found product {} for order item", product.getId());
+
+            // 3b. TODO: Implement stock check here if needed
+
+            // 3c. Create OrderItem
+            int quantity = itemDto.getQuantity() != null && itemDto.getQuantity() > 0 ? itemDto.getQuantity() : 1;
+            BigDecimal itemPrice = product.getPrice(); // Price at the time of order
+            OrderItem orderItem = new OrderItem(order, product, quantity, itemPrice);
+            logger.trace("Created order item: ProductId={}, Qty={}, Price={}", product.getId(), quantity, itemPrice);
+
+            // 3d. Add item to order (using helper method)
+            order.addOrderItem(orderItem);
+
+            // 3e. Update total amount
+            totalAmount = totalAmount.add(itemPrice.multiply(BigDecimal.valueOf(quantity)));
+
+            // 3f. TODO: Decrement stock here if needed
+        }
+
+        // 4. Set final total amount
+        order.setTotalAmount(totalAmount);
+        logger.debug("Calculated total amount: {}", totalAmount);
+
+        // 5. Save the Order (OrderItems will be saved due to CascadeType.ALL)
+        Order savedOrder = orderRepository.save(order);
+        logger.info("Order saved successfully with ID: {} for user: {}", savedOrder.getId(), username);
+
+
+        // 6. <<< SEND CONFIRMATION EMAIL (Asynchronously) >>>
+        try {
+            logger.debug("Attempting to send order confirmation email for Order ID: {}", savedOrder.getId());
+            emailService.sendOrderConfirmationEmail(savedOrder); // Call the async method
+            logger.debug("Email sending task submitted for Order ID: {}", savedOrder.getId());
+        } catch (Exception e) {
+            // Log error but DO NOT throw exception here, as the order IS saved.
+            // The @Async method handles its own errors internally.
+            logger.error("Error submitting order confirmation email task for Order ID {}: {}", savedOrder.getId(), e.getMessage(), e);
+            // You might want to flag the order for manual notification check
+        }
+        // <<< END OF EMAIL SENDING >>>
+
+        // 7. TODO: Clear the user's cart (implement cart logic separately if needed)
+        // Example: cartService.clearCart(username);
+
+        return savedOrder; // Return the saved order details
+    }
+
+    @Transactional(readOnly = true)
+    public List<Order> getOrdersForUser(String username) {
+        logger.debug("Fetching orders for user: {}", username);
+        // Ensure user exists first if needed, or let repository handle it
+        if (!userRepository.existsByUsername(username)) {
+            logger.warn("Attempted to fetch orders for non-existent user: {}", username);
+            throw new EntityNotFoundException("User not found: " + username); // Or return empty list
+        }
+        return orderRepository.findByUserUsername(username);
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Services/PdfService.java">
+package esprit.microproject.Services;
+
+import com.lowagie.text.*; // OpenPDF imports
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import esprit.microproject.Entities.Order;
+import esprit.microproject.Entities.OrderItem;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.io.ByteArrayOutputStream;
+import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
+
+@Service
+public class PdfService {
+
+    private static final Logger logger = LoggerFactory.getLogger(PdfService.class);
+
+    public byte[] generateInvoicePdf(Order order) {
+        logger.info("Generating PDF invoice for Order ID: {}", order.getId());
+        Document document = new Document(PageSize.A4);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        try {
+            PdfWriter.getInstance(document, baos);
+            document.open();
+
+            // --- Basic Invoice Structure ---
+            Font titleFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 18);
+            Font headerFont = FontFactory.getFont(FontFactory.HELVETICA_BOLD, 12);
+            Font normalFont = FontFactory.getFont(FontFactory.HELVETICA, 10);
+
+            // Title
+            Paragraph title = new Paragraph("Invoice", titleFont);
+            title.setAlignment(Element.ALIGN_CENTER);
+            document.add(title);
+            document.add(Chunk.NEWLINE); // Add some space
+
+            // Order Details
+            document.add(new Paragraph("Order ID: " + order.getId(), normalFont));
+            document.add(new Paragraph("Order Date: " + order.getOrderDate().format(DateTimeFormatter.ISO_DATE), normalFont));
+            document.add(new Paragraph("Customer: " + order.getUser().getUsername(), normalFont));
+            // Add billing/shipping address if available on User entity
+            document.add(Chunk.NEWLINE);
+
+            // Items Table
+            PdfPTable table = new PdfPTable(4); // 4 columns: Product, Quantity, Price, Subtotal
+            table.setWidthPercentage(100);
+            table.setWidths(new float[]{4f, 1f, 2f, 2f}); // Relative widths
+
+            // Table Header
+            PdfPCell cell = new PdfPCell(new Phrase("Product", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Quantity", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Unit Price", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table.addCell(cell);
+
+            cell = new PdfPCell(new Phrase("Subtotal", headerFont));
+            cell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+            table.addCell(cell);
+
+            // Table Body
+            for (OrderItem item : order.getOrderItems()) {
+                table.addCell(new Phrase(item.getProduct().getName(), normalFont));
+                PdfPCell qtyCell = new PdfPCell(new Phrase(String.valueOf(item.getQuantity()), normalFont));
+                qtyCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                table.addCell(qtyCell);
+                PdfPCell priceCell = new PdfPCell(new Phrase("$" + item.getPrice().toPlainString(), normalFont)); // Assuming USD
+                priceCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                table.addCell(priceCell);
+                BigDecimal subtotal = item.getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
+                PdfPCell subtotalCell = new PdfPCell(new Phrase("$" + subtotal.toPlainString(), normalFont));
+                subtotalCell.setHorizontalAlignment(Element.ALIGN_RIGHT);
+                table.addCell(subtotalCell);
+            }
+            document.add(table);
+            document.add(Chunk.NEWLINE);
+
+            // Total Amount
+            Paragraph total = new Paragraph("Total Amount: $" + order.getTotalAmount().toPlainString(), headerFont);
+            total.setAlignment(Element.ALIGN_RIGHT);
+            document.add(total);
+
+            // --- End of Invoice Structure ---
+
+            document.close();
+            logger.info("PDF invoice generated successfully for Order ID: {}", order.getId());
+            return baos.toByteArray();
+
+        } catch (DocumentException e) {
+            logger.error("Error generating PDF for Order ID {}: {}", order.getId(), e.getMessage());
+            // Handle exception appropriately - maybe return null or throw a custom exception
+            return null;
+        } finally {
+            if (document.isOpen()) {
+                document.close();
+            }
+        }
+    }
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Services/ProductService.java">
+package esprit.microproject.Services;
+
+import esprit.microproject.Entities.Product;
+import esprit.microproject.Repositories.ProductRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional; // Import Transactional
+
+import java.util.List;
+import java.util.Optional;
+
+@Service // Marks this as a Spring service bean
+public class ProductService {
+
+    private final ProductRepository productRepository;
+
+    @Autowired // Injects the ProductRepository instance
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
+
+    // READ All
+    @Transactional(readOnly = true) // Good practice for read operations
+    public List<Product> getAllProducts() {
+        return productRepository.findAll();
+    }
+
+    // READ One by ID
+    @Transactional(readOnly = true)
+    public Optional<Product> getProductById(Long id) {
+        // findById returns an Optional<Product> to handle cases where the ID doesn't exist
+        return productRepository.findById(id);
+    }
+
+    // CREATE
+    @Transactional
+    public Product createProduct(Product product) {
+        // Vérifier si un produit avec le même nom existe déjà
+        Optional<Product> existingProduct = productRepository.findByName(product.getName());
+        if (existingProduct.isPresent()) {
+            throw new IllegalArgumentException("Le produit existe déjà !");
+        }
+        return productRepository.save(product);
+    }
+
+    // UPDATE
+    @Transactional
+    public Optional<Product> updateProduct(Long id, Product productDetails) {
+        return productRepository.findById(id) // Check if product exists
+                .map(existingProduct -> { // If it exists, update its fields
+                    existingProduct.setName(productDetails.getName());
+                    existingProduct.setDescription(productDetails.getDescription());
+                    existingProduct.setPrice(productDetails.getPrice());
+                    existingProduct.setImageUrl(productDetails.getImageUrl());
+                    existingProduct.setCategory(productDetails.getCategory());
+                    return productRepository.save(existingProduct); // Save the updated product
+                }); // If findById returned empty, map does nothing, returning Optional.empty()
+    }
+
+    // DELETE
+    @Transactional
+    public boolean deleteProduct(Long id) {
+        if (productRepository.existsById(id)) { // Check if product exists before deleting
+            productRepository.deleteById(id);
+            return true; // Indicate successful deletion
+        }
+        return false; // Indicate product not found
+    }
+    // Méthode de recherche dynamique
+    public List<Product> searchProductsByName(String name) {
+        return productRepository.findByNameContainingIgnoreCase(name);
+    }
+
+}
+</file>
+
+<file path="src/main/java/esprit/microproject/Services/UserService.java">
+package esprit.microproject.Services;
+
+import esprit.microproject.Entities.Product;
+import esprit.microproject.Entities.User;
+import esprit.microproject.Repositories.CartRepository; // <<< Import CartRepository
+import esprit.microproject.Repositories.ProductRepository;
+import esprit.microproject.Repositories.UserRepository;
+import esprit.microproject.dto.UserCreationRequest; // <<< Import UserCreationRequest
+import jakarta.persistence.EntityNotFoundException;
+import org.slf4j.Logger;                      // <<< Import Logger
+import org.slf4j.LoggerFactory;             // <<< Import LoggerFactory
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Set;
+
+@Service
+public class UserService {
+
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class); // <<< Add Logger
+
+    private final UserRepository userRepository;
+    private final ProductRepository productRepository;
+    private final CartRepository cartRepository; // <<< Add CartRepository field
+
+    @Autowired
+    public UserService(UserRepository userRepository,
+                       ProductRepository productRepository,
+                       CartRepository cartRepository /* <<< Inject CartRepository */) {
+        this.userRepository = userRepository;
+        this.productRepository = productRepository;
+        this.cartRepository = cartRepository; // <<< Assign CartRepository
+    }
+
+    // ===============================================
+    // ===          NEW createUser Method          ===
+    // ===============================================
+    @Transactional
+    public User createUser(UserCreationRequest request) {
+        logger.info("Attempting to create user: {}", request.getUsername());
+
+        // Check if username already exists
+        if (userRepository.existsByUsername(request.getUsername())) {
+            logger.warn("Username already exists: {}", request.getUsername());
+            throw new IllegalArgumentException("Username already exists: " + request.getUsername());
+        }
+        // Optional: Check if email already exists (add existsByEmail method to UserRepository if needed)
+        // if (userRepository.existsByEmail(request.getEmail())) {
+        //    logger.warn("Email already exists: {}", request.getEmail());
+        //    throw new IllegalArgumentException("Email already exists: " + request.getEmail());
+        // }
+
+        // Validate input basic checks (more robust validation can be added via @Valid)
+        if (request.getUsername() == null || request.getUsername().isBlank() ||
+                request.getEmail() == null || request.getEmail().isBlank() ||
+                !request.getEmail().contains("@") || !request.getEmail().contains(".")) {
+            logger.warn("Invalid username or email format provided for user creation.");
+            throw new IllegalArgumentException("Username and a valid email are required.");
+        }
+
+
+        // Create new user
+        User newUser = new User();
+        newUser.setUsername(request.getUsername());
+        newUser.setEmail(request.getEmail()); // Set the email
+
+        // IMPORTANT: Ensure User entity logic correctly initializes the Cart.
+        // The User constructor or getCart() method should create a new Cart(this).
+        // Calling getCart() here ensures it's initialized before save if necessary.
+        newUser.getCart();
+        logger.debug("New User object created for username: {}", request.getUsername());
+
+
+        // Save the user. Due to CascadeType.ALL on User.cart,
+        // the associated new Cart will also be persisted.
+        User savedUser = userRepository.save(newUser);
+        logger.info("User created and saved successfully: {} (ID: {})", savedUser.getUsername(), savedUser.getId());
+
+        return savedUser;
+    }
+    // ===============================================
+    // ===        End of NEW createUser Method     ===
+    // ===============================================
+
+
+    // Helper to get user or throw exception
+    private User getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> {
+                    logger.warn("User not found: {}", username); // Add log here
+                    return new EntityNotFoundException("User not found with username: " + username);
+                });
+    }
+
+    // Helper to get product or throw exception
+    private Product getProductById(Long productId) {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> {
+                    logger.warn("Product not found: ID {}", productId); // Add log here
+                    return new EntityNotFoundException("Product not found with ID: " + productId);
+                });
+    }
+
+    // ---- Favorite Logic ----
+
+    @Transactional
+    public void addFavorite(String username, Long productId) {
+        logger.debug("Adding favorite: User={}, ProductID={}", username, productId);
+        // Original logic had user creation here, which is less ideal.
+        // Assume user exists or should be created via createUser endpoint.
+        User user = getUserByUsername(username); // Use helper which throws if not found
+        Product product = getProductById(productId);
+
+        // Update both sides of the relationship
+        user.addFavorite(product);
+        // product.addFavoritedBy(user); // Only needed if you manage both sides explicitly
+
+        // Save the user (cascading should handle the join table update)
+        userRepository.save(user);
+        // Saving the product might not be necessary if only the join table changes
+        // productRepository.save(product);
+        logger.info("Added favorite product {} for user {}", productId, username);
+    }
+
+    @Transactional
+    public void removeFavorite(String username, Long productId) {
+        logger.debug("Removing favorite: User={}, ProductID={}", username, productId);
+        User user = getUserByUsername(username);
+        Product product = getProductById(productId);
+
+        // Update both sides of the relationship
+        user.removeFavorite(product);
+        // product.removeFavoritedBy(user); // Only needed if you manage both sides explicitly
+
+        // Save the user
+        userRepository.save(user);
+        // productRepository.save(product);
+        logger.info("Removed favorite product {} for user {}", productId, username);
+    }
+
+    @Transactional(readOnly = true)
+    public Set<Product> getFavorites(String username) {
+        logger.debug("Fetching favorites for user: {}", username);
+        User user = getUserByUsername(username);
+        // Accessing the collection within a transaction initializes it (if lazy loaded)
+        Set<Product> favorites = user.getFavoriteProducts();
+        logger.debug("Found {} favorites for user {}", favorites.size(), username);
+        return favorites;
+    }
+}
+</file>
+
+<file path="src/main/resources/application.properties">
+spring.application.name=MicroProject
+
+# Database Configuration
+spring.datasource.url=jdbc:mysql://localhost:3306/artshopdb?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+spring.datasource.username=root
+spring.datasource.password=
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+# JPA/Hibernate Configuration
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQL8Dialect
+
+# Connection Pool Configuration
+spring.datasource.hikari.maximum-pool-size=10
+spring.datasource.hikari.minimum-idle=5
+spring.datasource.hikari.idle-timeout=300000
+spring.datasource.hikari.connection-timeout=20000
+
+# Server Configuration
+server.port=8080
+
+# Logging Configuration
+logging.level.org.springframework.web=DEBUG
+logging.level.esprit.microproject=DEBUG
+
+
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=no.reply.davincci@gmail.com
+spring.mail.password=
+
+# SMTP Properties
+spring.mail.properties.mail.smtp.auth=true
+spring.mail.properties.mail.smtp.starttls.enable=true
+spring.mail.properties.mail.smtp.timeout=5000
+spring.mail.properties.mail.smtp.writetimeout=5000
+spring.mail.properties.mail.smtp.connectiontimeout=5000
+spring.mail.properties.mail.smtp.ssl.trust=smtp.gmail.com
+</file>
+
+<file path="src/main/resources/templates/email/order-confirmation.html">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmation</title>
+    <style>
+        body { font-family: sans-serif; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 15px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        .total { font-weight: bold; text-align: right; }
+    </style>
+</head>
+<body>
+<h2>Order Confirmation</h2>
+<p>Hello <span th:text="${username}">Customer</span>,</p>
+<p>Thank you for your order! Here are the details:</p>
+
+<p><strong>Order ID:</strong> <span th:text="${order.id}">ORD-123</span></p>
+<p><strong>Order Date:</strong> <span th:text="${#temporals.format(order.orderDate, 'yyyy-MM-dd HH:mm')}">2024-01-01 10:00</span></p>
+
+<h3>Order Items:</h3>
+<table>
+    <thead>
+    <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over order items -->
+    <tr th:each="item : ${order.orderItems}">
+        <td th:text="${item.product.name}">Product Name</td>
+        <td th:text="${item.quantity}">1</td>
+        <td th:text="'$' + ${#numbers.formatDecimal(item.price, 1, 'COMMA', 2, 'POINT')}">$10.00</td>
+        <td th:text="'$' + ${#numbers.formatDecimal(item.price * item.quantity, 1, 'COMMA', 2, 'POINT')}">$10.00</td>
+    </tr>
+    </tbody>
+</table>
+
+<p class="total">Total Amount: <span th:text="'$' + ${#numbers.formatDecimal(order.totalAmount, 1, 'COMMA', 2, 'POINT')}">$10.00</span></p>
+
+<p>Your invoice is attached to this email.</p>
+<p>Thank you for shopping with us!</p>
+
+</body>
+</html>
+</file>
+
+<file path="src/test/java/esprit/microproject/MicroProjectApplicationTests.java">
+package esprit.microproject;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class MicroProjectApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
+</file>
+
+</files>

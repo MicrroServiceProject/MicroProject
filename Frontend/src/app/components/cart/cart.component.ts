@@ -236,7 +236,7 @@ import { Product } from '../../models/product.model';
 export class CartComponent implements OnInit {
   cartItems: Product[] = [];
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
     this.productService.getCart().subscribe(items => {
@@ -245,6 +245,10 @@ export class CartComponent implements OnInit {
   }
 
   removeFromCart(product: Product) {
+    if (!product.id) {
+      console.error('Cannot remove product without ID from cart');
+      return;
+    }
     this.productService.removeFromCart(product.id);
   }
 

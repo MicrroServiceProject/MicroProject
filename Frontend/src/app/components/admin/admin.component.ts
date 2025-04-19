@@ -77,11 +77,9 @@ import { Product } from '../../models/product.model';
               <button type="submit" class="save-btn">
                 {{ editingProduct ? 'Mettre à jour' : 'Ajouter' }}
               </button>
-              @if (editingProduct) {
-                <button type="button" class="cancel-btn" (click)="cancelEdit()">
-                  Annuler
-                </button>
-              }
+              <button *ngIf="editingProduct" type="button" class="cancel-btn" (click)="cancelEdit()">
+                Annuler
+              </button>
             </div>
           </form>
         </div>
@@ -89,24 +87,22 @@ import { Product } from '../../models/product.model';
         <div class="products-list">
           <h2>Produits existants</h2>
           <div class="products-grid">
-            @for (product of products; track product.id) {
-              <div class="product-card">
-                <img [src]="product.imageUrl" [alt]="product.name">
-                <div class="product-info">
-                  <h3>{{ product.name }}</h3>
-                  <p class="price">{{ product.price | currency:'EUR' }}</p>
-                  <p class="category">{{ product.category === 'tools' ? 'Outils' : 'Tableaux' }}</p>
-                  <div class="actions">
-                    <button class="edit-btn" (click)="editProduct(product)">
-                      <i class="fas fa-edit"></i> Modifier
-                    </button>
-                    <button class="delete-btn" (click)="deleteProduct(product)">
-                      <i class="fas fa-trash"></i> Supprimer
-                    </button>
-                  </div>
+            <div *ngFor="let product of products; trackBy: trackById" class="product-card">
+              <img [src]="product.imageUrl" [alt]="product.name">
+              <div class="product-info">
+                <h3>{{ product.name }}</h3>
+                <p class="price">{{ product.price | currency:'EUR' }}</p>
+                <p class="category">{{ product.category === 'tools' ? 'Outils' : 'Tableaux' }}</p>
+                <div class="actions">
+                  <button class="edit-btn" (click)="editProduct(product)">
+                    <i class="fas fa-edit"></i> Modifier
+                  </button>
+                  <button class="delete-btn" (click)="deleteProduct(product)">
+                    <i class="fas fa-trash"></i> Supprimer
+                  </button>
                 </div>
               </div>
-            }
+            </div>
           </div>
         </div>
       </div>
@@ -301,7 +297,7 @@ export class AdminComponent implements OnInit {
   };
   editingProduct: Product | null = null;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService) { }
 
   ngOnInit() {
     this.productService.getProducts().subscribe(products => {
@@ -311,15 +307,48 @@ export class AdminComponent implements OnInit {
 
   saveProduct() {
     if (this.editingProduct) {
-      this.productService.updateProduct({
+      const updatedProduct: Product = {
         ...this.newProduct,
         id: this.editingProduct.id
+      };
+      this.productService.updateProduct(updatedProduct).subscribe({
+        next: () => {
+          this.productService.getProducts().subscribe(products => {
+            this.products = products;
+          });
+          this.resetForm();
+        },
+        error: (error) => {
+          console.error('Error updating product:', error);
+          alert('Error updating product: ' + error.message);
+        }
       });
     } else {
-      this.productService.addProduct(this.newProduct);
-    }
+      const newProduct: Product = {
+        name: this.newProduct.name,
+        description: this.newProduct.description,
+        price: this.newProduct.price,
+        imageUrl: this.newProduct.imageUrl,
+        category: this.newProduct.category
+      };
 
-    this.resetForm();
+      this.productService.addProduct(newProduct).subscribe({
+        next: () => {
+          this.productService.getProducts().subscribe(products => {
+            this.products = products;
+          });
+          this.resetForm();
+        },
+        error: (error) => {
+          console.error('Error adding product:', error);
+          if (error.status === 400 && error.error === 'Le produit existe déjà !') {
+            alert('Un produit avec ce nom existe déjà. Veuillez choisir un autre nom.');
+          } else {
+            alert('Erreur lors de l\'ajout du produit: ' + (error.error || error.message));
+          }
+        }
+      });
+    }
   }
 
   editProduct(product: Product) {
@@ -328,8 +357,16 @@ export class AdminComponent implements OnInit {
   }
 
   deleteProduct(product: Product) {
+    if (!product.id) {
+      console.error('Cannot delete product without ID');
+      return;
+    }
     if (confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
-      this.productService.deleteProduct(product.id);
+      this.productService.deleteProduct(product.id).subscribe(() => {
+        this.productService.getProducts().subscribe(products => {
+          this.products = products;
+        });
+      });
     }
   }
 
@@ -347,5 +384,9 @@ export class AdminComponent implements OnInit {
       imageUrl: '',
       category: 'tools'
     };
+  }
+
+  trackById(index: number, product: Product): number {
+    return product.id ?? index;  // Use index as fallback if id is undefined
   }
 }

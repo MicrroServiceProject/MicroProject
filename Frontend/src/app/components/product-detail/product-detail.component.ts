@@ -225,7 +225,7 @@ export class ProductDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private productService: ProductService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -259,10 +259,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
   deleteProduct() {
-    if (this.product && confirm('Êtes-vous sûr de vouloir supprimer ce produit ?')) {
-      this.productService.deleteProduct(this.product.id);
-      this.router.navigate(['/']);
+    if (!this.product?.id) {
+      console.error('Cannot delete product without ID');
+      return;
     }
+    this.productService.deleteProduct(this.product.id);
   }
 
   goBack() {
