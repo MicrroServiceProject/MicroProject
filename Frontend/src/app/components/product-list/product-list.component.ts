@@ -35,7 +35,7 @@ import { Product } from '../../models/product.model';
               <img [src]="product.imageUrl" [alt]="product.name">
               <button 
                 class="favorite-btn"
-                (click)="toggleFavorite(product)"
+               
                 [class.active]="isFavorite(product)">
                 ❤
               </button>
@@ -207,11 +207,7 @@ export class ProductListComponent implements OnInit {
       this.filterByCategory(this.currentCategory);
     });
     
-    this.productService.getFavorites().subscribe(favorites => {
-      this.favorites = favorites;
-    });
   }
-
   filterByCategory(category: 'all' | 'tools' | 'paintings') {
     this.currentCategory = category;
     if (category === 'all') {
@@ -221,9 +217,7 @@ export class ProductListComponent implements OnInit {
     }
   }
 
-  toggleFavorite(product: Product) {
-    this.productService.toggleFavorite(product);
-  }
+  
 
   isFavorite(product: Product): boolean {
     return this.favorites.some(p => p.id === product.id);

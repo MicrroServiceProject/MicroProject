@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductListComponent } from './app/components/product-list/product-list.component';
 import { ProductDetailComponent } from './app/components/product-detail/product-detail.component';
-import { FavoritesComponent } from './app/components/favorites/favorites.component';
+
 import { CartComponent } from './app/components/cart/cart.component';
 import { AdminComponent } from './app/components/admin/admin.component';
 import { ProductService } from './app/services/product.service';
@@ -20,7 +20,7 @@ import { importProvidersFrom } from '@angular/core';
     FormsModule,
     ProductListComponent,
     ProductDetailComponent,
-    FavoritesComponent,
+  
     CartComponent,
     AdminComponent,
     HttpClientModule],
@@ -38,7 +38,7 @@ import { importProvidersFrom } from '@angular/core';
           <input 
             type="text" 
             [(ngModel)]="searchQuery" 
-            (keyup)="onSearch()"
+         
             placeholder="Rechercher des produits..."
           >
           <i class="fas fa-search"></i>
@@ -408,25 +408,17 @@ export class App {
   cartCount = 0;
   isAdmin = true;
 
-  constructor(private productService: ProductService) {
-    this.productService.getFavorites().subscribe(favorites => {
-      this.favoritesCount = favorites.length;
-    });
+  
 
-    this.productService.getCart().subscribe(cart => {
-      this.cartCount = cart.length;
-    });
+    
   }
 
-  onSearch() {
-    this.productService.setSearchQuery(this.searchQuery);
-  }
-}
+ 
 
 const routes = [
   { path: '', component: ProductListComponent },
   { path: 'product/:id', component: ProductDetailComponent },
-  { path: 'favorites', component: FavoritesComponent },
+ 
   { path: 'cart', component: CartComponent },
   { path: 'admin', component: AdminComponent },
   { path: '**', redirectTo: '' }

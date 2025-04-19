@@ -17,26 +17,27 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    // *** ADD THIS EMAIL FIELD ***
-    @Column(nullable = true) // Or false if email is mandatory
+    @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false, unique = true)
     private String email;
-    // **************************
 
     // --- Relation vers les produits favoris ---
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_favorite_products", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
-    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    @JsonIgnore
     private Set<Product> favoriteProducts = new HashSet<>();
 
     // --- Relation vers les commandes (Orders) ---
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Order> orders = new HashSet<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonIgnore
     private Cart cart;
 
@@ -45,12 +46,38 @@ public class User {
         this.cart = new Cart(this);
     }
 
-    public User(String username) {
+    public User(String username, String password, String email) {
         this.username = username;
+        this.password = password;
+        this.email = email;
         this.cart = new Cart(this);
     }
 
-    // *** ADD GETTER AND SETTER FOR EMAIL ***
+    // --- Getters and Setters ---
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -58,38 +85,30 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    // ***************************************
 
-    // --- Méthodes Helper pour les favoris ---
-    public void addFavorite(Product product) {
-        if (product != null) {
-            this.favoriteProducts.add(product);
-        }
+    public Set<Product> getFavoriteProducts() {
+        return favoriteProducts;
     }
 
-    public void removeFavorite(Product product) {
-        if (product != null) {
-            this.favoriteProducts.remove(product);
-        }
+    public void setFavoriteProducts(Set<Product> favoriteProducts) {
+        this.favoriteProducts = favoriteProducts;
     }
 
-    // --- Getters et Setters ---
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
-    public String getUsername() { return username; }
-    public void setUsername(String username) { this.username = username; }
-    public Set<Product> getFavoriteProducts() { return favoriteProducts; }
-    public void setFavoriteProducts(Set<Product> favoriteProducts) { this.favoriteProducts = favoriteProducts != null ? favoriteProducts : new HashSet<>(); }
-    public Set<Order> getOrders() { return orders; }
-    public void setOrders(Set<Order> orders) { this.orders = orders != null ? orders : new HashSet<>(); }
     public Cart getCart() {
-        // Ensure cart is initialized if accessed before constructor in some JPA scenarios
-        if (cart == null) {
-            cart = new Cart(this);
-        }
         return cart;
     }
-    public void setCart(Cart cart) { this.cart = cart; }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
+    }
 
     // --- toString, equals, hashCode ---
     @Override
@@ -99,8 +118,10 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass() && !o.getClass().getName().startsWith(getClass().getName() + "$$HibernateProxy")) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass()
+                && !o.getClass().getName().startsWith(getClass().getName() + "$$HibernateProxy")) {
             return false;
         }
         User user = (User) o;

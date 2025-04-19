@@ -1,48 +1,28 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, switchMap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Product } from '../models/product.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  getFavorites() {
+    throw new Error('Method not implemented.');
+  }
+  toggleFavorite(product: Product) {
+    throw new Error('Method not implemented.');
+  }
   private apiUrl = 'http://localhost:8089/api/products';
-
-  private searchQuery = new BehaviorSubject<string>('');
-  private favorites: Product[] = [];
   private cart: Product[] = [];
-
-  private favoritesSubject = new BehaviorSubject<Product[]>(this.favorites);
   private cartSubject = new BehaviorSubject<Product[]>(this.cart);
 
   constructor(private http: HttpClient) { }
 
   // Get all products
   getProducts(): Observable<Product[]> {
-    return this.searchQuery.pipe(
-      map(query => query.trim().toLowerCase()),
-      // Call backend only if there's a search query
-      map(query => {
-        if (!query) return null;
-        return this.searchProducts(query);
-      }),
-      // Fallback if no search
-      switchMap(result => result || this.http.get<Product[]>(this.apiUrl))
-    );
-  }
-
-  // Set search query
-  setSearchQuery(query: string) {
-    this.searchQuery.next(query);
-  }
-
-  // Get products by category
-  getProductsByCategory(category: 'tools' | 'paintings'): Observable<Product[]> {
-    return this.http.get<Product[]>(this.apiUrl).pipe(
-      map(products => products.filter(p => p.category === category))
-    );
+    return this.http.get<Product[]>(this.apiUrl);
   }
 
   // Get a product by ID
@@ -51,10 +31,8 @@ export class ProductService {
   }
 
   // Create a product
-  addProduct(product: Product): Observable<Product> {
-    // Remove the id when creating a new product
-    const { id, ...productWithoutId } = product;
-    return this.http.post<Product>(this.apiUrl, productWithoutId);
+  addProduct(product: Omit<Product, 'id'>): Observable<Product> {
+    return this.http.post<Product>(this.apiUrl, product);
   }
 
   // Update a product
@@ -67,27 +45,12 @@ export class ProductService {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
-  // Search product by name
+  // Search products
   searchProducts(query: string): Observable<Product[]> {
     return this.http.get<Product[]>(`${this.apiUrl}/search?name=${query}`);
   }
 
-  // Favorites
-  toggleFavorite(product: Product) {
-    const index = this.favorites.findIndex(p => p.id === product.id);
-    if (index === -1) {
-      this.favorites.push(product);
-    } else {
-      this.favorites.splice(index, 1);
-    }
-    this.favoritesSubject.next([...this.favorites]);
-  }
-
-  getFavorites(): Observable<Product[]> {
-    return this.favoritesSubject.asObservable();
-  }
-
-  // Cart
+  // Cart functionality
   addToCart(product: Product) {
     this.cart.push(product);
     this.cartSubject.next([...this.cart]);

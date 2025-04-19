@@ -231,11 +231,7 @@ export class ProductDetailComponent implements OnInit {
     this.route.params.subscribe(params => {
       this.productService.getProducts().subscribe(products => {
         this.product = products.find(p => p.id === +params['id']);
-        if (this.product) {
-          this.productService.getFavorites().subscribe(favorites => {
-            this.isFavorite = favorites.some(f => f.id === this.product?.id);
-          });
-        }
+        
       });
     });
   }
