@@ -1,1 +1,156 @@
-<p>dashboard works!</p>
+<div class="dashboard-container" [class.collapsed]="sidebarCollapsed">
+  <!-- Sidebar -->
+  <nav class="sidebar" [class.collapsed]="sidebarCollapsed">
+    <button class="toggle-btn" mat-icon-button (click)="toggleSidebar()">
+      <mat-icon>{{ sidebarCollapsed ? 'menu_open' : 'menu' }}</mat-icon>
+    </button>
+
+    <h3 class="sidebar-title" *ngIf="!sidebarCollapsed">Admin Panel</h3>
+
+    <ul class="sidebar-nav">
+      <!-- Dashboard Link -->
+      <li routerLinkActive="active">
+        <a routerLink="/dashboard">
+          <mat-icon>dashboard</mat-icon>
+          <span *ngIf="!sidebarCollapsed">Dashboard</span>
+        </a>
+      </li>
+
+      <!-- Categories Link -->
+      <li routerLinkActive="active">
+        <a routerLink="/dashboard/categories">
+          <mat-icon>category</mat-icon>
+          <span *ngIf="!sidebarCollapsed">Categories</span>
+        </a>
+      </li>
+      <li routerLinkActive="active">
+        <a routerLink="/dashboard/events">
+          <mat-icon>Add Event</mat-icon>
+          <span *ngIf="!sidebarCollapsed">Add Event</span>
+        </a>
+      </li>
+      <li routerLinkActive="active" *ngIf="userService.hasRole(Role.ADMIN)">
+        <a routerLink="/dashboard/users">
+          <mat-icon>people</mat-icon>
+          <span *ngIf="!sidebarCollapsed">User Management</span>
+        </a>
+      </li>
+      <li>
+        <mat-icon>bar_chart</mat-icon>
+        <span *ngIf="!sidebarCollapsed">Reports</span>
+      </li>
+      <li>
+        <mat-icon>settings</mat-icon>
+        <span *ngIf="!sidebarCollapsed">Settings</span>
+      </li>
+
+      <!-- Logout Button -->
+      <li class="logout-button" (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span *ngIf="!sidebarCollapsed">Logout</span>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Content Area -->
+  <div class="dashboard-content">
+    <!-- Dashboard Home Content (shown only when route is /dashboard) -->
+    <div *ngIf="isDashboardHome">
+      <h2 class="dashboard-title">📊 Dashboard Overview</h2>
+      <div class="card-grid">
+        <mat-card class="dashboard-card">
+          <mat-card-title>Users</mat-card-title>
+          <mat-card-content>
+            <h3>{{ totalUsers }}</h3>
+            <p>Total registered users</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="dashboard-card">
+          <mat-card-title>Posts</mat-card-title>
+          <mat-card-content>
+            <h3>87</h3>
+            <p>Blog posts published</p>
+          </mat-card-content>
+        </mat-card>
+        <mat-card class="dashboard-card">
+          <mat-card-title>Events</mat-card-title>
+          <mat-card-content>
+            <h3>12</h3>
+            <p>Upcoming events</p>
+          </mat-card-content>
+        </mat-card>
+      </div>
+
+      <!-- Nouvelle carte pour la répartition des utilisateurs -->
+      <mat-card class="dashboard-card user-stats-card">
+        <mat-card-title>User Distribution</mat-card-title>
+        <mat-card-content>
+          <div class="user-stats-container">
+            <!-- Graphique -->
+            <div class="chart-container">
+              <div class="donut-chart">
+                <div class="chart-center">
+                  <div class="total-users">{{ totalUsers }}</div>
+                  <div class="total-label">Total Users</div>
+                </div>
+                <svg width="200" height="200" viewBox="0 0 42 42">
+                  <circle class="donut-hole" cx="21" cy="21" r="15.91549430918954" fill="#fff"></circle>
+                  
+                  <ng-container *ngIf="rolesForDisplay.length > 0">
+                    <!-- Cercle de fond -->
+                    <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="3"></circle>
+                    
+                    <!-- Segments pour chaque rôle -->
+                    <ng-container *ngFor="let role of rolesForDisplay; let i = index">
+                      <circle 
+                        class="donut-segment"
+                        cx="21" 
+                        cy="21" 
+                        r="15.91549430918954" 
+                        fill="transparent" 
+                        [attr.stroke]="role.hexColor"
+                        stroke-width="3"
+                        [attr.stroke-dasharray]="role.percentage + ' ' + (100 - role.percentage)"
+                        [attr.stroke-dashoffset]="getDashOffset(i)"
+                      ></circle>
+                    </ng-container>
+                    
+                  </ng-container>
+                  
+                  <ng-container *ngIf="rolesForDisplay.length === 0">
+                    <circle class="donut-ring" cx="21" cy="21" r="15.91549430918954" fill="transparent" stroke="#d2d3d4" stroke-width="3"></circle>
+                  </ng-container>
+                </svg>
+              </div>
+            </div>
+            
+            <!-- Légende et statistiques détaillées -->
+            <div class="stats-details">
+              <h3>User Roles</h3>
+              <div class="role-stats-list">
+                <div *ngFor="let role of rolesForDisplay" class="role-stat-item">
+                  <div class="role-info">
+                    <div class="role-color" [style.background-color]="role.hexColor"></div>
+                    <div class="role-name">{{ role.name }}</div>
+                  </div>
+                  <div class="role-count">
+                    <div class="count-number">{{ role.count }}</div>
+                    <div class="count-percentage">{{ role.percentage | number:'1.1-1' }}%</div>
+                  </div>
+                  <mat-progress-bar 
+                    [color]="role.color" 
+                    mode="determinate" 
+                    [value]="role.percentage">
+                  </mat-progress-bar>
+                </div>
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <!-- This will show CategoryListComponent when route is /dashboard/categories -->
+    <router-outlet></router-outlet>
+  </div>
+</div>

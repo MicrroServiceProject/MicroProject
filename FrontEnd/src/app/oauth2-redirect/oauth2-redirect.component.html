@@ -1,0 +1,37 @@
+<section class="site-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 text-center">
+          <div *ngIf="loading" class="spinner-border spinner-border-sm"></div>
+          <div *ngIf="successMessage" class="alert alert-success">
+            {{ successMessage }}
+          </div>
+          <div *ngIf="errorMessage" class="alert alert-danger">
+            {{ errorMessage }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <style>
+    .btn-google {
+        background: #DB4437;
+        color: white;
+        padding: 10px 20px;
+        border-radius: 4px;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        cursor: pointer;
+        transition: background 0.3s;
+    }
+    
+    .btn-google:hover {
+        background: #c23321;
+    }
+    
+    .btn-google i {
+        font-size: 18px;
+    }
+    </style>

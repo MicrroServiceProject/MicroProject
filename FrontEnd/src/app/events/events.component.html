@@ -3,51 +3,71 @@
 <div *ngIf="!showEventsList">
   <div class="container mt-4">
     <div class="form-container">
-      <h2 class="mb-4">Create New Event</h2>
-      <form (ngSubmit)="onSubmit()" #eventForm="ngForm">
+      <h2 class="mb-4">{{ isEditMode ? 'Edit Event' : 'Create New Event' }}</h2>
+      <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
         
         <div class="mb-3">
-          <label for="title" class="form-label">Title</label>
-          <input type="text" id="title" class="form-control" required [(ngModel)]="newEvent.title" name="title">
+          <label for="nom" class="form-label">Event Name</label>
+          <input type="text" id="nom" class="form-control" formControlName="nom">
+          <div *ngIf="eventForm.get('nom')?.invalid && eventForm.get('nom')?.touched" class="text-danger">
+            Event name is required
+          </div>
         </div>
 
         <div class="mb-3">
           <label for="description" class="form-label">Description</label>
-          <textarea id="description" class="form-control" rows="3" [(ngModel)]="newEvent.description" name="description"></textarea>
+          <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
+          <div *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched" class="text-danger">
+            Description must not exceed 500 characters
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="date" class="form-label">Event Date</label>
+          <input type="datetime-local" id="date" class="form-control" formControlName="date">
+          <div *ngIf="eventForm.get('date')?.invalid && eventForm.get('date')?.touched" class="text-danger">
+            Event date is required and must be in the future
+          </div>
         </div>
 
         <div class="mb-3">
           <label for="location" class="form-label">Location</label>
-          <input type="text" id="location" class="form-control" [(ngModel)]="newEvent.location" name="location">
+          <input type="text" id="location" class="form-control" formControlName="location">
         </div>
 
         <div class="mb-3">
-          <label for="startTime" class="form-label">Start Time</label>
-          <input type="datetime-local" id="startTime" class="form-control" [(ngModel)]="newEvent.startTime" name="startTime">
+          <label for="capaciteMax" class="form-label">Max Capacity</label>
+          <input type="number" id="capaciteMax" class="form-control" formControlName="capaciteMax">
+          <div *ngIf="eventForm.get('capaciteMax')?.invalid && eventForm.get('capaciteMax')?.touched" class="text-danger">
+            Max capacity must be at least 1
+          </div>
         </div>
 
         <div class="mb-3">
-          <label for="endTime" class="form-label">End Time</label>
-          <input type="datetime-local" id="endTime" class="form-control" [(ngModel)]="newEvent.endTime" name="endTime">
+          <label for="artiste" class="form-label">Hosted By (Artist)</label>
+          <select id="artiste" class="form-control" formControlName="artisteId">
+            <option *ngFor="let artiste of artistes" [value]="artiste.id">{{artiste.nom}} {{artiste.prenom}}</option>
+          </select>
+          <div *ngIf="eventForm.get('artisteId')?.invalid && eventForm.get('artisteId')?.touched" class="text-danger">
+            Please select an artist
+          </div>
         </div>
 
         <div class="mb-3">
-          <label for="maxAttendees" class="form-label">Max Attendees</label>
-          <input type="number" id="maxAttendees" class="form-control" [(ngModel)]="newEvent.maxAttendees" name="maxAttendees">
+          <label for="tags" class="form-label">Tags (comma separated)</label>
+          <input type="text" id="tags" class="form-control" formControlName="tags">
         </div>
 
-        <div class="mb-3">
-          <label for="hostedBy" class="form-label">Hosted By</label>
-          <input type="text" id="hostedBy" class="form-control" [(ngModel)]="newEvent.hostedBy" name="hostedBy">
-        </div>
-
-        <button type="submit" class="btn btn-primary">Submit Event</button>
-        <button type="button" class="btn btn-outline-secondary ms-2" (click)="toggleEventsList()">View Posted Events</button>
+        <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">
+          {{ isEditMode ? 'Update' : 'Submit' }} Event
+        </button>
+        <button type="button" class="btn btn-outline-secondary ms-2" (click)="toggleEventsList()">
+          View Posted Events
+        </button>
+        <button *ngIf="isEditMode" type="button" class="btn btn-outline-danger ms-2" (click)="resetForm()">
+          Cancel Edit
+        </button>
       </form>
     </div>
   </div>
 </div>
-
-
-
-<br><br><br><br>

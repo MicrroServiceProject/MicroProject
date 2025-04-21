@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UserService } from '../../user.service';
+import { UserService } from '../../services/user.service';
 import { User, Role } from '../../models/user.model';
 
 @Component({
@@ -134,4 +134,20 @@ export class LoginComponent implements OnInit {
     const control = formGroup.get(controlName);
     return control !== null && control.hasError(errorType) && control.touched;
   }
+  // Connexion via Google OAuth2
+// Mettez à jour la méthode loginWithGoogle
+loginWithGoogle(): void {
+  this.loading = true;
+  
+  this.userService.loginWithGoogle().subscribe({
+    next: (response) => {
+      this.successMessage = 'Google login successful!';
+      this.router.navigate(['/acceuil']);
+    },
+    error: (error) => {
+      this.errorMessage = 'Google login failed. Please try again.';
+      this.loading = false;
+    }
+  });
+}
 }

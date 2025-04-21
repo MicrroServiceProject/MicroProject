@@ -1,27 +1,106 @@
 <!-- Spacer to prevent header overlap -->
-<div style="height: 113px;"></div>
+<div class="header-spacer"></div>
 
 <!-- Hero Section -->
-<section class="home-section section-hero overlay bg-image" style="background-image: url('assets/images/hero_1.jpg');" id="home-section">
+<section class="hero-section" id="hero-section">
+  <div class="hero-overlay"></div>
   <div class="container">
     <div class="row align-items-center justify-content-center">
-      <div class="col-md-12">
+      <div class="col-md-10 text-center">
         <!-- Welcome message for logged in users -->
-        <div *ngIf="isLoggedIn" class="welcome-banner text-center mb-4">
-          <h3 class="text-white">Welcome, {{currentUser?.firstName || 'User'}}!</h3>
-          <p class="text-white-50">Ready to explore new opportunities today?</p>
+        <div *ngIf="isLoggedIn" class="welcome-banner mb-4">
+          <h3>Welcome back, {{currentUser?.firstName || currentUser?.username || 'Artist'}}!</h3>
+          <p>Discover new exhibitions and creative events today</p>
         </div>
         
-        <div class="mb-5 text-center">
-          <h1 class="text-white font-weight-bold">The Easiest Way To Get Your Dream Job</h1>
-          <p>Find jobs, create trackable resumes and enrich your applications.</p>
+        <div class="hero-content">
+          <h1>Where Art Meets Experience</h1>
+          <p class="lead">Discover exhibitions, workshops, and artistic events that inspire and transform</p>
+          <div class="hero-buttons">
+            <a routerLink="/events" class="btn btn-primary">Explore Events</a>
+            <a routerLink="/gallery" class="btn btn-outline">Browse Gallery</a>
+          </div>
         </div>
-        
-        <!-- Rest of your home page content -->
-        <!-- ... -->
       </div>
     </div>
   </div>
 </section>
 
-<!-- Rest of the acceuil content -->
+<!-- Featured Events Section -->
+<section class="featured-events-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Upcoming Events</h2>
+      <p>Join us for these inspiring artistic gatherings</p>
+    </div>
+    
+    <div class="row">
+      <div *ngFor="let event of featuredEvents" class="col-md-4 mb-4">
+        <div class="event-card" (click)="navigateToEvent(event.id)">
+          <div class="event-image" [style.backgroundImage]="'url(' + event.image + ')'">
+            <div class="event-date">
+              <span class="day">{{event.date | date:'dd'}}</span>
+              <span class="month">{{event.date | date:'MMM'}}</span>
+            </div>
+          </div>
+          <div class="event-details">
+            <h3>{{event.title}}</h3>
+            <p>{{event.description}}</p>
+            <a class="event-link">Learn More</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-4">
+      <a routerLink="/events" class="btn btn-view-all">View All Events</a>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Artworks Section -->
+<section class="featured-artworks-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Featured Artworks</h2>
+      <p>Explore our curated collection of exceptional pieces</p>
+    </div>
+    
+    <div class="row">
+      <div *ngFor="let artwork of featuredArtworks" class="col-md-3 mb-4">
+        <div class="artwork-card" (click)="navigateToArtwork(artwork.id)">
+          <div class="artwork-image" [style.backgroundImage]="'url(' + artwork.image + ')'"></div>
+          <div class="artwork-details">
+            <h3>{{artwork.title}}</h3>
+            <p class="artist">by {{artwork.artist}}</p>
+            <p class="medium">{{artwork.medium}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="text-center mt-4">
+      <a routerLink="/gallery" class="btn btn-view-all">Explore Full Gallery</a>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter Section -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 text-center">
+        <h2>Stay Inspired</h2>
+        <p>Subscribe to our newsletter for updates on exhibitions, workshops, and artistic events</p>
+        <form class="newsletter-form">
+          <div class="input-group">
+            <input type="email" class="form-control" placeholder="Your email address">
+            <div class="input-group-append">
+              <button class="btn btn-primary" type="submit">Subscribe</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

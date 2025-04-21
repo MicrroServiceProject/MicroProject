@@ -16,6 +16,7 @@ import com.esprit.microservice.user.services.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+@CrossOrigin(origins = "http://localhost:4200", allowedHeaders = "*", allowCredentials = "true")
 
 @RestController
 @RequestMapping("/api/users")
@@ -31,9 +32,25 @@ public class UserRestAPI {
 
     // Get all users
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<User>> getAllUsers(HttpServletRequest request) {
+        System.out.println("CORS Headers:");
+        System.out.println("Origin: " + request.getHeader("Origin"));
+        System.out.println("Access-Control-Request-Method: " + request.getHeader("Access-Control-Request-Method"));
+        
         List<User> users = userService.getAllUsers();
         return new ResponseEntity<>(users, HttpStatus.OK);
+    }
+// Ajouter cette méthode dans UserRestAPI
+@GetMapping("/statistics/role")
+public ResponseEntity<Map<String, Long>> getUserStatisticsByRole() {
+    Map<String, Long> statistics = userService.getUserStatisticsByRole();
+    return ResponseEntity.ok(statistics);
+}
+
+    @GetMapping("/statistics/total")
+    public ResponseEntity<Long> getTotalUsersCount() {
+        long totalUsers = userService.getTotalUsersCount();
+        return ResponseEntity.ok(totalUsers);
     }
 
     // Get user by ID
@@ -54,7 +71,6 @@ public class UserRestAPI {
         User newUser = userService.createUser(user);
         return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
-
     // Update a user
     @PutMapping("/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User userDetails) {
@@ -164,5 +180,25 @@ public class UserRestAPI {
         }
         return ResponseEntity.badRequest().body(Map.of("message", "No token provided"));
     }
+    @PostMapping("/login/google")
+    public ResponseEntity<?> loginWithGoogle(@RequestBody Map<String, String> request) {
+        try {
+            String googleToken = request.get("token");
+            User user = userService.loginWithGoogle(googleToken);
+
+            String jwtToken = jwtUtil.generateToken(user);
+
+            return ResponseEntity.ok(Map.of(
+                    "token", jwtToken,
+                    "user", user,
+                    "tokenType", "Bearer",
+                    "message", "Google login successful"
+            ));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                    .body(Map.of("message", e.getMessage()));
+        }
+    }
+
 }
 

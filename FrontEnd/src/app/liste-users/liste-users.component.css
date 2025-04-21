@@ -1,0 +1,87 @@
+.container {
+  max-width: 1200px;
+}
+
+.table {
+  margin-top: 20px;
+}
+
+.badge {
+  font-size: 0.85rem;
+  padding: 0.4em 0.75em;
+  border-radius: 1rem;
+  font-weight: 500;
+}
+
+.btn-sm {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.85rem;
+}
+
+.form-control-sm,
+.form-select-sm {
+  font-size: 0.85rem;
+  padding: 0.25rem 0.5rem;
+}
+
+.table-responsive {
+  overflow-x: auto;
+}
+
+/* Spinner centering fix */
+.spinner-border-sm {
+  vertical-align: middle;
+}
+
+/* Styles pour la barre de recherche et les filtres */
+.search-filters-container {
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  padding: 1.25rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.search-form {
+  margin-bottom: 0.5rem;
+}
+
+.search-results-summary {
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+/* Styles pour les icônes Bootstrap */
+.bi {
+  line-height: 1;
+}
+
+.bi-search {
+  font-size: 0.9rem;
+}
+
+.bi-x {
+  font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .search-filters-container {
+    padding: 1rem;
+  }
+  
+  .row.g-3 > * {
+    margin-bottom: 0.5rem;
+  }
+}
+
+/* Animation pour les changements de filtres */
+.table tbody tr {
+  transition: background-color 0.2s ease;
+}
+
+/* Style pour le bouton de réinitialisation */
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: white;
+}

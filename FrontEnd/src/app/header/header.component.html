@@ -1,30 +1,41 @@
-<header class="site-navbar mt-3">
+<header class="site-header">
   <div class="container-fluid">
     <div class="row align-items-center">
-      <div class="site-logo col-6"><a routerLink="/">JobBoard</a></div>
+      <div class="site-logo col-6 col-md-3">
+        <a routerLink="/">ArtStudio</a>
+      </div>
 
-      <nav class="mx-auto site-navigation">
-        <ul class="site-menu js-clone-nav d-none d-xl-block ml-0 pl-0">
+      <div class="col-6 d-md-none text-right">
+        <button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+
+      <nav class="site-navigation col-md-6 order-md-2" [ngClass]="{'mobile-open': isMobileMenuOpen}">
+        <ul class="site-menu">
           <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+          <li><a routerLink="/events" routerLinkActive="active">Events</a></li>
+          <li><a routerLink="/products" routerLinkActive="active">Gallery</a></li>
+          <li><a routerLink="/courses" routerLinkActive="active">Workshops</a></li>
+          <li><a routerLink="/blogs" routerLinkActive="active">Blog</a></li>
           <li><a routerLink="/about" routerLinkActive="active">About</a></li>
-          <li><a href="#" (click)="navigateToEvents()">Post Events</a></li>
           <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
-          <li><a routerLink="/jobs/new" routerLinkActive="active">Post a Job</a></li>
         </ul>
       </nav>
       
-      <div class="right-cta-menu text-right d-flex aligin-items-center col-6">
-        <div *ngIf="!isLoggedIn" class="ml-auto">
-          <a routerLink="/login" class="btn btn-primary border-width-2 d-none d-lg-inline-block">
-            <span class="mr-2 icon-lock_outline"></span>Log In
+      <div class="user-menu-container col-md-3 order-md-3 ml-auto">
+        <div *ngIf="!isLoggedIn" class="login-buttons">
+          <a routerLink="/login" class="btn btn-login">
+            <span class="icon-lock"></span> Log In
           </a>
-          <a routerLink="/login" class="btn btn-outline-white border-width-2 d-none d-lg-inline-block ml-2">
-            <span class="mr-2 icon-add-user"></span>Register
+          <a routerLink="/login" class="btn btn-register">
+            <span class="icon-user-plus"></span> Register
           </a>
         </div>
-        <div *ngIf="isLoggedIn" class="ml-auto">
-          <button (click)="logout()" class="btn btn-danger border-width-2 d-none d-lg-inline-block">
-            <span class="mr-2 icon-sign-out"></span>Logout
+        <div *ngIf="isLoggedIn" class="user-menu">
+          <span class="user-name">{{ currentUser?.username || currentUser?.email || 'User' }}</span>
+          <button (click)="logout()" class="btn btn-logout">
+            <span class="icon-sign-out"></span> Logout
           </button>
         </div>
       </div>

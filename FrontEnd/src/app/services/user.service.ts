@@ -2,7 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, BehaviorSubject, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { User, Role } from './models/user.model';
+import { User, Role } from '../models/user.model';
 
 interface AuthResponse {
   token: string;
@@ -65,7 +65,18 @@ export class UserService {
         catchError(this.handleError)
       );
   }
+// user.service.ts
+getUserStatisticsByRole(): Observable<Map<string, number>> {
+  return this.http.get<Map<string, number>>(`${this.apiUrl}/statistics/role`, {
+    headers: this.getAuthHeaders()
+  });
+}
 
+getTotalUsers(): Observable<number> {
+  return this.http.get<number>(`${this.apiUrl}/statistics/total`, {
+    headers: this.getAuthHeaders()
+  });
+}
   // Update a user
   updateUser(id: number, userDetails: Partial<User>): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/${id}`, userDetails, { headers: this.getAuthHeaders() })
@@ -174,4 +185,67 @@ export class UserService {
     console.error(errorMessage);
     return throwError(() => new Error(errorMessage));
   }
+  // Ajoutez cette méthode à votre UserService
+// Dans UserService
+decodeToken(token: string): User | null {
+  try {
+    const payload = token.split('.')[1];
+    const decoded = atob(payload.replace(/-/g, '+').replace(/_/g, '/'));
+    return JSON.parse(decoded);
+  } catch (e) {
+    console.error('Failed to decode token', e);
+    return null;
+  }
+}
+
+// Modifiez setAuthToken pour mettre à jour l'utilisateur automatiquement
+setAuthToken(token: string): void {
+  this.tokenSubject.next(token);
+  localStorage.setItem('token', token);
+  
+  // Décoder le token et mettre à jour l'utilisateur
+  const user = this.decodeToken(token);
+  if (user) {
+    this.setCurrentUser(user);
+  }
+}
+
+setCurrentUser(user: User): void {
+  this.currentUserSubject.next(user);
+  localStorage.setItem('currentUser', JSON.stringify(user));
+}
+
+// Modifier loginWithGoogle()
+loginWithGoogle(): Observable<AuthResponse> {
+  return new Observable<AuthResponse>(observer => {
+    // Ouvrir une nouvelle fenêtre
+    const popup = window.open(
+      'http://localhost:8093/oauth2/authorization/google',
+      '_blank',
+      'width=500,height=600'
+    );
+
+    // Écouter les messages
+    const messageListener = (event: MessageEvent) => {
+      if (event.origin === 'http://localhost:4200' && event.data.token) {
+        const response: AuthResponse = {
+          token: event.data.token,
+          user: event.data.user,
+          tokenType: 'Bearer',
+          message: 'Google login successful'
+        };
+        
+        this.setAuthToken(response.token);
+        this.setCurrentUser(response.user);
+        
+        observer.next(response);
+        observer.complete();
+        popup?.close();
+        window.removeEventListener('message', messageListener);
+      }
+    };
+
+    window.addEventListener('message', messageListener, false);
+  });
+}
 }

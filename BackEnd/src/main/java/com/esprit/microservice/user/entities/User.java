@@ -5,16 +5,17 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.io.Serializable;
 import java.util.Set;
-
+@Table(name = "\"user\"")
 @Entity
 public class User implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String username;
+    @Column(unique = true)
     private String email;
     private String password;
     private String firstName;
@@ -23,16 +24,22 @@ public class User implements Serializable {
     private boolean active = true;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @JsonIgnore 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Registry> registries;
+    @JsonIgnore 
     @OneToMany(mappedBy = "user1", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Events> events;
 
 
     public enum Role {
-        USER, ADMIN, MODERATOR
+        USER, ADMIN,ARTISTE
     }
+    private String googleId; // Nouveau champ
 
+    // Getters & Setters
+    public String getGoogleId() { return googleId; }
+    public void setGoogleId(String googleId) { this.googleId = googleId; }
     public Role getRole() {
         return role;
     }

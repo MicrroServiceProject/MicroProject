@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+/* Center dialog content */
+.centered-dialog .mat-dialog-container {
+    transform: translate(-50%, -50%) !important;
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    padding: 24px;
+    border-radius: 8px;
+  }
+  
+  /* Optional: Add backdrop styling */
+  .mat-dialog-backdrop {
+    background-color: rgba(0, 0, 0, 0.5) !important;
+  }

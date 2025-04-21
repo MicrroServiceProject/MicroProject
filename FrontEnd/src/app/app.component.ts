@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pi-dev-cloud';
+  constructor(public router: Router) {}
+
+  shouldShowLayout(): boolean {
+    // Add any route here where you want to hide header/footer
+    return !this.router.url.startsWith('/dashboard');
+  }
 }

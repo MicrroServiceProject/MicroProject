@@ -1,0 +1,237 @@
+<div class="container mt-4">
+  <h2>User Management</h2>
+  
+  <!-- Loading indicator -->
+  <div *ngIf="isLoading" class="text-center py-5">
+      <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+          <span class="visually-hidden">Loading...</span>
+      </div>
+      <p class="mt-2">Loading users...</p>
+  </div>
+
+  <!-- Error message -->
+  <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{ errorMessage }}
+      <button type="button" class="btn-close" (click)="errorMessage = ''"></button>
+  </div>
+
+  <!-- Search and filters -->
+  <div *ngIf="!isLoading && !errorMessage" class="search-filters-container">
+      <form [formGroup]="searchForm" class="search-form">
+          <div class="row g-3">
+              <!-- Barre de recherche principale -->
+              <div class="col-md-4">
+                  <div class="input-group">
+                      <span class="input-group-text"><i class="bi bi-search"></i></span>
+                      <input 
+                          type="text" 
+                          class="form-control" 
+                          placeholder="Search by name, email..." 
+                          formControlName="searchTerm"
+                          aria-label="Search users">
+                      <button 
+                          *ngIf="searchForm.get('searchTerm')?.value" 
+                          class="btn btn-outline-secondary" 
+                          type="button"
+                          (click)="searchForm.get('searchTerm')?.setValue('')">
+                          <i class="bi bi-x"></i>
+                      </button>
+                  </div>
+              </div>
+              
+              <!-- Filtre par rôle -->
+              <div class="col-md-2">
+                  <select class="form-select" formControlName="role" aria-label="Filter by role">
+                      <option *ngFor="let option of roleOptions" [value]="option.value">
+                          {{ option.label }}
+                      </option>
+                  </select>
+              </div>
+              
+              <!-- Filtre par statut -->
+              <div class="col-md-2">
+                  <select class="form-select" formControlName="status" aria-label="Filter by status">
+                      <option *ngFor="let option of statusOptions" [value]="option.value">
+                          {{ option.label }}
+                      </option>
+                  </select>
+              </div>
+              
+              <!-- Tri -->
+              <div class="col-md-2">
+                  <select class="form-select" formControlName="sortBy" aria-label="Sort by">
+                      <option value="userId">Sort by ID</option>
+                      <option value="username">Sort by Username</option>
+                      <option value="email">Sort by Email</option>
+                      <option value="firstName">Sort by First Name</option>
+                      <option value="lastName">Sort by Last Name</option>
+                      <option value="role">Sort by Role</option>
+                      <option value="status">Sort by Status</option>
+                  </select>
+              </div>
+              
+              <div class="col-md-1">
+                  <select class="form-select" formControlName="sortDirection" aria-label="Sort direction">
+                      <option value="asc">Asc</option>
+                      <option value="desc">Desc</option>
+                  </select>
+              </div>
+              
+              <!-- Bouton de réinitialisation -->
+              <div class="col-md-1">
+                  <button 
+                      type="button" 
+                      class="btn btn-outline-secondary w-100" 
+                      (click)="resetFilters()"
+                      [disabled]="searchForm.pristine">
+                      Reset
+                  </button>
+              </div>
+          </div>
+      </form>
+      
+      <!-- Résumé des résultats -->
+      <div class="search-results-summary mt-3">
+          <div class="d-flex justify-content-between align-items-center">
+              <span>
+                  <strong>{{ filteredUsers.length }}</strong> users found
+                  <span *ngIf="filteredUsers.length !== users.length">
+                      (filtered from {{ users.length }} total)
+                  </span>
+              </span>
+          </div>
+      </div>
+  </div>
+
+  <!-- User table -->
+  <div *ngIf="!isLoading && !errorMessage">
+      <div class="table-responsive">
+          <table class="table table-striped table-hover align-middle">
+              <thead class="table-dark">
+                  <tr>
+                      <th>ID</th>
+                      <th>Username</th>
+                      <th>Email</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Role</th>
+                      <th>Status</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let user of filteredUsers">
+                      <td>{{ user.userId }}</td>
+                      
+                      <!-- Username -->
+                      <td>
+                          <input *ngIf="editingUserId === user.userId" 
+                                 type="text" 
+                                 class="form-control form-control-sm" 
+                                 [(ngModel)]="editedUser!.username"
+                                 required>
+                          <span *ngIf="editingUserId !== user.userId">{{ user.username }}</span>
+                      </td>
+
+                      <!-- Email -->
+                      <td>
+                          <input *ngIf="editingUserId === user.userId" 
+                                 type="email" 
+                                 class="form-control form-control-sm" 
+                                 [(ngModel)]="editedUser!.email"
+                                 required>
+                          <span *ngIf="editingUserId !== user.userId">{{ user.email }}</span>
+                      </td>
+
+                      <!-- First Name -->
+                      <td>
+                          <input *ngIf="editingUserId === user.userId" 
+                                 type="text" 
+                                 class="form-control form-control-sm" 
+                                 [(ngModel)]="editedUser!.firstName">
+                          <span *ngIf="editingUserId !== user.userId">{{ user.firstName }}</span>
+                      </td>
+
+                      <!-- Last Name -->
+                      <td>
+                          <input *ngIf="editingUserId === user.userId" 
+                                 type="text" 
+                                 class="form-control form-control-sm" 
+                                 [(ngModel)]="editedUser!.lastName">
+                          <span *ngIf="editingUserId !== user.userId">{{ user.lastName }}</span>
+                      </td>
+
+                      <!-- Role -->
+                      <td>
+                        <ng-container *ngIf="editingUserId === user.userId; else roleDisplay">
+                          <select class="form-select form-select-sm" [(ngModel)]="editedUser!.role">
+                            <option value="ADMIN">ADMIN</option>
+                            <option value="USER">USER</option>
+                            <option value="ARTISTE">ARTISTE</option>
+                          </select>
+                        </ng-container>
+                        <ng-template #roleDisplay>
+                          <span class="badge rounded-pill"
+                                [ngClass]="{
+                                  'bg-primary': user.role === 'ADMIN',
+                                  'bg-success': user.role === 'USER',
+                                  'bg-warning text-dark': user.role === 'ARTISTE'
+                                }">
+                            {{ user.role }}
+                          </span>
+                        </ng-template>
+                      </td>
+
+                      <!-- Status -->
+                      <td>
+                        <ng-container *ngIf="editingUserId === user.userId; else statusDisplay">
+                          <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" [(ngModel)]="editedUser!.active">
+                          </div>
+                        </ng-container>
+                        <ng-template #statusDisplay>
+                          <span class="badge rounded-pill"
+                                [ngClass]="{
+                                  'bg-success': user.active,
+                                  'bg-secondary': !user.active
+                                }">
+                            {{ user.active ? 'Active' : 'Inactive' }}
+                          </span>
+                        </ng-template>
+                      </td>
+
+                      <!-- Actions -->
+                      <td>
+                        <div class="d-flex flex-wrap gap-2">
+                          <ng-container *ngIf="editingUserId === user.userId; else viewMode">
+                            <button class="btn btn-sm btn-success" (click)="saveUser()" [disabled]="saveLoading">
+                              <span *ngIf="!saveLoading">💾 Save</span>
+                              <span *ngIf="saveLoading">
+                                <span class="spinner-border spinner-border-sm" role="status"></span> Saving...
+                              </span>
+                            </button>
+                            <button class="btn btn-sm btn-outline-secondary" (click)="cancelEdit()" [disabled]="saveLoading">
+                              ❌ Cancel
+                            </button>
+                          </ng-container>
+
+                          <ng-template #viewMode>
+                            <button class="btn btn-sm btn-primary" (click)="startEdit(user)" [disabled]="editingUserId !== null">
+                              ✏️ Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger" (click)="deleteUser(user.userId)">
+                              🗑️ Delete
+                            </button>
+                          </ng-template>
+                        </div>
+                      </td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+
+      <div *ngIf="filteredUsers.length === 0" class="alert alert-info mt-3">
+          No users found matching your search criteria.
+      </div>
+  </div>
+</div>
