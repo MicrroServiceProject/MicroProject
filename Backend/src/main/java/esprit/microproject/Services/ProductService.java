@@ -4,10 +4,11 @@ import esprit.microproject.Entities.Product;
 import esprit.microproject.Repositories.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional; // Import Transactional
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Collections; // Importer Collections
 
 @Service
 public class ProductService {
@@ -19,31 +20,45 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    // READ All
+    // READ All (Inchangé)
     @Transactional(readOnly = true)
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    // READ One by ID
+    // READ One by ID (Inchangé et Confirmé)
     @Transactional(readOnly = true)
     public Optional<Product> getProductById(Long id) {
-
         return productRepository.findById(id);
     }
 
-    // CREATE
+    // --- AJOUT OPTIONNEL MAIS RECOMMANDÉ ---
+    /**
+     * Récupère une liste de produits par leurs IDs.
+     * @param ids Liste des IDs de produits.
+     * @return Liste des produits trouvés.
+     */
+    @Transactional(readOnly = true)
+    public List<Product> getProductsByIds(List<Long> ids) {
+        if (ids == null || ids.isEmpty()) {
+            return Collections.emptyList();
+        }
+        return productRepository.findAllById(ids); // Utilise la méthode standard de JpaRepository
+    }
+    // ----------------------------------------
+
+    // CREATE (Inchangé)
     @Transactional
     public Product createProduct(Product product) {
-
+        // Vérifie si un produit avec le même nom existe déjà (logique simple, peut être affinée)
         Optional<Product> existingProduct = productRepository.findByName(product.getName());
         if (existingProduct.isPresent()) {
-            throw new IllegalArgumentException("Le produit existe déjà !");
+            throw new IllegalArgumentException("Un produit avec le nom '" + product.getName() + "' existe déjà !");
         }
         return productRepository.save(product);
     }
 
-    // UPDATE
+    // UPDATE (Inchangé)
     @Transactional
     public Optional<Product> updateProduct(Long id, Product productDetails) {
         return productRepository.findById(id)
@@ -53,11 +68,12 @@ public class ProductService {
                     existingProduct.setPrice(productDetails.getPrice());
                     existingProduct.setImageUrl(productDetails.getImageUrl());
                     existingProduct.setCategory(productDetails.getCategory());
+                    // Ajoutez ici d'autres champs à mettre à jour si nécessaire
                     return productRepository.save(existingProduct);
-                });
+                }); // Retourne un Optional<Product>
     }
 
-    // DELETE
+    // DELETE (Inchangé)
     @Transactional
     public boolean deleteProduct(Long id) {
         if (productRepository.existsById(id)) {
@@ -66,9 +82,13 @@ public class ProductService {
         }
         return false;
     }
-    // Méthode de recherche dynamique
+
+    // Méthode de recherche dynamique (Inchangé)
+    @Transactional(readOnly = true) // Bonne pratique d'ajouter readOnly pour les recherches
     public List<Product> searchProductsByName(String name) {
+        if (name == null || name.trim().isEmpty()) {
+            return Collections.emptyList();
+        }
         return productRepository.findByNameContainingIgnoreCase(name);
     }
-
 }

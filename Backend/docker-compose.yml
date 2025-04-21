@@ -24,3 +24,4 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/artshopdb?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: root
+    entrypoint: ["sh", "-c", "sleep 15 && java -jar app.jar"]
