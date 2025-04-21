@@ -1,0 +1,44 @@
+<header id="main-header" class="site-header">
+  <div class="container-fluid">
+    <div class="row align-items-center">
+      <div class="site-logo col-6 col-md-3">
+        <a routerLink="/">ArtStudio</a>
+      </div>
+
+      <div class="col-6 d-md-none text-right">
+        <button class="mobile-menu-toggle" (click)="toggleMobileMenu()">
+          <span class="icon-menu"></span>
+        </button>
+      </div>
+
+      <nav class="site-navigation col-md-6 order-md-2" [ngClass]="{'mobile-open': isMobileMenuOpen}">
+        <ul class="site-menu">
+          <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+          <li><a routerLink="/events" routerLinkActive="active">Events</a></li>
+          <li><a routerLink="/products" routerLinkActive="active">Gallery</a></li>
+          <li><a routerLink="/courses" routerLinkActive="active">Workshops</a></li>
+          <li><a routerLink="/blogs" routerLinkActive="active">Blog</a></li>
+          <li><a routerLink="/about" routerLinkActive="active">About</a></li>
+          <li><a routerLink="/contact" routerLinkActive="active">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="user-menu-container col-md-3 order-md-3 ml-auto">
+        <div *ngIf="!isLoggedIn" class="login-buttons">
+          <a routerLink="/login" class="btn btn-login">
+            <span class="icon-lock"></span> Log In
+          </a>
+          <a routerLink="/login" class="btn btn-register">
+            <span class="icon-user-plus"></span> Register
+          </a>
+        </div>
+        <div *ngIf="isLoggedIn" class="user-menu">
+          <span class="user-name">{{ currentUser?.username || currentUser?.email || 'User' }}</span>
+          <button (click)="logout()" class="btn btn-logout">
+            <span class="icon-sign-out"></span> Logout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

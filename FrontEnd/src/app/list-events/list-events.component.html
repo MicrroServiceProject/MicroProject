@@ -1,0 +1,135 @@
+<div class="events-container">
+    <div class="events-header">
+      <h1>Événements à venir</h1>
+      <div class="search-container">
+        <form [formGroup]="searchForm" class="search-form">
+          <div class="search-input">
+            <i class="fas fa-search"></i>
+            <input 
+              type="text" 
+              formControlName="searchTerm" 
+              placeholder="Rechercher un événement..."
+              class="form-control"
+            >
+          </div>
+          <div class="date-filters">
+            <div class="date-input">
+              <label for="dateStart">Du</label>
+              <input 
+                type="date" 
+                id="dateStart"
+                formControlName="dateStart" 
+                class="form-control"
+              >
+            </div>
+            <div class="date-input">
+              <label for="dateEnd">Au</label>
+              <input 
+                type="date" 
+                id="dateEnd"
+                formControlName="dateEnd" 
+                class="form-control"
+              >
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+    <div *ngIf="loading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Chargement des événements...</p>
+    </div>
+  
+    <div *ngIf="error" class="error-container">
+      <p>Une erreur est survenue lors du chargement des événements. Veuillez réessayer plus tard.</p>
+      <button (click)="loadEvents()" class="retry-button">Réessayer</button>
+    </div>
+  
+    <div *ngIf="!loading && !error && filteredEvents.length === 0" class="no-events">
+      <p>Aucun événement ne correspond à votre recherche.</p>
+    </div>
+  
+    <div class="events-grid" *ngIf="!loading && !error && filteredEvents.length > 0">
+      <div class="event-card" *ngFor="let event of filteredEvents">
+        <div class="event-image">
+          
+          <div class="event-date">
+            <span class="day">{{ formatDate(event.date).split(' ')[0] }}</span>
+            <span class="month">{{ formatDate(event.date).split(' ')[1] }}</span>
+          </div>
+        </div>
+        <div class="event-content">
+          <h3 class="event-title" (click)="navigateToEventDetails(event.id!)">{{ event.nom }}</h3>
+          <div class="event-details">
+            <p class="event-time">
+              <i class="far fa-clock"></i> {{ formatDate(event.date) }}
+            </p>
+            <p class="event-location" *ngIf="event.location">
+              <i class="fas fa-map-marker-alt"></i> {{ event.location }}
+            </p>
+            <p class="event-capacity">
+              <i class="fas fa-users"></i> 
+              Places disponibles: {{ getAvailableSeats(event) }} / {{ event.placesDisponibles}}
+            </p>
+          </div>
+          <p class="event-description">{{ event.description | slice:0:150 }}{{ event.description && event.description.length > 150 ? '...' : '' }}</p>
+          <div class="event-footer">
+            <button 
+              class="reserve-button" 
+              (click)="openReservationModal(event)"
+              [disabled]="getAvailableSeats(event) <= 0"
+            >
+              {{ getAvailableSeats(event) > 0 ? 'Réserver' : 'Complet' }}
+            </button>
+            <button class="details-button" (click)="navigateToEventDetails(event.id!)">
+              Détails
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+   
+<!-- Reservation Modal -->
+<div class="modal-overlay" *ngIf="selectedEvent" (click)="closeReservationModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Réserver pour {{ selectedEvent.nom }}</h2>
+        <button class="close-button" (click)="closeReservationModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="event-info">
+          <p><strong>Date:</strong> {{ formatDate(selectedEvent.date) }}</p>
+          <p><strong>Lieu:</strong> {{ selectedEvent.location }}</p>
+          <p><strong>Places disponibles:</strong> {{ getAvailableSeats(selectedEvent) }} / {{ selectedEvent.capaciteMax }}</p>
+        </div>
+        <div class="reservation-form">
+          <label for="reservationCount">Nombre de places:</label>
+          <div class="quantity-selector">
+            <button 
+              class="quantity-button" 
+              (click)="decrementReservation()"
+              [disabled]="reservationCount <= 1"
+            >-</button>
+            <span class="quantity-value">{{ reservationCount }}</span>
+            <button 
+              class="quantity-button" 
+              (click)="incrementReservation()"
+              [disabled]="reservationCount >= getAvailableSeats(selectedEvent)"
+            >+</button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="cancel-button" (click)="closeReservationModal()">Annuler</button>
+        <button 
+          class="confirm-button" 
+          (click)="reserveEvent()"
+          [disabled]="reservationCount <= 0 || reservationCount > getAvailableSeats(selectedEvent)"
+        >
+          Confirmer la réservation
+        </button>
+      </div>
+    </div>
+  </div>

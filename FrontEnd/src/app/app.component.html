@@ -1,0 +1,13 @@
+<body id="top">
+    <header class="site-navbar mt-3" *ngIf="shouldShowLayout()">
+      <app-header></app-header>
+    </header>
+    
+    <main>
+      <router-outlet></router-outlet>
+    </main>
+    
+    <footer class="site-footer" *ngIf="shouldShowLayout()">
+      <app-footer></app-footer>
+    </footer>
+    </body>

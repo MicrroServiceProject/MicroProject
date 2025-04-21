@@ -1,0 +1,73 @@
+<!-- Event Creation Form -->
+<br><br><br>
+<div *ngIf="!showEventsList">
+  <div class="container mt-4">
+    <div class="form-container">
+      <h2 class="mb-4">{{ isEditMode ? 'Edit Event' : 'Create New Event' }}</h2>
+      <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+        
+        <div class="mb-3">
+          <label for="nom" class="form-label">Event Name</label>
+          <input type="text" id="nom" class="form-control" formControlName="nom">
+          <div *ngIf="eventForm.get('nom')?.invalid && eventForm.get('nom')?.touched" class="text-danger">
+            Event name is required
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label">Description</label>
+          <textarea id="description" class="form-control" rows="3" formControlName="description"></textarea>
+          <div *ngIf="eventForm.get('description')?.invalid && eventForm.get('description')?.touched" class="text-danger">
+            Description must not exceed 500 characters
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="date" class="form-label">Event Date</label>
+          <input type="datetime-local" id="date" class="form-control" formControlName="date">
+          <div *ngIf="eventForm.get('date')?.invalid && eventForm.get('date')?.touched" class="text-danger">
+            Event date is required and must be in the future
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="location" class="form-label">Location</label>
+          <input type="text" id="location" class="form-control" formControlName="location">
+        </div>
+
+        <div class="mb-3">
+          <label for="capaciteMax" class="form-label">Max Capacity</label>
+          <input type="number" id="capaciteMax" class="form-control" formControlName="capaciteMax">
+          <div *ngIf="eventForm.get('capaciteMax')?.invalid && eventForm.get('capaciteMax')?.touched" class="text-danger">
+            Max capacity must be at least 1
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="artiste" class="form-label">Hosted By (Artist)</label>
+          <select id="artiste" class="form-control" formControlName="artisteId">
+            <option *ngFor="let artiste of artistes" [value]="artiste.id">{{artiste.nom}} {{artiste.prenom}}</option>
+          </select>
+          <div *ngIf="eventForm.get('artisteId')?.invalid && eventForm.get('artisteId')?.touched" class="text-danger">
+            Please select an artist
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="tags" class="form-label">Tags (comma separated)</label>
+          <input type="text" id="tags" class="form-control" formControlName="tags">
+        </div>
+
+        <button type="submit" class="btn btn-primary" [disabled]="eventForm.invalid">
+          {{ isEditMode ? 'Update' : 'Submit' }} Event
+        </button>
+        <button type="button" class="btn btn-outline-secondary ms-2" (click)="toggleEventsList()">
+          View Posted Events
+        </button>
+        <button *ngIf="isEditMode" type="button" class="btn btn-outline-danger ms-2" (click)="resetForm()">
+          Cancel Edit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>

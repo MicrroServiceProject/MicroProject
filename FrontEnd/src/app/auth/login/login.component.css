@@ -1,0 +1,21 @@
+.btn-google {
+    background: #DB4437;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+  }
+  
+  .btn-google:hover {
+    background: #c23321;
+  }
+  
+  .btn-google:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
