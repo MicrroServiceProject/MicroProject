@@ -13,5 +13,14 @@ import java.util.List;
 @Entity
 @Table(name = "instructors")
 public class Instructor implements Serializable {
-    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String userId;
+    private String name;
+    private String email;
+
+    // Optional: list of courses taught by this instructor
+    @OneToMany(mappedBy = "instructor")
+    private List<Course> courses;
 }

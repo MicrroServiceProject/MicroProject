@@ -1,7 +1,6 @@
 package esprit.microproject.Services;
 
 import esprit.microproject.Entities.Course;
-import esprit.microproject.Entities.Material;
 
 import java.util.List;
 
@@ -16,8 +15,8 @@ public interface CourseService {
     void assignInstructorToMultipleCourses(Long instructorId, List<Long> courseIds);
 
     List<Course> searchCourses(String keyword);
-
     Material addMaterialToCourse(Long courseId, Material material);
     Material updateMaterial(Long courseId, Long materialId, Material updatedMaterial);
     void removeMaterialFromCourse(Long courseId, Long materialId);
+
 }

@@ -1,15 +1,14 @@
 package esprit.microproject.Entities;
-import jakarta.persistence.Table;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -24,15 +23,32 @@ public class Course implements Serializable {
     private String name;
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "instructor_id")
-    private Instructor instructor;
+    /**
+     * Just the user‑service’s instructor ID
+     */
+    private Long instructorId;
 
-    @OneToMany(mappedBy = "course")
-    private List<Enrollment> enrollments;
+    /**
+     * A set of user IDs (students) from the user‑service
+     */
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(
+            name = "course_students",
+            joinColumns = @JoinColumn(name = "course_id")
+    )
+    private Set<Long> studentIds = new HashSet<>();
 
-    @OneToMany(mappedBy = "course")
-    private List<Material> materials;
+    /**
+     * One Course ⟶ many Materials (cascaded/detached with the course)
+     */
+    @OneToMany(
+            mappedBy = "course",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY
+    )
+    private Set<Material> materials = new HashSet<>();
 
-
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }

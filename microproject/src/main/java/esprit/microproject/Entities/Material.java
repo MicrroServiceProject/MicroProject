@@ -1,28 +1,28 @@
 package esprit.microproject.Entities;
+
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
-
 import java.io.Serializable;
-import java.util.List;
-@Data
+import java.time.LocalDateTime;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@Data
 @Table(name = "materials")
-public class Material implements Serializable  {
+public class Material implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
-    @Enumerated(EnumType.STRING)
-    private MaterialType type;
-    private String url;
+    private String title;
+    private String url;               // or path, S3 key, etc.
+    private LocalDateTime uploadedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "course_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 }
