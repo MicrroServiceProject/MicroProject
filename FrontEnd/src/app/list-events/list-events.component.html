@@ -90,46 +90,46 @@
       </div>
     </div>
   
-    <!-- Reservation Modal -->
-    <div class="modal-overlay" *ngIf="selectedEvent" (click)="closeReservationModal()">
-      <div class="modal-content" (click)="$event.stopPropagation()">
-        <div class="modal-header">
-          <h2>Réserver pour {{ selectedEvent.nom }}</h2>
-          <button class="close-button" (click)="closeReservationModal()">&times;</button>
+   
+<!-- Reservation Modal -->
+<div class="modal-overlay" *ngIf="selectedEvent" (click)="closeReservationModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Réserver pour {{ selectedEvent.nom }}</h2>
+        <button class="close-button" (click)="closeReservationModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="event-info">
+          <p><strong>Date:</strong> {{ formatDate(selectedEvent.date) }}</p>
+          <p><strong>Lieu:</strong> {{ selectedEvent.location }}</p>
+          <p><strong>Places disponibles:</strong> {{ getAvailableSeats(selectedEvent) }} / {{ selectedEvent.capaciteMax }}</p>
         </div>
-        <div class="modal-body">
-          <div class="event-info">
-            <p><strong>Date:</strong> {{ formatDate(selectedEvent.date) }}</p>
-            <p><strong>Lieu:</strong> {{ selectedEvent.location }}</p>
-            <p><strong>Places disponibles:</strong> {{ getAvailableSeats(selectedEvent) }}</p>
+        <div class="reservation-form">
+          <label for="reservationCount">Nombre de places:</label>
+          <div class="quantity-selector">
+            <button 
+              class="quantity-button" 
+              (click)="decrementReservation()"
+              [disabled]="reservationCount <= 1"
+            >-</button>
+            <span class="quantity-value">{{ reservationCount }}</span>
+            <button 
+              class="quantity-button" 
+              (click)="incrementReservation()"
+              [disabled]="reservationCount >= getAvailableSeats(selectedEvent)"
+            >+</button>
           </div>
-          <div class="reservation-form">
-            <label for="reservationCount">Nombre de places:</label>
-            <div class="quantity-selector">
-              <button 
-                class="quantity-button" 
-                (click)="decrementReservation()"
-                [disabled]="reservationCount <= 1"
-              >-</button>
-              <span class="quantity-value">{{ reservationCount }}</span>
-              <button 
-                class="quantity-button" 
-                (click)="incrementReservation()"
-                [disabled]="reservationCount >= getAvailableSeats(selectedEvent)"
-              >+</button>
-            </div>
-          </div>
         </div>
-        <div class="modal-footer">
-          <button class="cancel-button" (click)="closeReservationModal()">Annuler</button>
-          <button 
-            class="confirm-button" 
-            (click)="reserveEvent()"
-            [disabled]="reservationCount <= 0 || reservationCount > getAvailableSeats(selectedEvent)"
-          >
-            Confirmer la réservation
-          </button>
-        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="cancel-button" (click)="closeReservationModal()">Annuler</button>
+        <button 
+          class="confirm-button" 
+          (click)="reserveEvent()"
+          [disabled]="reservationCount <= 0 || reservationCount > getAvailableSeats(selectedEvent)"
+        >
+          Confirmer la réservation
+        </button>
       </div>
     </div>
   </div>

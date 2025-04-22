@@ -3,10 +3,13 @@ import { EventService } from '../services/event-services/event.service';
 import { Event } from '../models/events.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ReservationService } from '../services/reservation.service';
+import { UserService } from '../services/user.service';
+import { Reservation, StatutReservation } from '../models/Reservation';
 
 @Component({
   selector: 'app-event',
-templateUrl: './list-events.component.html',
+  templateUrl: './list-events.component.html',
   styleUrls: ['./list-events.component.css']
 })
 export class EventComponent implements OnInit {
@@ -17,9 +20,12 @@ export class EventComponent implements OnInit {
   error = false;
   selectedEvent: Event | null = null;
   reservationCount = 1;
+  currentUserId: string | undefined;
 
   constructor(
     private eventService: EventService,
+    private reservationService: ReservationService,
+    private userService: UserService,
     private fb: FormBuilder,
     private router: Router
   ) {
@@ -31,6 +37,8 @@ export class EventComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const currentUser = this.userService.getCurrentUser();
+    this.currentUserId = currentUser?.userId?.toString();
     this.loadEvents();
     
     this.searchForm.valueChanges.subscribe(values => {
@@ -82,6 +90,10 @@ export class EventComponent implements OnInit {
   }
 
   openReservationModal(event: Event): void {
+    if (!this.currentUserId) {
+      this.router.navigate(['/login']);
+      return;
+    }
     this.selectedEvent = event;
     this.reservationCount = 1;
   }
@@ -104,32 +116,45 @@ export class EventComponent implements OnInit {
   }
 
   getAvailableSeats(event: Event): number {
-    return event.placesDisponibles ? (event.placesDisponibles - (event.placesReservees || 0)) : 0;
+    return event.capaciteMax - (event.placesReservees || 0);
   }
 
   reserveEvent(): void {
-    if (!this.selectedEvent) return;
+    if (!this.selectedEvent || !this.currentUserId || !this.selectedEvent.id) return;
     
-    // Here you would implement the actual reservation logic
-    // For example, calling a reservation service
-    console.log(`Reserved ${this.reservationCount} seats for event: ${this.selectedEvent.nom}`);
-    
-    // Update the local event data to reflect the reservation
-    if (this.selectedEvent) {
-      this.selectedEvent.placesReservees = (this.selectedEvent.placesReservees || 0) + this.reservationCount;
-      
-      // Update the event in the backend
-      this.eventService.updateEvent(this.selectedEvent).subscribe({
-        next: (updatedEvent) => {
-          console.log('Event updated successfully', updatedEvent);
-          this.closeReservationModal();
-          // Refresh the events list
-          this.loadEvents();
-        },
-        error: (err) => {
-          console.error('Error updating event', err);
+    const reservationData: Reservation = {
+      nbrPlace: this.reservationCount,
+      statut: StatutReservation.EN_COURS,
+      evenementId: this.selectedEvent.id,
+      clientId: this.currentUserId
+    };
+
+    this.reservationService.createReservation(
+      reservationData, 
+      this.currentUserId, 
+      this.selectedEvent.id
+    ).subscribe({
+      next: (reservation) => {
+        console.log('Reservation created successfully', reservation);
+        if (this.selectedEvent) {
+          this.selectedEvent.placesReservees = (this.selectedEvent.placesReservees || 0) + this.reservationCount;
+          this.updateEventInList(this.selectedEvent);
         }
-      });
+        this.closeReservationModal();
+        alert('Réservation effectuée avec succès!');
+      },
+      error: (err) => {
+        console.error('Error creating reservation', err);
+        alert('Erreur lors de la réservation: ' + err.message);
+      }
+    });
+  }
+
+  private updateEventInList(updatedEvent: Event): void {
+    const index = this.events.findIndex(e => e.id === updatedEvent.id);
+    if (index !== -1) {
+      this.events[index] = updatedEvent;
+      this.filteredEvents = [...this.events];
     }
   }
 

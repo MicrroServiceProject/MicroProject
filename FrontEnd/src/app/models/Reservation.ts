@@ -15,6 +15,7 @@ export interface Reservation {
     EN_COURS = 'EN_COURS',
     ANNULEE = 'ANNULEE'
   }
+  
   export interface Evenement {
     id: string;
     nom: string;
@@ -32,5 +33,4 @@ export interface Reservation {
     nom: string;
     prenom: string;
     email: string;
-    // autres propriétés du client
   }

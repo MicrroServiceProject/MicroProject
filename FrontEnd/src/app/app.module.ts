@@ -29,6 +29,11 @@ import { Oauth2RedirectComponent } from './oauth2-redirect/oauth2-redirect.compo
 import { ListeUsersComponent } from './liste-users/liste-users.component';
 import { EventComponent } from './list-events/list-events.component';
 import { RouterModule } from '@angular/router';
+import { MaterialComponent } from './material/material.component';
+import { CoursComponent } from './cours/cours.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ProductListComponent } from './product-list/product-list.component';
+import { CartComponent } from './cart/cart.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +48,10 @@ import { RouterModule } from '@angular/router';
     
     Oauth2RedirectComponent,
     ListeUsersComponent,
-    EventComponent // Add this declaration
+    EventComponent,
+    MaterialComponent,
+    CoursComponent,
+   // Add this declaration
   ],
   imports: [
     BrowserModule,
