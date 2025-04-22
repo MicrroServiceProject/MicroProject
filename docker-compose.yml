@@ -1,0 +1,89 @@
+version: '3.8'
+
+services:
+  configuration-server:
+    build:
+      context: ./configurationServer
+      dockerfile: Dockerfile
+    container_name: configuration-server
+    ports:
+      - "8888:8888"
+    depends_on:
+      - eureka-server
+
+  eureka-server:
+    build:
+      context: ./EurekaServer
+      dockerfile: Dockerfile
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+
+  mongodb:
+    image: mongo:5.0
+    container_name: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: artshopdb
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+
+  gateway:
+    build:
+      context: ./GetawayMicro
+      dockerfile: Dockerfile
+    container_name: gateway
+    ports:
+      - "9005:9005"
+    depends_on:
+      - eureka-server
+
+  microproject-course:
+    build:
+      context: ./microproject-course
+      dockerfile: Dockerfile
+    container_name: microproject-course
+    ports:
+      - "8085:8085"
+    depends_on:
+      - eureka-server
+
+  microproject:
+    build:
+      context: ./MicroProject
+      dockerfile: Dockerfile
+    container_name: microproject
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/artshopdb?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - mysql
+      - eureka-server
+
+  emna-events:
+    build:
+      context: ./emnaEvents
+      dockerfile: Dockerfile
+    container_name: emna-events
+    ports:
+      - "9090:9090"
+    environment:
+      SPRING_DATA_MONGODB_URI: mongodb://mongo:27017/gestion_evenements
+    depends_on:
+      - mongodb
+      - eureka-server
+
+networks:
+  default:
+    driver: bridge
